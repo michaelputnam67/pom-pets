@@ -1,55 +1,79 @@
-import { Text, View, Button } from "react-native";
+import {StyleSheet, Text, View, Pressable, Dimensions } from "react-native";
 import React, { useEffect, useState} from "react";
 import { SafeAreaView } from "react-native";
-import BackgroundTimer from 'react-native-background-timer';
+
+const screen = Dimensions.get('window')
+
+const formatNumber = (number : number) => `0${number}`.slice(-2);
+
+const getRemaining = (time : number) => {
+  const mins = Math.floor(time / 60)
+  const secs = time - mins * 60;
+  return { mins: formatNumber(mins), secs: formatNumber(secs) };
+}
 
 export default function ProjectTimer() {
-  const [secondsLeft, setSecondsLeft] = useState(3601);
-  const [timerOn, setTimerOn] = useState(false);
+  const [remainingSecs, setRemainingSecs] = useState(600);
+  const [isActive, setIsActive] = useState(false);
+  const {mins, secs} = getRemaining(remainingSecs)
+
+  const toggle = () => {
+    setIsActive(!isActive);
+  }
+
+  const reset = () => {
+    setRemainingSecs(600);
+    setIsActive(false);
+  }
 
   useEffect(() => {
-    if(timerOn) startTimer();
-    else BackgroundTimer.stopBackgroundTimer();
-    
-    return () => {
-      BackgroundTimer.stopBackgroundTimer();
-    };
-  }, [timerOn]);
-
-  useEffect (() => {
-    if (secondsLeft === 0) {
-      BackgroundTimer.stopBackgroundTimer();
+    let interval = null;
+    if(isActive) {
+      interval = setInterval(() => {
+        setRemainingSecs(remainingSecs - 1);
+      }, 1000)
+    } else if(!isActive && remainingSecs !== 0) {
+      clearInterval(interval)
     }
-  }, [secondsLeft])
+    return () => clearInterval(interval);
+  }, [isActive, remainingSecs])
 
-  const startTimer = () => {
-    BackgroundTimer.runBackgroundTimer(() => {
-      setSecondsLeft(seconds => {
-        if(seconds > 0) return seconds - 1;
-        else return 0;
-      });
-    }, 1000)
-  }
-  const clockify = () => {
-    let hours = Math.floor(secondsLeft / 60 / 60)
-    let mins = Math.floor(secondsLeft / 60 % 60)
-    let seconds = Math.floor(secondsLeft % 60)
-
-    let displayHours = hours < 10 ? `0${hours}` : hours;
-    let displayMins = mins < 10 ? `0${mins}` : mins;
-    let displaySeconds = seconds < 10 ? `0${seconds}` : seconds;
-
-    return {
-      displayHours,
-      displayMins,
-      displaySeconds
-    }
-  }
   return (
-  <SafeAreaView>
-    <Text>{clockify().displayHours} Hours {clockify().displayMins} Mins {' '} {clockify().displaySeconds} Secs 
-    </Text>
-    <Button title="Start/Stop"></Button>
+  <SafeAreaView style={styles.container}>
+    <Text style={styles.timerText}>{`${mins} : ${secs}`}</Text>
+    <Pressable onPress= {toggle} style={styles.button}>
+      <Text style={styles.buttonText}>{isActive ? 'Pause' : 'Start'}</Text>
+    </Pressable>
+    <Pressable onPress= {reset} style={styles.button}>
+      <Text style={styles.buttonText}>Reset</Text>
+    </Pressable>
   </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: {
+    borderWidth: 10,
+    borderColor: "black",
+    width: screen.width / 2,
+    height: screen.width / 2,
+    borderRadius: screen.width / 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    fontSize: 45,
+    color: "black"
+  },
+  timerText: {
+    color: 'black',
+    fontSize: 90,
+    marginBottom: 20,
+  }
+})
