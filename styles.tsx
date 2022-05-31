@@ -10,7 +10,7 @@ const white= "#FFFFFF";
 const petsStyles = StyleSheet.create({
     view: {
       backgroundColor: white,
-      display: "flex",
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -30,7 +30,7 @@ const petStyles = StyleSheet.create({
   main: {
     height: 200,
     width: 200,
-    display: 'flex',
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: accent,
     borderRadius: 30
