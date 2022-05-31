@@ -25,12 +25,19 @@ export default function ProjectsScreen() {
             <Text style= {petsStyles.header} >Your Pets</Text>
             <FlatList 
                 showsVerticalScrollIndicator={false}            
-                ItemSeparatorComponent= {() => (
-                    <View style={petStyles.space} ></View>
-                )}
+                // ItemSeparatorComponent= {() => (
+                //     <View style={petStyles.space} ></View>
+                // )}
                 data={pets}
                 renderItem={renderPet}
+                ListFooterComponent= {() => (
+                    <Pressable style={petsStyles.view}>
+                        <Image style= {{...petStyles.main}} source={require('../assets/Icons-Buttons/AddProjectBtn.png')}></Image>
+                    </Pressable>
+                )}
             />
+            
+            <View style={{height: '12%', }}></View>
         </SafeAreaView>
     )
 }

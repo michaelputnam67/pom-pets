@@ -24,7 +24,7 @@ import {navStyles, petsStyles} from '../styles'
 							resizeMode='contain'
 							style={{
 								...navStyles.tabScreen,
-								tintColor: focused ? "#EA3323" : 'black',
+								tintColor: focused ? "#EA3323" : 'white',
 							}}
 					/>
 				</View>
@@ -38,7 +38,7 @@ import {navStyles, petsStyles} from '../styles'
 						resizeMode='contain'
 						style={{
 							...navStyles.tabScreen,
-							tintColor: focused ? "#EA3323" : 'black',
+							tintColor: focused ? "#EA3323" : 'white',
 						}}
 					/>
 				</View>
