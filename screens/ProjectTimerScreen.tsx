@@ -12,7 +12,7 @@ export default function ProjectTimer() {
     else BackgroundTimer.stopBackgroundTimer();
     
     return () => {
-      BackgroundTimer.stopBackGroundTimer();
+      BackgroundTimer.stopBackgroundTimer();
     };
   }, [timerOn]);
 
@@ -21,7 +21,7 @@ export default function ProjectTimer() {
       BackgroundTimer.stopBackgroundTimer();
     }
   }, [secondsLeft])
-  
+
   const startTimer = () => {
     BackgroundTimer.runBackgroundTimer(() => {
       setSecondsLeft(seconds => {
