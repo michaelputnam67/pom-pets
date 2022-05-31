@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProjectsScreen from '../screens/ProjectsScreen';
 import ProjectTimer from '../screens/ProjectTimer'
 import { View, Image, Text} from 'react-native'
-import {navStyles} from '../styles'
+import {navStyles, petsStyles} from '../styles'
 
 	const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,8 @@ import {navStyles} from '../styles'
 				tabBarShowLabel: false,
 				tabBarStyle: { ...navStyles.tabNavigator }
 			}}>
-			<Tab.Screen name="Projects" component= {ProjectsScreen} options= { {
+			<Tab.Screen name="Your Pets" component= {ProjectsScreen} options= { {
+				headerShown: false,
 				tabBarIcon: ({focused}) => (
 				<View style={{ alignItems: 'center', justifyContent: 'center', top: 10}}>
 					<Image 

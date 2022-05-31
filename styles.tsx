@@ -9,16 +9,51 @@ const white= "#FFFFFF";
 
 const petsStyles = StyleSheet.create({
     view: {
+      backgroundColor: white,
       display: "flex",
       alignItems: 'center',
       justifyContent: 'center',
     },
     header: {
-      color: "red",
+      color: primary,
       fontSize: 40,
       fontWeight: 'bold',
+      marginBottom: 10,
     },
   })
+
+const petStyles = StyleSheet.create({
+  deleteButtonContainer: {
+    display: 'flex',
+    alignItems: 'flex-end'
+  },
+  main: {
+    height: 200,
+    width: 200,
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: accent,
+    borderRadius: 30
+  },
+  deleteButton: {
+    height: 30,
+    width: 30
+  },
+  image: {
+    marginTop: -10,
+    height: 150,
+    width: 150,
+    alignSelf: 'center'
+  },
+  text: {
+    fontSize: 20,
+    color: primary,
+    alignSelf: 'center'
+  },
+  space: {
+    height: 20,
+  }
+})
   
 const navStyles = StyleSheet.create({
   tabNavigator: {
@@ -27,7 +62,7 @@ const navStyles = StyleSheet.create({
     left: 20,
     right: 20,
     elevation: 0,
-    backgroundColor: 'grey',
+    backgroundColor: grey,
     borderRadius: 10,
     height: 90
   },
@@ -37,4 +72,4 @@ const navStyles = StyleSheet.create({
   },
 })
 
-export {petsStyles, navStyles};
+export {petsStyles, navStyles, petStyles};
