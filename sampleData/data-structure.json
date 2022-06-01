@@ -1,0 +1,52 @@
+{
+  "user": {
+    "userId": 12345,
+    "userName": "Ross",
+    "passWord": "iLoveVans",
+    "email": "ross@vanMail.com",
+    "profilePhoto": "url/ross-in-van.png",
+    "settings": {
+      "workTime": 25,
+      "shortPomTime": 5,
+      "longPomTime": 10
+    },
+    "projects": [
+      {
+        "projectId": 1,
+        "status": "true",
+        "projectName": "stretch-tech",
+        "projectPet": "pigeon",
+        "petHealth": 3,
+        "petLevel": 1,
+        "projectGitHub": "url/ross-van-stretch-tech.com",
+        "petImage": "url/PigeonPet.png",
+        "stats": {
+          "totalWorkTime": 175,
+          "totalWorkSessions": 5,
+          "totalShortPomTime": 45,
+          "totalShortSessions": 8,
+          "totalLongPomTime": 100,
+          "totalLongSessions": 4
+        }
+      },
+      {
+        "projectId": 2,
+        "status": "true",
+        "projectName": "van-tech",
+        "projectPet": "tomato",
+        "petHealth": 2,
+        "petLevel": 5,
+        "projectGitHub": "url/ross-van-stretch-tech.com",
+        "petImage": "url/TomatoPet.png",
+        "stats": {
+          "totalWorkTime": 175,
+          "totalWorkSessions": 5,
+          "totalShortPomTime": 45,
+          "totalShortSessions": 8,
+          "totalLongPomTime": 100,
+          "totalLongSessions": 4
+        }
+      }
+    ]
+  }
+}
