@@ -11,7 +11,8 @@ import React, { useState } from "react";
 import ProjectPet from "../Components/ProjectPet";
 import { COLORS } from "../constants/Colors";
 
-export default function ProjectsScreen() {
+
+export default function ProjectsScreen( { navigation } ) {
   const [pets, setPets] = useState([
     { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pigeon" },
     { key: 2, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
@@ -20,12 +21,23 @@ export default function ProjectsScreen() {
     { key: 5, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
     { key: 6, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
   ]);
+  const [currentProject, setCurrentProject] = useState(pets[0])
 
   // Add Fetch above ___________________________________
 
-  const renderPet = ({ item }: { item: { name: string; image: string } }) => (
-    <ProjectPet name={item.name} source={item.image} />
+  const updateCurrentProject = (item) => {
+    const project = 
+      pets.filter(pet => {
+        return (item.key === pet.key)
+    })
+    setCurrentProject(project[0])
+    navigation.navigate('Pet', currentProject);
+  }
+
+  const renderPet = ({ item }: { item: { name: string; image: string; key: number} }) => (
+    <ProjectPet item={item} key={item.key} name={item.name} source={item.image} updateCurrentProject={updateCurrentProject}/>
   );
+  
 
   return (
     <SafeAreaView style={styles.view}>
@@ -35,7 +47,7 @@ export default function ProjectsScreen() {
         data={pets}
         renderItem={renderPet}
         ListFooterComponent={() => (
-          <Pressable style={styles.view}>
+          <Pressable style={styles.view} onPress={() => console.log("CLICK")}>
             <Image
               style={{ ...styles.main }}
               source={require("../assets/Icons-Buttons/AddProjectBtn.png")}

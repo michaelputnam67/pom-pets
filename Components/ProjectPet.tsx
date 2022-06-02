@@ -5,12 +5,16 @@ import { COLORS } from "../constants/Colors";
 export default function ProjectPet({
   source,
   name,
+  updateCurrentProject,
+  item
 }: {
   source: any;
   name: string;
+  updateCurrentProject: any;
+  item: any;
 }) {
   return (
-    <Pressable style={styles.main}>
+    <Pressable style={styles.main} onPress={() => updateCurrentProject(item)}>
       <Pressable style={styles.deleteButtonContainer}>
         <Image
           style={styles.deleteButton}

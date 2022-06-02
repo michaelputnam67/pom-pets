@@ -92,7 +92,7 @@ export default function ProjectTimer() {
       />
       <Text style={styles.timerText}>{`${mins} : ${secs}`}</Text>
       {!onPom && <Button onPress={isTraining ? reset : toggle} text={isTraining ? "End Training" : "Start Training"} isTraining={isTraining}></Button>}
-      {!isTraining && !onPom && <Button onPress={console.log("YO MAMMA")} text="See Stats"></Button>}
+      {!isTraining && !onPom && <Button onPress={() => console.log("SEE STATS SCREEN")} text="See Stats"></Button>}
       {isTraining && !onPom && <Button onPress={feedPet} text="Feed Pet"></Button>}
       {isTraining && !onPom && <Button onPress={walkPet} text="Take a Walk"></Button>}
       {onPom && <Button onPress={reset} text="End Break"></Button>}

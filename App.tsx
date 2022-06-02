@@ -6,6 +6,7 @@ import Tabs from './navigation/tabs'
 export default function App() {
   return (
     <NavigationContainer>
+      {/* <LogInScreen /> */}
       <Tabs />
     </NavigationContainer>
   );

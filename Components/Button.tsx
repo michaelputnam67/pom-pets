@@ -4,7 +4,7 @@ import { COLORS } from "../constants/Colors";
 export default function Button({
   text,
   onPress,
-  isTraining,
+  isTraining
 }: {
   text: string;
   onPress: any;
