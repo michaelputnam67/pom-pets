@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
   },
   petContainer: {},
   timerText: {
+    fontFamily: "MPLUSRounded1c-Black",
     color: COLORS.primary,
     fontSize: 75,
     marginBottom: 20,

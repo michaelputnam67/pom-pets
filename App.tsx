@@ -8,8 +8,8 @@ import LoginScreen from './screens/LoginScreen';
 
  
 export default function App() {
-  const [userName, setUserName] = useState('')
-	const [password, setPassword] = useState('')
+  const [userName, setUserName] = useState('Ross')
+	const [password, setPassword] = useState('Van')
   const [user, setUser] = useState<User | null>(null);
 
   const login = () => {

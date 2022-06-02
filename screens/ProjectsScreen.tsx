@@ -12,7 +12,7 @@ import ProjectPet from "../Components/ProjectPet";
 import { COLORS } from "../constants/Colors";
 
 
-export default function ProjectsScreen( { navigation } ) {
+export default function ProjectsScreen( { navigation } : { navigation: any } ) {
   const [pets, setPets] = useState([
     { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pigeon" },
     { key: 2, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
@@ -25,7 +25,7 @@ export default function ProjectsScreen( { navigation } ) {
 
   // Add Fetch above ___________________________________
 
-  const updateCurrentProject = (item) => {
+  const updateCurrentProject = (item : any) => {
     const project = 
       pets.filter(pet => {
         return (item.key === pet.key)
