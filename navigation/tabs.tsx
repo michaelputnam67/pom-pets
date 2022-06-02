@@ -1,6 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
+import AboutScreen from "../screens/AboutScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import { View, Image, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
 
@@ -16,7 +18,7 @@ const Tabs = () => {
     >
       <Tab.Screen
         name="About"
-        component={ProjectTimer}
+        component={AboutScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -94,7 +96,7 @@ const Tabs = () => {
 
       <Tab.Screen
         name="User"
-        component={ProjectTimer}
+        component={ProfileScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (

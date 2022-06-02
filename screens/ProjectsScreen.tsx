@@ -13,7 +13,7 @@ import { COLORS } from "../constants/Colors";
 
 export default function ProjectsScreen() {
   const [pets, setPets] = useState([
-    { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pidgeon" },
+    { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pigeon" },
     { key: 2, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
     { key: 3, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
     { key: 4, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
@@ -39,7 +39,7 @@ export default function ProjectsScreen() {
             <Image
               style={{ ...styles.main }}
               source={require("../assets/Icons-Buttons/AddProjectBtn.png")}
-            ></Image>
+            />
           </Pressable>
         )}
       />
