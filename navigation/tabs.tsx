@@ -15,8 +15,8 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
       screenOptions={{
         tabBarIndicatorStyle: { backgroundColor: "transparent" },
         tabBarIndicatorContainerStyle: { backgroundColor: "transparent" },
-        tabBarShowLabel: false,
         tabBarStyle: { ...navStyles.tabNavigator },
+        tabBarShowLabel: false,
       }}
     >
       <Tab.Screen
@@ -24,47 +24,48 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
         component={AboutScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View
+            // <View
+            //   style={{
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //     top: 10,
+            //   }}
+            // >
+            <Image
+              source={require("../assets/Icons-Buttons/Info-Active.png")}
+              resizeMode="contain"
               style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
+                ...navStyles.tabScreen,
+                tintColor: focused ? COLORS.primary : COLORS.white,
               }}
-            >
-              <Image
-                source={require("../assets/Icons-Buttons/Info-Active.png")}
-                resizeMode="contain"
-                style={{
-                  ...navStyles.tabScreen,
-                  tintColor: focused ? COLORS.primary : COLORS.white,
-                }}
-              />
-            </View>
+            />
+            // </View>
           ),
         }}
       />
 
       <Tab.Screen
         name="Your Pets"
-        children={() => <ProjectsScreen projects={user.attributes.projects} />}
+        component={ProjectsScreen}
+        // children={() => <ProjectsScreen navigation={navigation}  data={askdklasdf} />}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View
+            // <View
+            //   style={{
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //     top: 10,
+            //   }}
+            // >
+            <Image
+              source={require("../assets/Icons-Buttons/PetIcon-Active.png")}
+              resizeMode="contain"
               style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
+                ...navStyles.tabScreen,
+                tintColor: focused ? COLORS.primary : COLORS.white,
               }}
-            >
-              <Image
-                source={require("../assets/Icons-Buttons/PetIcon-Active.png")}
-                resizeMode="contain"
-                style={{
-                  ...navStyles.tabScreen,
-                  tintColor: focused ? COLORS.primary : COLORS.white,
-                }}
-              />
-            </View>
+            />
+            // </View>
           ),
         }}
       />
@@ -76,22 +77,22 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
         )}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View
+            // <View
+            //   style={{
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //     top: 10,
+            //   }}
+            // >
+            <Image
+              source={require("../assets/Icons-Buttons/TimerIcon-Active.png")}
+              resizeMode="contain"
               style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
+                ...navStyles.tabScreen,
+                tintColor: focused ? COLORS.primary : COLORS.white,
               }}
-            >
-              <Image
-                source={require("../assets/Icons-Buttons/TimerIcon-Active.png")}
-                resizeMode="contain"
-                style={{
-                  ...navStyles.tabScreen,
-                  tintColor: focused ? COLORS.primary : COLORS.white,
-                }}
-              />
-            </View>
+            />
+            // </View>
           ),
         }}
       />
@@ -102,22 +103,22 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
         options={{
           // headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <View
+            // <View
+            //   style={{
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //     top: 10,
+            //   }}
+            // >
+            <Image
+              source={require("../assets/Icons-Buttons/Profile-Active.png")}
+              resizeMode="contain"
               style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
+                ...navStyles.tabScreen,
+                tintColor: focused ? COLORS.primary : COLORS.white,
               }}
-            >
-              <Image
-                source={require("../assets/Icons-Buttons/Profile-Active.png")}
-                resizeMode="contain"
-                style={{
-                  ...navStyles.tabScreen,
-                  tintColor: focused ? COLORS.primary : COLORS.white,
-                }}
-              />
-            </View>
+            />
+            // </View>
           ),
         }}
       />

@@ -19,20 +19,26 @@ export default function ProjectsScreen({
   navigation?: any;
   projects: Projects;
 }) {
+  console.log("Projects Screen: ", navigation);
   const [pets, setPets] = useState<Projects | null>(projects);
-  const [currentProject, setCurrentProject] = useState<Project | null>(null);
+  const [currentProject, setCurrentProject] = useState<Project | undefined>(
+    undefined
+  );
 
   const updateCurrentProject = (item: any) => {
-    console.log("Item: ", item, pets);
+    console.log("navigation: ", navigation);
     if (!pets) {
       return;
     }
-    const project = pets.find((pet) => {
+    const project: any = pets.find((pet) => {
       return item.id === pet.id;
     });
     setCurrentProject(project);
-    navigation.navigate("Pet", currentProject);
   };
+
+  // useEffect(() => {
+  //   navigation.navigate("Pet", currentProject);
+  // }, [currentProject]);
 
   const renderPet = ({
     item,
