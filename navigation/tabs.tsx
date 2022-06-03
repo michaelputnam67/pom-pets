@@ -1,4 +1,4 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { View, Image, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
 import ProjectsScreen from "../screens/ProjectsScreen";
@@ -7,12 +7,14 @@ import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { User } from "../interface";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarIndicatorStyle: { backgroundColor: "transparent" },
+        tabBarIndicatorContainerStyle: { backgroundColor: "transparent" },
         tabBarShowLabel: false,
         tabBarStyle: { ...navStyles.tabNavigator },
       }}
@@ -21,7 +23,6 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
         name="About"
         component={AboutScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -46,9 +47,7 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
       <Tab.Screen
         name="Your Pets"
         children={() => <ProjectsScreen projects={user.attributes.projects} />}
-        // component={ProjectsScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -76,7 +75,6 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
           <ProjectTimer currentProject={user.attributes.projects[0]} />
         )}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -102,7 +100,7 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
         name="User"
         children={() => <ProfileScreen user={user} logOut={logOut} />}
         options={{
-          headerShown: false,
+          // headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -145,8 +143,3 @@ const navStyles = StyleSheet.create({
     height: 70,
   },
 });
-
-// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-// const Tab = createMaterialTopTabNavigator();
-// tabBarIndicatorStyle: { backgroundColor: "transparent" },
-// tabBarIndicatorContainerStyle: { backgroundColor: "transparent" },

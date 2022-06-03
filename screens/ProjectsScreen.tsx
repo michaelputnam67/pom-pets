@@ -16,17 +16,14 @@ export default function ProjectsScreen({
   navigation,
   projects,
 }: {
-  navigation: any;
+  navigation?: any;
   projects: Projects;
 }) {
   const [pets, setPets] = useState<Projects | null>(projects);
   const [currentProject, setCurrentProject] = useState<Project | null>(null);
 
-  // useEffect(() => {
-  //   setPets(projects);
-  // }, []);
-
   const updateCurrentProject = (item: any) => {
+    console.log("Item: ", item, pets);
     if (!pets) {
       return;
     }
