@@ -1,18 +1,25 @@
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View, Image, StyleSheet } from "react-native";
+import { COLORS } from "../constants/Colors";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { View, Image, StyleSheet } from "react-native";
-import { COLORS } from "../constants/Colors";
+import { User } from "../interface";
 
 const Tab = createBottomTabNavigator();
+// const Tab = createMaterialTopTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
   return (
     <Tab.Navigator
+      sceneContainerStyle={false}
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
+        // tabBarIndicatorStyle: { backgroundColor: "transparent" },
+        // tabBarIndicatorContainerStyle: null,
         tabBarStyle: { ...navStyles.tabNavigator },
       }}
     >
@@ -20,7 +27,8 @@ const Tabs = () => {
         name="About"
         component={AboutScreen}
         options={{
-          headerShown: false,
+          tabBarLabelStyle: { display: "none" },
+          tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -44,9 +52,12 @@ const Tabs = () => {
 
       <Tab.Screen
         name="Your Pets"
-        component={ProjectsScreen}
+        children={(props) => (
+          <ProjectsScreen projects={user.attributes.projects} {...props} />
+        )}
         options={{
-          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarLabelStyle: { display: "none" },
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -70,9 +81,11 @@ const Tabs = () => {
 
       <Tab.Screen
         name="Pet"
-        component={ProjectTimer}
+        children={() => (
+          <ProjectTimer currentProject={user.attributes.projects[0]} />
+        )}
         options={{
-          headerShown: false,
+          tabBarLabelStyle: { display: "none" },
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -96,9 +109,11 @@ const Tabs = () => {
 
       <Tab.Screen
         name="User"
-        component={ProfileScreen}
+        children={(props) => (
+          <ProfileScreen user={user} logOut={logOut} {...props} />
+        )}
         options={{
-          headerShown: false,
+          tabBarLabelStyle: { display: "none" },
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -128,7 +143,7 @@ export default Tabs;
 const navStyles = StyleSheet.create({
   tabNavigator: {
     position: "absolute",
-    bottom: 25,
+    bottom: 20,
     left: 20,
     right: 20,
     elevation: 0,

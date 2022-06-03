@@ -1,23 +1,34 @@
 import React from "react";
 import { Text, Image, Pressable, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
-
+//updateCurrentProject(item)
 export default function ProjectPet({
   source,
   name,
+  updateCurrentProject,
+  item,
 }: {
   source: any;
   name: string;
+  updateCurrentProject: any;
+  item: any;
 }) {
   return (
-    <Pressable style={styles.main}>
+    <Pressable style={styles.main} onPress={() => updateCurrentProject(item)}>
       <Pressable style={styles.deleteButtonContainer}>
         <Image
           style={styles.deleteButton}
           source={require("../assets/Icons-Buttons/DeleteBtn.png")}
         />
       </Pressable>
-      <Image style={styles.image} source={source} />
+      <Image
+        style={styles.image}
+        source={
+          item.petImage === "tomato-image"
+            ? require("../assets/Pets/TomatoPet.png")
+            : require("../assets/Pets/PigeonPet.png")
+        }
+      />
       <Text style={styles.text}>{name}</Text>
     </Pressable>
   );
