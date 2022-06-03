@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View, Image, StyleSheet } from "react-native";
+import { COLORS } from "../constants/Colors";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { View, Image, StyleSheet } from "react-native";
-import { COLORS } from "../constants/Colors";
 
 const Tab = createBottomTabNavigator();
 
