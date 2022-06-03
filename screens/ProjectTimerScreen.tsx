@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, Image, StyleSheet, SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
+import { User } from "../interface";
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -11,7 +12,7 @@ const getRemaining = (time: number) => {
   return { mins: formatNumber(mins), secs: formatNumber(secs) };
 };
 
-export default function ProjectTimer() {
+export default function ProjectTimer({ user }: { user: User }) {
   const [pet, setPet] = useState({
     name: "Pigeon",
     image: require("../assets/Pets/PigeonPet.png"),
@@ -151,7 +152,6 @@ const styles = StyleSheet.create({
   },
   petContainer: {},
   timerText: {
-    fontFamily: "MPLUSRounded1c-Black",
     color: COLORS.primary,
     fontSize: 75,
     marginBottom: 20,

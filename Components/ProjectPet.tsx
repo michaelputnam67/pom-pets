@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, Image, Pressable, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
-
+//updateCurrentProject(item)
 export default function ProjectPet({
   source,
   name,
   updateCurrentProject,
-  item
+  item,
 }: {
   source: any;
   name: string;
@@ -21,7 +21,14 @@ export default function ProjectPet({
           source={require("../assets/Icons-Buttons/DeleteBtn.png")}
         />
       </Pressable>
-      <Image style={styles.image} source={source} />
+      <Image
+        style={styles.image}
+        source={
+          item.petImage === "tomato-image"
+            ? require("../assets/Pets/TomatoPet.png")
+            : require("../assets/Pets/PigeonPet.png")
+        }
+      />
       <Text style={styles.text}>{name}</Text>
     </Pressable>
   );

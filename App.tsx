@@ -7,14 +7,18 @@ import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
-  const [userName, setUserName] = useState("Ross");
-  const [password, setPassword] = useState("Van");
+  const [userName, setUserName] = useState("JoeRupp");
+  const [password, setPassword] = useState("PigeonsRLife");
   const [user, setUser] = useState<User | null>(null);
 
   const login = () => {
-    if (userName === "Ross" && password === "Van") {
+    if (userName === "JoeRupp" && password === "PigeonsRLife") {
       apiCalls.getUser().then((data) => setUser(data.data));
     }
+  };
+
+  const logOut = () => {
+    setUser(null);
   };
 
   return (
@@ -28,7 +32,36 @@ export default function App() {
           login={login}
         />
       )}
-      {user && <Tabs />}
+      {user && <Tabs user={user} logOut={logOut} />}
     </NavigationContainer>
   );
 }
+
+// let [fontsLoaded] = useFonts({
+//   Inter_100Thin,
+//   Inter_200ExtraLight,
+//   Inter_300Light,
+//   Inter_400Regular,
+//   Inter_500Medium,
+//   Inter_600SemiBold,
+//   Inter_700Bold,
+//   Inter_800ExtraBold,
+//   Inter_900Black,
+// });
+
+// if (!fontsLoaded) {
+//   return <></>;
+// }
+
+// import {
+//   useFonts,
+//   Inter_100Thin,
+//   Inter_200ExtraLight,
+//   Inter_300Light,
+//   Inter_400Regular,
+//   Inter_500Medium,
+//   Inter_600SemiBold,
+//   Inter_700Bold,
+//   Inter_800ExtraBold,
+//   Inter_900Black,
+// } from "@expo-google-fonts/inter";

@@ -1,18 +1,7 @@
-import { Text, Button, Image, View, StyleSheet, TextInput } from "react-native";
+import { Text, Image, View, StyleSheet, TextInput } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native";
-import {
-  useFonts,
-  Inter_100Thin,
-  Inter_200ExtraLight,
-  Inter_300Light,
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-  Inter_800ExtraBold,
-  Inter_900Black,
-} from "@expo-google-fonts/inter";
+import Button from "../Components/Button";
 
 export default function LoginScreen({
   login,
@@ -27,29 +16,13 @@ export default function LoginScreen({
   password: string;
   login: any;
 }) {
-  let [fontsLoaded] = useFonts({
-    Inter_100Thin,
-    Inter_200ExtraLight,
-    Inter_300Light,
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-    Inter_700Bold,
-    Inter_800ExtraBold,
-    Inter_900Black,
-  });
-
-  if (!fontsLoaded) {
-    return <></>;
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.text}>Pom Pets</Text>
+        <Text>Pom Pets</Text>
         <Image
           style={styles.image}
-          source={require("../assets/Pets/TomatoPet-Sad.png")}
+          source={require("../assets/Pets/TomatoPet.png")}
         />
         <TextInput
           autoCapitalize={"none"}
@@ -65,7 +38,7 @@ export default function LoginScreen({
           value={password}
           placeholder={"password"}
         />
-        <Button title="please click me to login" onPress={login} />
+        <Button text="Sign In" onPress={login}></Button>
       </View>
     </SafeAreaView>
   );
@@ -74,9 +47,6 @@ export default function LoginScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  text: {
-    fontFamily: "Inter_900Black",
   },
   image: {
     height: 250,

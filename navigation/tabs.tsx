@@ -5,10 +5,11 @@ import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import { User } from "../interface";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -44,7 +45,8 @@ const Tabs = () => {
 
       <Tab.Screen
         name="Your Pets"
-        component={ProjectsScreen}
+        children={() => <ProjectsScreen projects={user.attributes.projects} />}
+        // component={ProjectsScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -70,7 +72,9 @@ const Tabs = () => {
 
       <Tab.Screen
         name="Pet"
-        component={ProjectTimer}
+        children={() => (
+          <ProjectTimer currentProject={user.attributes.projects[0]} />
+        )}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -96,7 +100,7 @@ const Tabs = () => {
 
       <Tab.Screen
         name="User"
-        component={ProfileScreen}
+        children={() => <ProfileScreen user={user} logOut={logOut} />}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -141,3 +145,8 @@ const navStyles = StyleSheet.create({
     height: 70,
   },
 });
+
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+// const Tab = createMaterialTopTabNavigator();
+// tabBarIndicatorStyle: { backgroundColor: "transparent" },
+// tabBarIndicatorContainerStyle: { backgroundColor: "transparent" },

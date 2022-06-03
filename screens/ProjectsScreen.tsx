@@ -7,37 +7,49 @@ import {
   SafeAreaView,
   StyleSheet,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectPet from "../Components/ProjectPet";
 import { COLORS } from "../constants/Colors";
+import { Projects, Project } from "../interface";
 
+export default function ProjectsScreen({
+  navigation,
+  projects,
+}: {
+  navigation: any;
+  projects: Projects;
+}) {
+  const [pets, setPets] = useState<Projects | null>(projects);
+  const [currentProject, setCurrentProject] = useState<Project | null>(null);
 
-export default function ProjectsScreen( { navigation } : { navigation: any } ) {
-  const [pets, setPets] = useState([
-    { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pigeon" },
-    { key: 2, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-    { key: 3, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-    { key: 4, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-    { key: 5, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-    { key: 6, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-  ]);
-  const [currentProject, setCurrentProject] = useState(pets[0])
+  // useEffect(() => {
+  //   setPets(projects);
+  // }, []);
 
-  // Add Fetch above ___________________________________
+  const updateCurrentProject = (item: any) => {
+    if (!pets) {
+      return;
+    }
+    const project = pets.find((pet) => {
+      return item.id === pet.id;
+    });
+    setCurrentProject(project);
+    navigation.navigate("Pet", currentProject);
+  };
 
-  const updateCurrentProject = (item : any) => {
-    const project = 
-      pets.filter(pet => {
-        return (item.key === pet.key)
-    })
-    setCurrentProject(project[0])
-    navigation.navigate('Pet', currentProject);
-  }
-
-  const renderPet = ({ item }: { item: { name: string; image: string; key: number} }) => (
-    <ProjectPet item={item} key={item.key} name={item.name} source={item.image} updateCurrentProject={updateCurrentProject}/>
+  const renderPet = ({
+    item,
+  }: {
+    item: { projectName: string; petImage: string; id: number };
+  }) => (
+    <ProjectPet
+      item={item}
+      key={item.id}
+      name={item.projectName}
+      source={item.petImage}
+      updateCurrentProject={updateCurrentProject}
+    />
   );
-  
 
   return (
     <SafeAreaView style={styles.view}>
@@ -83,3 +95,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+// [
+//   { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pigeon" },
+//   { key: 2, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
+//   { key: 3, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
+//   { key: 4, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
+//   { key: 5, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
+//   { key: 6, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
+// ]
