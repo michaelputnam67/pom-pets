@@ -34,11 +34,8 @@ export default function ProjectsScreen({
       return item.id === pet.id;
     });
     setCurrentProject(project);
+    navigation.navigate("Pet", currentProject);
   };
-
-  // useEffect(() => {
-  //   navigation.navigate("Pet", currentProject);
-  // }, [currentProject]);
 
   const renderPet = ({
     item,
