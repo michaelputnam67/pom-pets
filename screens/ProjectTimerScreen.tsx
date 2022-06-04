@@ -3,7 +3,7 @@ import { Text, View, Image, StyleSheet, SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
-import HealthIcons from '../Components/HealthIcons';
+import HealthIcons from "../Components/HealthIcons";
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -22,18 +22,17 @@ export default function ProjectTimer({
 }: {
   navigation: any;
   currentProject?: Project | undefined;
-  userWorkTime: number;
-  userShortPomTime: number;
-  userLongPomTime: number;
+  userWorkTime: any;
+  userShortPomTime: any;
+  userLongPomTime: any;
 }) {
-
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
   const [negativeTime, setNegativeTime] = useState(0);
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
   const { mins, secs } = getRemaining(remainingSecs);
-  const [image, setImage] = useState(require('../assets/Pets/PigeonPet.png'))
+  const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
 
   const toggle = () => {
     setIsTraining(!isTraining);
@@ -48,6 +47,10 @@ export default function ProjectTimer({
     setIsTraining(false);
     setOnPom(false);
   };
+
+  useEffect(() => {
+    reset;
+  });
 
   const feedPet = () => {
     setRemainingSecs(userShortPomTime * 60);
@@ -145,7 +148,7 @@ const styles = StyleSheet.create({
   },
   petContainer: {},
   timerText: {
-    color: 'black',
+    color: "black",
     fontSize: 75,
     marginBottom: 20,
     alignSelf: "center",

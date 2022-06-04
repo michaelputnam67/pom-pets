@@ -103,11 +103,10 @@ const Tabs = ({
           ),
         }}
       />
-
       <Tab.Screen
         name="Pet"
         children={(props) => (
-          <ProjectTimer currentProject={currentProject} {...props} />
+          <ProjectTimer currentProject={currentProject} userWorkTime={userWorkTime} userShortPomTime={userShortPomTime} userLongPomTime={userLongPomTime} {...props} />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },

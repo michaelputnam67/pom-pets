@@ -1,4 +1,4 @@
-import {Text, StyleSheet} from "react-native";
+import { Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects } from "./interface";
@@ -13,28 +13,25 @@ export default function App() {
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
     undefined
   );
-  const [loginError, setLoginError] = useState(false)
+  const [loginError, setLoginError] = useState(false);
   const [pets, setPets] = useState<Projects | null>(null);
-  const [userWorkTime, setUserWorkTime] = useState(
-    user?.attributes.settings.workTime
-  );
-  const [userShortPomTime, setUserShortPomTime] = useState(
-    user?.attributes.settings.shortPomTime
-  );
-  const [userLongPomTime, setUserLongPomTime] = useState(
-    user?.attributes.settings.longPomTime
-  );
+  const [userWorkTime, setUserWorkTime] = useState(0);
+  const [userShortPomTime, setUserShortPomTime] = useState(0);
+  const [userLongPomTime, setUserLongPomTime] = useState(0);
 
   const login = () => {
     if (userName === "Joe" && password === "PigeonsRLife") {
-      setLoginError(false)
+      setLoginError(false);
       apiCalls.getUser().then((data) => {
         setUser(data.data);
         setCurrentProject(data.data.attributes.projects[0]);
         setPets(data.data.attributes.projects);
+        setUserWorkTime(data.data.attributes.settings.workTime);
+        setUserShortPomTime(data.data.attributes.settings.shortPomTime);
+        setUserLongPomTime(data.data.attributes.settings.longPomTime);
       });
     } else {
-      setLoginError(true)
+      setLoginError(true);
     }
   };
 
@@ -78,7 +75,9 @@ export default function App() {
           login={login}
         />
       )}
-      {loginError && <Text style={styles.error}>Invalid Username or Password</Text>}
+      {loginError && (
+        <Text style={styles.error}>Invalid Username or Password</Text>
+      )}
       {user && (
         <Tabs
           updateCurrentProject={updateCurrentProject}
@@ -98,11 +97,11 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   error: {
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
     marginBottom: 75,
     fontSize: 20,
-  }
-})
+  },
+});
