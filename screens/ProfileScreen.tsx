@@ -14,17 +14,23 @@ import {
 export default function ProfileScreen({
   logOut,
   currentUser,
+  setWorkTime,
+  setShortPomTime,
+  setLongPomTime,
 }: {
   logOut: any;
   currentUser: User;
+  setWorkTime: any;
+  setShortPomTime: any;
+  setLongPomTime: any;
 }) {
-  const [userWorkTime, setuserWorkTime] = useState(
+  const [userWorkTime, setUserWorkTime] = useState(
     currentUser.attributes.settings.workTime
   );
-  const [userShortPomTime, setuserShortPomTime] = useState(
+  const [userShortPomTime, setUserShortPomTime] = useState(
     currentUser.attributes.settings.shortPomTime
   );
-  const [userLongPomTime, setuserLongPomTime] = useState(
+  const [userLongPomTime, setUserLongPomTime] = useState(
     currentUser.attributes.settings.longPomTime
   );
 
@@ -37,16 +43,19 @@ export default function ProfileScreen({
     return <></>;
   }
 
-  const setWorkTime = (text) => {
-    setuserWorkTime(text);
+  const setLocalWorkTime = (text: number) => {
+    setUserWorkTime(text);
+    setWorkTime(text);
   };
 
-  const setShortPomTime = (text) => {
-    setuserShortPomTime(text);
+  const setLocalShortPomTime = (text: number) => {
+    setUserShortPomTime(text);
+    setShortPomTime(text);
   };
 
-  const setLongPomTime = (text) => {
-    setuserLongPomTime(text);
+  const setLocalLongPomTime = (text: number) => {
+    setUserLongPomTime(text);
+    setLongPomTime(text);
   };
 
   return (
@@ -66,24 +75,24 @@ export default function ProfileScreen({
       </View>
       <Text style={styles.h4}>Work Time</Text>
       <ButtonGroup
-        currentlyActive={`${userWorkTime}`}
-        onPress={setWorkTime}
+        currentlyActive={userWorkTime}
+        onPress={setLocalWorkTime}
         text1="15"
         text2="25"
         text3="35"
       ></ButtonGroup>
       <Text style={styles.h4}>Short Pom Time</Text>
       <ButtonGroup
-        currentlyActive={`${userShortPomTime}`}
-        onPress={setShortPomTime}
+        currentlyActive={userShortPomTime}
+        onPress={setLocalShortPomTime}
         text1="2"
         text2="5"
         text3="10"
       ></ButtonGroup>
       <Text style={styles.h4}>Long Pom Time</Text>
       <ButtonGroup
-        currentlyActive={`${userLongPomTime}`}
-        onPress={setLongPomTime}
+        currentlyActive={userLongPomTime}
+        onPress={setLocalLongPomTime}
         text1="10"
         text2="15"
         text3="20"
