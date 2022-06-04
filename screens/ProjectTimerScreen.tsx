@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   petContainer: {},
   timerText: {
-    color: COLORS.primary,
+    color: 'black',
     fontSize: 75,
     marginBottom: 20,
     alignSelf: "center",

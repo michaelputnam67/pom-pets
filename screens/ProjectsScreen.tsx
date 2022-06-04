@@ -40,6 +40,7 @@ export default function ProjectsScreen({
     <SafeAreaView style={styles.view}>
       <Text style={styles.header}>Your Pets</Text>
       <FlatList
+        style={styles.list}
         showsVerticalScrollIndicator={false}
         data={projects}
         renderItem={renderPet}
@@ -71,8 +72,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
+
   header: {
     color: COLORS.primary,
     fontSize: 40,

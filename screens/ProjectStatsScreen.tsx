@@ -1,4 +1,4 @@
-import { View, SafeAreaView, StyleSheet, Text, Image } from "react-native";
+import { View, SafeAreaView, StyleSheet, Text, Image, ScrollView } from "react-native";
 import React from "react";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
@@ -20,7 +20,7 @@ export default function ProjectStatisticsScreen({
 
   return (
     <SafeAreaView>
-      <Text style={styles.header}>Project Statistics</Text>
+      <Text style={styles.header}>Project Stats</Text>
       <Image
         style={styles.pet}
         source={
@@ -29,44 +29,46 @@ export default function ProjectStatisticsScreen({
             : require("../assets/Pets/PigeonPet.png")
         }
       />
-      <Text>Project Name: {currentProject?.projectName}</Text>
-      <Button text="to training" onPress={toTraining}></Button>
-      <View>
-        <Text>Level {currentProject?.petLevel}</Text>
-      </View>
-      <View>
-        <Text>Health</Text>
-        <HealthIcons health={currentProject?.petHealth} />
-      </View>
-      <View>
-        <RenderTime time={currentProject?.stats.totalWorkTime} />
-        <Text>total training time</Text>
-      </View>
-      <View>
-        <RenderTime time={currentProject?.stats.totalLongPomTime} />
-        <Text>total long pom time</Text>
-      </View>
-      <View>
-        <RenderTime time={currentProject?.stats.totalShortPomTime} />
-        <Text>total short pom time</Text>
-      </View>
-      <View>
-        <Text>{currentProject?.stats.totalWorkSessions}</Text>
-        <Text>number of work sessions</Text>
-      </View>
-      <View>
-        <Text>{currentProject?.stats.totalShortSessions}</Text>
-        <Text>number of short breaks</Text>
-      </View>
-      <View>
-        <Text
-          onPress={() => Linking.openURL(`${currentProject?.projectGitHub}`)}
-        >
-          {" "}
-          {currentProject?.projectGitHub}{" "}
-        </Text>
-        <Text>Git Hub Project Link</Text>
-      </View>
+      <Text style={styles.projectName}>Project Name: {currentProject?.projectName}</Text>
+      <Button text="Back to training" onPress={toTraining}></Button>
+      <ScrollView>
+        <View>
+          <Text>Level {currentProject?.petLevel}</Text>
+        </View>
+        <View>
+          <Text>Health</Text>
+          <HealthIcons health={currentProject?.petHealth} />
+        </View>
+        <View>
+          <RenderTime time={currentProject?.stats.totalWorkTime} />
+          <Text>total training time</Text>
+        </View>
+        <View>
+          <RenderTime time={currentProject?.stats.totalLongPomTime} />
+          <Text>total long pom time</Text>
+        </View>
+        <View>
+          <RenderTime time={currentProject?.stats.totalShortPomTime} />
+          <Text>total short pom time</Text>
+        </View>
+        <View>
+          <Text>{currentProject?.stats.totalWorkSessions}</Text>
+          <Text>number of work sessions</Text>
+        </View>
+        <View>
+          <Text>{currentProject?.stats.totalShortSessions}</Text>
+          <Text>number of short breaks</Text>
+        </View>
+        <View>
+          <Text
+            onPress={() => Linking.openURL(`${currentProject?.projectGitHub}`)}
+          >
+            {" "}
+            {currentProject?.projectGitHub}{" "}
+          </Text>
+          <Text>Git Hub Project Link</Text>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -83,4 +85,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 30,
   },
+  projectName: {
+    textAlign: 'center',
+
+  }
 });

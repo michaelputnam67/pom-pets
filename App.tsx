@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Text, StyleSheet} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects } from "./interface";
 import Tabs from "./navigation/tabs";
@@ -12,15 +13,19 @@ export default function App() {
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
     undefined
   );
+  const [loginError, setLoginError] = useState(false)
   const [pets, setPets] = useState<Projects | null>(null);
 
   const login = () => {
     if (userName === "JoeRupp" && password === "PigeonsRLife") {
+      setLoginError(false)
       apiCalls.getUser().then((data) => {
         setUser(data.data);
         setCurrentProject(data.data.attributes.projects[0]);
         setPets(data.data.attributes.projects);
       });
+    } else {
+      setLoginError(true)
     }
   };
 
@@ -49,6 +54,7 @@ export default function App() {
           login={login}
         />
       )}
+      {loginError && <Text style={styles.error}>Invalid Username or Password</Text>}
       {user && (
         <Tabs
           updateCurrentProject={updateCurrentProject}
@@ -61,3 +67,12 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create ({
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 75,
+    fontSize: 20,
+  }
+})

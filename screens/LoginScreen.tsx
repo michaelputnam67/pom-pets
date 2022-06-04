@@ -2,6 +2,7 @@ import { Text, Image, View, StyleSheet, TextInput } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native";
 import Button from "../Components/Button";
+import { COLORS } from "../constants/Colors";
 
 export default function LoginScreen({
   login,
@@ -19,7 +20,7 @@ export default function LoginScreen({
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Pom Pets</Text>
+        <Text style={styles.title}>Pom Pets</Text>
         <Image
           style={styles.image}
           source={require("../assets/Pets/TomatoPet.png")}
@@ -38,7 +39,9 @@ export default function LoginScreen({
           value={password}
           placeholder={"password"}
         />
-        <Button text="Sign In" onPress={login}></Button>
+        <View style={styles.button}>
+          <Button text="Sign In" onPress={login}></Button>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -49,14 +52,32 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    height: 250,
-    width: 250,
+    height: 300,
+    width: 300,
     alignSelf: "center",
+    marginBottom: 30,
   },
   input: {
     height: 50,
-    width: 100,
+    width: 200,
     borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 20,
     alignSelf: "center",
+    textAlign: 'center',
+    fontSize: 15,
+    margin: 20,
+    marginBottom: 30,
   },
+  title: {
+    fontSize: 55,
+    marginTop: 50,
+    fontFamily: "Nunito_900Black",
+    alignSelf: "center",
+    color: COLORS.primary
+  },
+  button: {
+    marginTop: 20,
+    marginBottom: 0,
+  }
 });
