@@ -120,15 +120,6 @@ export default function ProjectTimer({
 }
 
 const styles = StyleSheet.create({
-  // healthIcon: {
-  //   height: 35,
-  //   width: 35,
-  //   tintColor: COLORS.grey,
-  // },
-  // healthContainer: {
-  //   display: "flex",
-  //   flexDirection: "row",
-  // },
   petStatusBar: {
     display: "flex",
     flexDirection: "row",

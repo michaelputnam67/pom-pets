@@ -38,8 +38,20 @@ export default function ProjectStatisticsScreen({
 				<HealthIcons health={currentProject?.petHealth} />
 			</View>
 			<View>
-				<Text>total training time</Text>
 				<RenderTime time={currentProject?.stats.totalWorkTime} />
+				<Text>total training time</Text>
+			</View>
+			<View>
+				<RenderTime time={currentProject?.stats.totalLongPomTime} />
+				<Text>total long pom time</Text>
+			</View>
+			<View>
+				<RenderTime time={currentProject?.stats.totalShortPomTime} />
+				<Text>total short pom time</Text>
+			</View>
+			<View>
+				<RenderTime time={currentProject?.stats.totalWorkSessions} />
+				<Text>number of work sessions</Text>
 			</View>
     </SafeAreaView>
   );
