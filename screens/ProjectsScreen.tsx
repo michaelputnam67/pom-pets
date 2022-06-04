@@ -7,46 +7,31 @@ import {
   SafeAreaView,
   StyleSheet,
 } from "react-native";
-import React, { useState, useEffect } from "react";
 import ProjectPet from "../Components/ProjectPet";
 import { COLORS } from "../constants/Colors";
-import { Projects, Project } from "../interface";
+import { Projects } from "../interface";
 
 export default function ProjectsScreen({
   navigation,
   projects,
+  updateCurrentProject
 }: {
+  updateCurrentProject: any;
   navigation?: any;
-  projects: Projects;
+  projects: Projects | null;
 }) {
-  console.log("Projects Screen: ", navigation);
-  const [pets, setPets] = useState<Projects | null>(projects);
-  const [currentProject, setCurrentProject] = useState<Project | undefined>(
-    undefined
-  );
-
-  const updateCurrentProject = (item: any) => {
-    console.log("navigation: ", navigation);
-    if (!pets) {
-      return;
-    }
-    const project: any = pets.find((pet) => {
-      return item.id === pet.id;
-    });
-    setCurrentProject(project);
-    navigation.navigate("Pet", currentProject);
-  };
-
+  
   const renderPet = ({
     item,
   }: {
     item: { projectName: string; petImage: string; id: number };
   }) => (
     <ProjectPet
+      navigation={navigation}
       item={item}
       key={item.id}
       name={item.projectName}
-      source={item.petImage}
+      // source={item.petImage}
       updateCurrentProject={updateCurrentProject}
     />
   );
@@ -56,7 +41,7 @@ export default function ProjectsScreen({
       <Text style={styles.header}>Your Pets</Text>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={pets}
+        data={projects}
         renderItem={renderPet}
         ListFooterComponent={() => (
           <Pressable style={styles.view} onPress={() => console.log("CLICK")}>
@@ -96,11 +81,3 @@ const styles = StyleSheet.create({
   },
 });
 
-// [
-//   { key: 1, image: require("../assets/Pets/PigeonPet.png"), name: "Pigeon" },
-//   { key: 2, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-//   { key: 3, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-//   { key: 4, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-//   { key: 5, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-//   { key: 6, image: require("../assets/Pets/TomatoPet.png"), name: "Tomato" },
-// ]

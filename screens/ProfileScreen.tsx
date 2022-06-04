@@ -5,7 +5,13 @@ import Button from "../Components/Button";
 import apiCalls from "../apiCalls/apiCalls";
 import { User, Attributes } from "../interface";
 
-export default function ProfileScreen({ logOut }) {
+export default function ProfileScreen({
+  logOut,
+  currentUser,
+}: {
+  logOut: any;
+  currentUser: User;
+}) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
