@@ -4,6 +4,7 @@ import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
 import Button from '../Components/Button';
 import HealthIcons from '../Components/HealthIcons';
+import RenderTime from '../Components/RenderTime';
 
 export default function ProjectStatisticsScreen({
   currentProject,
@@ -15,7 +16,7 @@ export default function ProjectStatisticsScreen({
 	const toTraining = () => {
 		navigation.navigate("Pet")
 	}
-console.log('line 18: ',  currentProject?.petHealth)
+
   return (
     <SafeAreaView>
       <Text style={styles.header}>Project Statistics</Text>	
@@ -32,8 +33,14 @@ console.log('line 18: ',  currentProject?.petHealth)
 			<View>
 				<Text>Level {currentProject?.petLevel}</Text>
 			</View>
-			<HealthIcons health={currentProject?.petHealth} />
-
+			<View>
+				<Text>Health</Text>
+				<HealthIcons health={currentProject?.petHealth} />
+			</View>
+			<View>
+				<Text>total training time</Text>
+				<RenderTime time={currentProject?.stats.totalWorkTime} />
+			</View>
     </SafeAreaView>
   );
 }
