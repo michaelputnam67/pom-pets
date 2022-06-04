@@ -1,15 +1,41 @@
 import { Text, View, Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native";
 import { COLORS } from "../constants/Colors";
+import {
+  useFonts,
+  Nunito_200ExtraLight,
+  Nunito_300Light,
+  Nunito_400Regular,
+  Nunito_500Medium,
+  Nunito_600SemiBold,
+  Nunito_700Bold,
+  Nunito_800ExtraBold,
+  Nunito_900Black,
+} from "@expo-google-fonts/nunito";
 
 export default function AboutScreen({ navigation }: { navigation: any }) {
+  let [fontsLoaded] = useFonts({
+    Nunito_200ExtraLight,
+    Nunito_300Light,
+    Nunito_400Regular,
+    Nunito_500Medium,
+    Nunito_600SemiBold,
+    Nunito_700Bold,
+    Nunito_800ExtraBold,
+    Nunito_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return <></>;
+  }
+
   return (
     <SafeAreaView style={styles.view}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.h1}>About the Pom</Text>
         <Image
           style={styles.image}
-          source={require("../assets/Pets/TomatoPet.png")}
+          source={require("../assets/PomTimer.png")}
         />
         <View style={styles.paragraphContainer}>
           <Text style={styles.h2}>What is it?</Text>
@@ -23,9 +49,7 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
           </View>
           <View style={styles.listContainer}>
             <Text style={styles.h3}>Step 3 🧑‍💻</Text>
-            <Text style={styles.paragraph}>
-              Work on the task until the time is up
-            </Text>
+            <Text style={styles.paragraph}>Work on the task</Text>
           </View>
           <View style={styles.listContainer}>
             <Text style={styles.h3}>Step 4 🍅</Text>
@@ -39,7 +63,7 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
           </View>
         </View>
         <View style={styles.paragraphContainer}>
-          <Text style={styles.h2}>The History</Text>
+          <Text style={styles.h2}>A Brief History</Text>
           <Text style={styles.paragraph}>
             The Pomodoro Technique was developed in the late 1980s by then
             university student Francesco Cirillo. Cirillo was struggling to
@@ -48,7 +72,11 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
             Encouraged by the challenge, he found a tomato (pomodoro in Italian)
             shaped kitchen timer, and the Pomodoro technique was born.
           </Text>
-          <Text style={styles.h2}>The Rules</Text>
+          <Image
+            style={styles.image}
+            source={require("../assets/ToDoComputer.png")}
+          />
+          <Text style={styles.h2}>Some Guidelines</Text>
           <Text style={styles.paragraph}>
             The 25-minute work sprints are the core of the method, but a
             Pomodoro practice also includes three rules for getting the most out
@@ -72,8 +100,7 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
             The pomodoro is an indivisible unit of time and can not be broken,
             especially not to check incoming emails, team chats, or text
             messages. Any ideas, tasks, or requests that come up should be taken
-            note of to come back to later. A digital task manager like Todoist
-            is a great place for these, but pen and paper will do too.
+            note of to come back to later.
           </Text>
           <Text style={styles.paragraph}>
             In the event of an unavoidable disruption, take your five-minute
@@ -87,10 +114,14 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
         <View style={styles.paragraphContainer}>
           <Text style={styles.h2}>So, What's a Pom Pet?</Text>
           <Text style={styles.paragraph}>
-            A Pom Pet is a way to help measure your poms and productivity. By
-            taking the pomodoro concept and "gamifying" it,
+            A Pom Pet is a way to help measure your poms and productivity while
+            working. By taking the pomodoro concept and "gamifying" it, we are
+            creating a way for you to see the results of your work/break time on
+            a project visually represented in a pet. Be strict with your work
+            schedule, take regular breaks, and you'll see your pet stay healthy.
           </Text>
         </View>
+        <View style={{ height: 50 }}></View>
       </ScrollView>
       <View style={{ height: "12%" }}></View>
     </SafeAreaView>
@@ -99,34 +130,34 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
 
 const styles = StyleSheet.create({
   h1: {
+    fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
     fontSize: 40,
-    fontWeight: "bold",
   },
   h2: {
+    fontFamily: "Nunito_800ExtraBold",
     alignSelf: "center",
     color: COLORS.secondary,
     fontSize: 25,
-    fontWeight: "bold",
     marginBottom: 20,
     marginTop: 30,
   },
   h3: {
-    color: COLORS.black,
+    fontFamily: "Nunito_800ExtraBold",
     fontSize: 18,
-    fontWeight: "bold",
     marginRight: 20,
+    marginBottom: 10,
   },
   listContainer: {
     flexDirection: "row",
     width: "75%",
   },
   paragraph: {
+    fontFamily: "Nunito_500Medium",
     flexWrap: "wrap",
-    color: COLORS.black,
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 40,
   },
   image: {
     height: 280,
@@ -142,6 +173,6 @@ const styles = StyleSheet.create({
   },
   paragraphContainer: {
     alignSelf: "center",
-    width: "85%",
+    width: "90%",
   },
 });
