@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import {Text, StyleSheet} from "react-native";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects } from "./interface";
 import Tabs from "./navigation/tabs";
@@ -15,6 +15,15 @@ export default function App() {
   );
   const [loginError, setLoginError] = useState(false)
   const [pets, setPets] = useState<Projects | null>(null);
+  const [userWorkTime, setUserWorkTime] = useState(
+    user?.attributes.settings.workTime
+  );
+  const [userShortPomTime, setUserShortPomTime] = useState(
+    user?.attributes.settings.shortPomTime
+  );
+  const [userLongPomTime, setUserLongPomTime] = useState(
+    user?.attributes.settings.longPomTime
+  );
 
   const login = () => {
     if (userName === "JoeRupp" && password === "PigeonsRLife") {
@@ -27,6 +36,21 @@ export default function App() {
     } else {
       setLoginError(true)
     }
+  };
+
+  const setWorkTime = (text: number) => {
+    setUserWorkTime(text);
+    apiCalls.updateUser({ settings: { workTime: `${text}` } });
+  };
+
+  const setShortPomTime = (text: number) => {
+    setUserShortPomTime(text);
+    apiCalls.updateUser({ settings: { shortPomTime: `${text}` } });
+  };
+
+  const setLongPomTime = (text: number) => {
+    setUserLongPomTime(text);
+    apiCalls.updateUser({ settings: { longPomTime: `${text}` } });
   };
 
   const logOut = () => {
@@ -62,6 +86,9 @@ export default function App() {
           projects={pets}
           user={user}
           logOut={logOut}
+          setWorkTime={setWorkTime}
+          setShortPomTime={setShortPomTime}
+          setLongPomTime={setLongPomTime}
         />
       )}
     </NavigationContainer>
