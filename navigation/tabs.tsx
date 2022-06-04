@@ -1,4 +1,3 @@
-// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Image, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
@@ -6,20 +5,36 @@ import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { User } from "../interface";
+import { User, Project, Projects } from "../interface";
+import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
 
 const Tab = createBottomTabNavigator();
-// const Tab = createMaterialTopTabNavigator();
 
-const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
+const Tabs = ({
+  user,
+  logOut,
+  projects,
+  currentProject,
+  updateCurrentProject,
+  setWorkTime,
+  setShortPomTime,
+  setLongPomTime,
+}: {
+  projects: Projects | null;
+  user: User;
+  logOut: any;
+  currentProject: Project | undefined;
+  updateCurrentProject: any;
+  setWorkTime: any;
+  setShortPomTime: any;
+  setLongPomTime: any;
+}) => {
   return (
     <Tab.Navigator
       sceneContainerStyle={false}
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
-        // tabBarIndicatorStyle: { backgroundColor: "transparent" },
-        // tabBarIndicatorContainerStyle: null,
         tabBarStyle: { ...navStyles.tabNavigator },
       }}
     >
@@ -53,7 +68,11 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
       <Tab.Screen
         name="Your Pets"
         children={(props) => (
-          <ProjectsScreen projects={user.attributes.projects} {...props} />
+          <ProjectsScreen
+            projects={projects}
+            updateCurrentProject={updateCurrentProject}
+            {...props}
+          />
         )}
         options={{
           tabBarShowLabel: false,
@@ -81,8 +100,8 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
 
       <Tab.Screen
         name="Pet"
-        children={() => (
-          <ProjectTimer currentProject={user.attributes.projects[0]} />
+        children={(props) => (
+          <ProjectTimer currentProject={currentProject} {...props} />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },
@@ -108,9 +127,23 @@ const Tabs = ({ user, logOut }: { user: User; logOut: any }) => {
       />
 
       <Tab.Screen
+        name="Stats"
+        children={(props) => (
+          <ProjectStatisticsScreen currentProject={currentProject} {...props} />
+        )}
+      />
+
+      <Tab.Screen
         name="User"
         children={(props) => (
-          <ProfileScreen user={user} logOut={logOut} {...props} />
+          <ProfileScreen
+            currentUser={user}
+            logOut={logOut}
+            setWorkTime={setWorkTime}
+            setShortPomTime={setShortPomTime}
+            setLongPomTime={setLongPomTime}
+            {...props}
+          />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },

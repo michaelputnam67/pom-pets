@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, Image, StyleSheet, SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
-import { User } from "../interface";
+import { Project } from "../interface";
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -12,11 +12,13 @@ const getRemaining = (time: number) => {
   return { mins: formatNumber(mins), secs: formatNumber(secs) };
 };
 
-export default function ProjectTimer({ user }: { user: User }) {
-  const [pet, setPet] = useState({
-    name: "Pigeon",
-    image: require("../assets/Pets/PigeonPet.png"),
-  });
+export default function ProjectTimer({
+  navigation,
+  currentProject,
+}: {
+  navigation: any;
+  currentProject?: Project | undefined;
+}) {
 
   const [remainingSecs, setRemainingSecs] = useState(1500);
   const [negativeTime, setNegativeTime] = useState(0);
@@ -24,9 +26,14 @@ export default function ProjectTimer({ user }: { user: User }) {
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
   const { mins, secs } = getRemaining(remainingSecs);
+  const [image, setImage] = useState(require('../assets/Pets/PigeonPet.png'))
 
   const toggle = () => {
     setIsTraining(!isTraining);
+  };
+
+  const seeStats = () => {
+    navigation.navigate("Stats", currentProject);
   };
 
   const reset = () => {
@@ -88,7 +95,11 @@ export default function ProjectTimer({ user }: { user: User }) {
       </View>
       <Image
         style={styles.pet}
-        source={require("../assets/Pets/PigeonPet.png")}
+        source={
+          currentProject?.petImage === "tomato-image"
+            ? require("../assets/Pets/TomatoPet.png")
+            : require("../assets/Pets/PigeonPet.png")
+        }
       />
       <Text style={styles.timerText}>{`${mins} : ${secs}`}</Text>
       {!onPom && (
@@ -99,10 +110,7 @@ export default function ProjectTimer({ user }: { user: User }) {
         ></Button>
       )}
       {!isTraining && !onPom && (
-        <Button
-          onPress={() => console.log("SEE STATS SCREEN")}
-          text="See Stats"
-        ></Button>
+        <Button onPress={seeStats} text="See Stats"></Button>
       )}
       {isTraining && !onPom && (
         <Button onPress={feedPet} text="Feed Pet"></Button>

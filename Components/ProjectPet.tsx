@@ -1,20 +1,26 @@
 import React from "react";
 import { Text, Image, Pressable, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
-//updateCurrentProject(item)
+
 export default function ProjectPet({
-  source,
+  navigation,
   name,
   updateCurrentProject,
   item,
 }: {
-  source: any;
+  navigation: any;
   name: string;
   updateCurrentProject: any;
   item: any;
 }) {
   return (
-    <Pressable style={styles.main} onPress={() => updateCurrentProject(item)}>
+    <Pressable
+      style={styles.main}
+      onPress={() => {
+        updateCurrentProject(item);
+        navigation.navigate("Pet");
+      }}
+    >
       <Pressable style={styles.deleteButtonContainer}>
         <Image
           style={styles.deleteButton}
