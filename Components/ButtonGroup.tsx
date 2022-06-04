@@ -6,18 +6,18 @@ export default function Button({
   text1,
   text2,
   text3,
-  onPress1,
-  onPress2,
-  onPress3,
-  isSelected,
+  // onPress1,
+  // onPress2,
+  // onPress3,
+  currentlyActive,
 }: {
   text1: string;
   text2: string;
   text3: string;
-  onPress1: any;
-  onPress2: any;
-  onPress3: any;
-  isSelected?: boolean;
+  // onPress1: any;
+  // onPress2: any;
+  // onPress3: any;
+  currentlyActive: any;
 }) {
   let [fontsLoaded] = useFonts({
     Nunito_900Black,
@@ -27,51 +27,66 @@ export default function Button({
     return <></>;
   }
 
+  const makeOneActive = () => {
+    console.log(currentlyActive);
+  };
+
+  const makeTwoActive = () => {
+    console.log(currentlyActive);
+  };
+
+  const makeThreeActive = () => {
+    console.log(currentlyActive);
+  };
+
   return (
     <View style={styles.buttonContainer}>
       <Pressable
-        onPress={onPress1}
+        onPress={makeOneActive}
         style={{
           ...styles.button,
-          backgroundColor: isSelected ? COLORS.secondary : "transparent",
+          backgroundColor:
+            currentlyActive === text1 ? COLORS.secondary : "transparent",
         }}
       >
         <Text
           style={{
             ...styles.text,
-            color: isSelected ? COLORS.white : COLORS.secondary,
+            color: currentlyActive === text1 ? COLORS.white : COLORS.secondary,
           }}
         >
           {text1}
         </Text>
       </Pressable>
       <Pressable
-        onPress={onPress2}
+        onPress={makeTwoActive}
         style={{
           ...styles.button,
-          backgroundColor: isSelected ? COLORS.secondary : "transparent",
+          backgroundColor:
+            currentlyActive === text2 ? COLORS.secondary : "transparent",
         }}
       >
         <Text
           style={{
             ...styles.text,
-            color: isSelected ? COLORS.white : COLORS.secondary,
+            color: currentlyActive === text2 ? COLORS.white : COLORS.secondary,
           }}
         >
           {text2}
         </Text>
       </Pressable>
       <Pressable
-        onPress={onPress3}
+        onPress={makeThreeActive}
         style={{
           ...styles.button,
-          backgroundColor: isSelected ? COLORS.secondary : "transparent",
+          backgroundColor:
+            currentlyActive === text3 ? COLORS.secondary : "transparent",
         }}
       >
         <Text
           style={{
             ...styles.text,
-            color: isSelected ? COLORS.white : COLORS.secondary,
+            color: currentlyActive === text3 ? COLORS.white : COLORS.secondary,
           }}
         >
           {text3}

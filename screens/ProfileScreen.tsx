@@ -35,10 +35,6 @@ export default function ProfileScreen({
     return <></>;
   }
 
-  const setTimeSetting = () => {
-    console.log("yeet");
-  };
-
   return (
     <SafeAreaView style={styles.view}>
       <Text style={styles.h1}>User Profile</Text>
@@ -56,30 +52,24 @@ export default function ProfileScreen({
       </View>
       <Text style={styles.h4}>Work Time</Text>
       <ButtonGroup
-        onPress1={setTimeSetting}
-        onPress2={setTimeSetting}
-        onPress3={setTimeSetting}
-        text1="15 mins"
-        text2="25 mins"
-        text3="35 mins"
+        currentlyActive={`${currentUser.attributes.settings.workTime}`}
+        text1="15"
+        text2="25"
+        text3="35"
       ></ButtonGroup>
       <Text style={styles.h4}>Short Pom Time</Text>
       <ButtonGroup
-        onPress1={setTimeSetting}
-        onPress2={setTimeSetting}
-        onPress3={setTimeSetting}
-        text1="2 mins"
-        text2="5 mins"
-        text3="10 mins"
+        currentlyActive={`${currentUser.attributes.settings.shortPomTime}`}
+        text1="2"
+        text2="5"
+        text3="10"
       ></ButtonGroup>
       <Text style={styles.h4}>Long Pom Time</Text>
       <ButtonGroup
-        onPress1={setTimeSetting}
-        onPress2={setTimeSetting}
-        onPress3={setTimeSetting}
-        text1="10 mins"
-        text2="15 mins"
-        text3="20 mins"
+        currentlyActive={`${currentUser.attributes.settings.longPomTime}`}
+        text1="10"
+        text2="15"
+        text3="20"
       ></ButtonGroup>
       <Button text="Sign Out" onPress={logOut}></Button>
     </SafeAreaView>
