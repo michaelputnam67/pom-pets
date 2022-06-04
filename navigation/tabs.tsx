@@ -19,6 +19,9 @@ const Tabs = ({
   setWorkTime,
   setShortPomTime,
   setLongPomTime,
+  userWorkTime,
+  userShortPomTime,
+  userLongPomTime,
 }: {
   projects: Projects | null;
   user: User;
@@ -28,6 +31,9 @@ const Tabs = ({
   setWorkTime: any;
   setShortPomTime: any;
   setLongPomTime: any;
+  userWorkTime: any;
+  userShortPomTime: any;
+  userLongPomTime: any;
 }) => {
   return (
     <Tab.Navigator

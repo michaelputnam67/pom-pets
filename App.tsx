@@ -7,7 +7,7 @@ import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
-  const [userName, setUserName] = useState("JoeRupp");
+  const [userName, setUserName] = useState("Joe");
   const [password, setPassword] = useState("PigeonsRLife");
   const [user, setUser] = useState<User | null>(null);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
@@ -26,7 +26,7 @@ export default function App() {
   );
 
   const login = () => {
-    if (userName === "JoeRupp" && password === "PigeonsRLife") {
+    if (userName === "Joe" && password === "PigeonsRLife") {
       setLoginError(false)
       apiCalls.getUser().then((data) => {
         setUser(data.data);
@@ -89,6 +89,9 @@ export default function App() {
           setWorkTime={setWorkTime}
           setShortPomTime={setShortPomTime}
           setLongPomTime={setLongPomTime}
+          userWorkTime={userWorkTime}
+          userShortPomTime={userShortPomTime}
+          userLongPomTime={userLongPomTime}
         />
       )}
     </NavigationContainer>

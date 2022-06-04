@@ -16,12 +16,18 @@ const getRemaining = (time: number) => {
 export default function ProjectTimer({
   navigation,
   currentProject,
+  userWorkTime,
+  userShortPomTime,
+  userLongPomTime,
 }: {
   navigation: any;
   currentProject?: Project | undefined;
+  userWorkTime: number;
+  userShortPomTime: number;
+  userLongPomTime: number;
 }) {
 
-  const [remainingSecs, setRemainingSecs] = useState(1500);
+  const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
   const [negativeTime, setNegativeTime] = useState(0);
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
@@ -38,19 +44,19 @@ export default function ProjectTimer({
   };
 
   const reset = () => {
-    setRemainingSecs(1500);
+    setRemainingSecs(userWorkTime * 60);
     setIsTraining(false);
     setOnPom(false);
   };
 
   const feedPet = () => {
-    setRemainingSecs(300);
+    setRemainingSecs(userShortPomTime * 60);
     setOnPom(true);
     setPomType("short");
   };
 
   const walkPet = () => {
-    setRemainingSecs(900);
+    setRemainingSecs(userLongPomTime * 60);
     setOnPom(true);
     setPomType("long");
   };
