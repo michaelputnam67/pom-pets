@@ -7,10 +7,6 @@ import { User, Attributes } from "../interface";
 import { COLORS } from "../constants/Colors";
 import {
   useFonts,
-  Nunito_400Regular,
-  Nunito_500Medium,
-  Nunito_600SemiBold,
-  Nunito_700Bold,
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
@@ -22,11 +18,17 @@ export default function ProfileScreen({
   logOut: any;
   currentUser: User;
 }) {
+  const [userWorkTime, setuserWorkTime] = useState(
+    currentUser.attributes.settings.workTime
+  );
+  const [userShortPomTime, setuserShortPomTime] = useState(
+    currentUser.attributes.settings.shortPomTime
+  );
+  const [userLongPomTime, setuserLongPomTime] = useState(
+    currentUser.attributes.settings.longPomTime
+  );
+
   let [fontsLoaded] = useFonts({
-    Nunito_400Regular,
-    Nunito_500Medium,
-    Nunito_600SemiBold,
-    Nunito_700Bold,
     Nunito_800ExtraBold,
     Nunito_900Black,
   });
@@ -34,6 +36,18 @@ export default function ProfileScreen({
   if (!fontsLoaded) {
     return <></>;
   }
+
+  const setWorkTime = (text) => {
+    setuserWorkTime(text);
+  };
+
+  const setShortPomTime = (text) => {
+    setuserShortPomTime(text);
+  };
+
+  const setLongPomTime = (text) => {
+    setuserLongPomTime(text);
+  };
 
   return (
     <SafeAreaView style={styles.view}>
@@ -52,21 +66,24 @@ export default function ProfileScreen({
       </View>
       <Text style={styles.h4}>Work Time</Text>
       <ButtonGroup
-        currentlyActive={`${currentUser.attributes.settings.workTime}`}
+        currentlyActive={`${userWorkTime}`}
+        onPress={setWorkTime}
         text1="15"
         text2="25"
         text3="35"
       ></ButtonGroup>
       <Text style={styles.h4}>Short Pom Time</Text>
       <ButtonGroup
-        currentlyActive={`${currentUser.attributes.settings.shortPomTime}`}
+        currentlyActive={`${userShortPomTime}`}
+        onPress={setShortPomTime}
         text1="2"
         text2="5"
         text3="10"
       ></ButtonGroup>
       <Text style={styles.h4}>Long Pom Time</Text>
       <ButtonGroup
-        currentlyActive={`${currentUser.attributes.settings.longPomTime}`}
+        currentlyActive={`${userLongPomTime}`}
+        onPress={setLongPomTime}
         text1="10"
         text2="15"
         text3="20"

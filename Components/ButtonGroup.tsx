@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Pressable, Text, StyleSheet, View } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
@@ -6,17 +7,13 @@ export default function Button({
   text1,
   text2,
   text3,
-  // onPress1,
-  // onPress2,
-  // onPress3,
+  onPress,
   currentlyActive,
 }: {
   text1: string;
   text2: string;
   text3: string;
-  // onPress1: any;
-  // onPress2: any;
-  // onPress3: any;
+  onPress: any;
   currentlyActive: any;
 }) {
   let [fontsLoaded] = useFonts({
@@ -28,15 +25,15 @@ export default function Button({
   }
 
   const makeOneActive = () => {
-    console.log(currentlyActive);
+    onPress(text1);
   };
 
   const makeTwoActive = () => {
-    console.log(currentlyActive);
+    onPress(text2);
   };
 
   const makeThreeActive = () => {
-    console.log(currentlyActive);
+    onPress(text3);
   };
 
   return (
@@ -100,7 +97,6 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: COLORS.secondary,
     height: 50,
     width: "35%",
     borderRadius: 10,
@@ -120,6 +116,5 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 15,
-    // color: COLORS.white,
   },
 });
