@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import {Text, StyleSheet} from "react-native";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects } from "./interface";
 import Tabs from "./navigation/tabs";
@@ -12,16 +13,44 @@ export default function App() {
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
     undefined
   );
+  const [loginError, setLoginError] = useState(false)
   const [pets, setPets] = useState<Projects | null>(null);
+  const [userWorkTime, setUserWorkTime] = useState(
+    user?.attributes.settings.workTime
+  );
+  const [userShortPomTime, setUserShortPomTime] = useState(
+    user?.attributes.settings.shortPomTime
+  );
+  const [userLongPomTime, setUserLongPomTime] = useState(
+    user?.attributes.settings.longPomTime
+  );
 
   const login = () => {
     if (userName === "JoeRupp" && password === "PigeonsRLife") {
+      setLoginError(false)
       apiCalls.getUser().then((data) => {
         setUser(data.data);
         setCurrentProject(data.data.attributes.projects[0]);
         setPets(data.data.attributes.projects);
       });
+    } else {
+      setLoginError(true)
     }
+  };
+
+  const setWorkTime = (text: number) => {
+    setUserWorkTime(text);
+    apiCalls.updateUser({ settings: { workTime: `${text}` } });
+  };
+
+  const setShortPomTime = (text: number) => {
+    setUserShortPomTime(text);
+    apiCalls.updateUser({ settings: { shortPomTime: `${text}` } });
+  };
+
+  const setLongPomTime = (text: number) => {
+    setUserLongPomTime(text);
+    apiCalls.updateUser({ settings: { longPomTime: `${text}` } });
   };
 
   const logOut = () => {
@@ -49,6 +78,7 @@ export default function App() {
           login={login}
         />
       )}
+      {loginError && <Text style={styles.error}>Invalid Username or Password</Text>}
       {user && (
         <Tabs
           updateCurrentProject={updateCurrentProject}
@@ -56,8 +86,20 @@ export default function App() {
           projects={pets}
           user={user}
           logOut={logOut}
+          setWorkTime={setWorkTime}
+          setShortPomTime={setShortPomTime}
+          setLongPomTime={setLongPomTime}
         />
       )}
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create ({
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 75,
+    fontSize: 20,
+  }
+})

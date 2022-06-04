@@ -17,12 +17,18 @@ const Tabs = ({
   projects,
   currentProject,
   updateCurrentProject,
+  setWorkTime,
+  setShortPomTime,
+  setLongPomTime,
 }: {
   projects: Projects | null;
   user: User;
   logOut: any;
   currentProject: Project | undefined;
   updateCurrentProject: any;
+  setWorkTime: any;
+  setShortPomTime: any;
+  setLongPomTime: any;
 }) => {
   return (
     <Tab.Navigator
@@ -145,7 +151,14 @@ const Tabs = ({
       <Tab.Screen
         name="User"
         children={(props) => (
-          <ProfileScreen currentUser={user} logOut={logOut} {...props} />
+          <ProfileScreen
+            currentUser={user}
+            logOut={logOut}
+            setWorkTime={setWorkTime}
+            setShortPomTime={setShortPomTime}
+            setLongPomTime={setLongPomTime}
+            {...props}
+          />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },
