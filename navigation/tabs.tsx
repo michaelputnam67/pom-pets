@@ -7,6 +7,7 @@ import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { User, Project, Projects } from "../interface";
 import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
+import NewProjectScreen from '../screens/NewProjectScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,6 +58,17 @@ const Tabs = ({
             </View>
           ),
         }}
+      />
+
+      <Tab.Screen
+      name="New Project"
+      component={NewProjectScreen}
+      // children={(props) => (
+      //   <NewProjectScreen  {...props} />
+      // )}
+      options={{
+        tabBarButton: () => null
+      }}
       />
 
       <Tab.Screen

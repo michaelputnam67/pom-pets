@@ -36,6 +36,10 @@ export default function ProjectsScreen({
     />
   );
 
+  const goToAddProjectsScreen = () => {
+    navigation.navigate("New Project")
+  }
+
   return (
     <SafeAreaView style={styles.view}>
       <Text style={styles.header}>Your Pets</Text>
@@ -44,7 +48,7 @@ export default function ProjectsScreen({
         data={projects}
         renderItem={renderPet}
         ListFooterComponent={() => (
-          <Pressable style={styles.view} onPress={() => console.log("CLICK")}>
+          <Pressable style={styles.view} onPress={() => goToAddProjectsScreen()}>
             <Image
               style={{ ...styles.main }}
               source={require("../assets/Icons-Buttons/AddProjectBtn.png")}
