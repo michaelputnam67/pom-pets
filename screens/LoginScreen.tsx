@@ -1,6 +1,6 @@
-import { Text, Image, View, StyleSheet, TextInput } from "react-native";
+import { Text, Image, View, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import React from "react";
-import { SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import {
@@ -31,34 +31,35 @@ export default function LoginScreen({
   if (!fontsLoaded) {
     return <></>;
   }
-  
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={styles.title}>Pom Pets</Text>
-        <Image
-          style={styles.image}
-          source={require("../assets/Pets/TomatoPet.png")}
-        />
-        <TextInput
-          autoCapitalize={"none"}
-          style={styles.input}
-          onChangeText={setUserName}
-          value={userName}
-          placeholder={"username"}
-        />
-        <TextInput
-          autoCapitalize={"none"}
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder={"password"}
-        />
-        <View style={styles.button}>
-          <Button text="Sign In" onPress={login}></Button>
+    <KeyboardAwareScrollView
+      style={styles.container}>
+        <View>
+          <Text style={styles.title}>Pom Pets</Text>
+          <Image
+            style={styles.image}
+            source={require("../assets/Pets/TomatoPet.png")}
+          />
+          <TextInput
+            autoCapitalize={"none"}
+            style={styles.input}
+            onChangeText={setUserName}
+            value={userName}
+            placeholder={"username"}
+          />
+          <TextInput
+            autoCapitalize={"none"}
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder={"password"}
+          />
+          <View style={styles.button}>
+            <Button text="Sign In" onPress={login}></Button>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 

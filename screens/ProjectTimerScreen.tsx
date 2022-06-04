@@ -78,7 +78,7 @@ export default function ProjectTimer({
   return (
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
       <View style={styles.petStatusBar}>
-        <Text style={styles.text}>Lvl 1</Text>
+        <Text style={styles.text}>Level {currentProject.petLevel}</Text>
         <HealthIcons health={currentProject?.petHealth} />
       </View>
       <Image

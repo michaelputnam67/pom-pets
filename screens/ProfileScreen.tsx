@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito_800ExtraBold",
     color: COLORS.grey,
     fontSize: 18,
+    marginBottom: 5,
   },
   userInfoContainer: {
     flexDirection: "row",
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     height: 180,
     width: 180,
     alignSelf: "center",
-    marginBottom: 30,
+    marginBottom: 10,
   },
   view: {
     backgroundColor: COLORS.white,

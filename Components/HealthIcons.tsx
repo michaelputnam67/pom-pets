@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   healthIcon: {
     height: 35,
     width: 35,
-    tintColor: COLORS.grey,
+    tintColor: COLORS.primary,
   },
   healthContainer: {
     display: "flex",

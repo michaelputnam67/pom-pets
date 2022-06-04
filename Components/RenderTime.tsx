@@ -1,5 +1,6 @@
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
+import { COLORS } from "../constants/Colors";
 
 export default function RenderTime({ time }: { time: number | undefined }) {
   const [num, setNum] = useState(time);
@@ -24,7 +25,16 @@ export default function RenderTime({ time }: { time: number | undefined }) {
 
   return (
     <>
-      <Text>{calculateTime()}</Text>
+      <Text style={styles.timer}>{calculateTime()}</Text>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  timer: {
+    textAlign: 'center',
+    // marginLeft: 70,
+    fontSize: 45,
+    color: COLORS.secondary,
+  }
+})
