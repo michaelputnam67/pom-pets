@@ -3,6 +3,11 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
+import {
+  useFonts,
+  Nunito_800ExtraBold,
+  Nunito_900Black,
+} from "@expo-google-fonts/nunito";
 
 export default function LoginScreen({
   login,
@@ -17,6 +22,16 @@ export default function LoginScreen({
   password: string;
   login: any;
 }) {
+
+  let [fontsLoaded] = useFonts({
+    Nunito_800ExtraBold,
+    Nunito_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return <></>;
+  }
+  
   return (
     <SafeAreaView style={styles.container}>
       <View>
