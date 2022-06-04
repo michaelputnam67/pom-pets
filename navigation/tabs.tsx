@@ -125,6 +125,9 @@ const Tabs = ({
         children={(props) => (
           <ProjectStatisticsScreen currentProject={currentProject} {...props} />
         )}
+        options={{
+          tabBarButton: () => null
+        }}
       />
 
       <Tab.Screen
