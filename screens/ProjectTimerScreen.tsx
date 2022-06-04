@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet, SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
+import HealthIcons from '../Components/HealthIcons';
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -78,20 +79,7 @@ export default function ProjectTimer({
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
       <View style={styles.petStatusBar}>
         <Text style={styles.text}>Lvl 1</Text>
-        <View style={styles.healthContainer}>
-          <Image
-            style={styles.healthIcon}
-            source={require("../assets/Icons-Buttons/HeartIcon-Grey-Empty.png")}
-          />
-          <Image
-            style={styles.healthIcon}
-            source={require("../assets/Icons-Buttons/HeartIcon-Grey.png")}
-          />
-          <Image
-            style={styles.healthIcon}
-            source={require("../assets/Icons-Buttons/HeartIcon-Grey.png")}
-          />
-        </View>
+        <HealthIcons health={currentProject?.petHealth} />
       </View>
       <Image
         style={styles.pet}
@@ -132,15 +120,15 @@ export default function ProjectTimer({
 }
 
 const styles = StyleSheet.create({
-  healthIcon: {
-    height: 35,
-    width: 35,
-    tintColor: COLORS.grey,
-  },
-  healthContainer: {
-    display: "flex",
-    flexDirection: "row",
-  },
+  // healthIcon: {
+  //   height: 35,
+  //   width: 35,
+  //   tintColor: COLORS.grey,
+  // },
+  // healthContainer: {
+  //   display: "flex",
+  //   flexDirection: "row",
+  // },
   petStatusBar: {
     display: "flex",
     flexDirection: "row",
