@@ -25,38 +25,41 @@ export default function CreateProfileScreen() {
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
-      <Text>Create Your Profile</Text>
-      <Image source={require("../assets/JoeProfilePicture.png")} />
+      <Text style={styles.h1}>Create Your Profile</Text>
+      <Image
+        style={styles.image}
+        source={require("../assets/JoeProfilePicture.png")}
+      />
       <Button
         text="Add Profile Picture"
         onPress={() => {
-          console.log("make profile");
+          console.log("snap a pic ;D");
         }}
       ></Button>
-      <View>
-        <Text>Create a username:</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Create a username:</Text>
         <TextInput
           autoCapitalize={"none"}
           style={styles.input}
           onChangeText={setNewUserName}
           value={newUserName}
-          placeholder={"Pomodoro"}
+          placeholder={"PomodoroLover"}
         />
-        <Text>Add your email:</Text>
+        <Text style={styles.label}>Add your email:</Text>
         <TextInput
           autoCapitalize={"none"}
           style={styles.input}
           onChangeText={setNewEmail}
           value={newEmail}
-          placeholder={"Francesco.Cirillo@PomPets.com"}
+          placeholder={"francesco.cirillo@pompets.com"}
         />
-        <Text>Create a password:</Text>
+        <Text style={styles.label}>Create a password:</Text>
         <TextInput
           autoCapitalize={"none"}
           style={styles.input}
           onChangeText={setNewPassword}
           value={newPassword}
-          placeholder={"password"}
+          placeholder={"password123"}
         />
       </View>
       <Button
@@ -75,10 +78,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   image: {
-    height: 300,
-    width: 300,
+    height: 200,
+    width: 200,
     alignSelf: "center",
-    marginBottom: 30,
+    margin: 20,
   },
   input: {
     height: 50,
@@ -89,17 +92,22 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     textAlign: "center",
     fontSize: 15,
+  },
+  label: {
+    fontFamily: "Nunito_500Medium",
+    textAlign: "center",
+    fontSize: 18,
+    color: COLORS.grey,
+    marginTop: 15,
+  },
+  inputContainer: {
     margin: 20,
   },
-  title: {
-    fontSize: 55,
+  h1: {
     marginTop: 50,
     fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
-  },
-  button: {
-    marginTop: 20,
-    marginBottom: 0,
+    fontSize: 40,
   },
 });

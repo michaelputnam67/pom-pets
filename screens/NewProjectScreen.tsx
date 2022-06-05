@@ -94,7 +94,7 @@ export default function NewProjectScreen({
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.h1}>New Project</Text>
       <Animated.View>
         <Animated.FlatList
@@ -152,6 +152,10 @@ export default function NewProjectScreen({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
   h1: {
     fontFamily: "Nunito_900Black",
     alignSelf: "center",
