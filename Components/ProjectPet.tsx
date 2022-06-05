@@ -41,7 +41,9 @@ export default function ProjectPet({
         source={
           item.petImage === "tomato-image"
             ? require("../assets/Pets/TomatoPet.png")
-            : require("../assets/Pets/PigeonPet.png")
+            : (item.petImage === "pigeon-image") ?
+            require("../assets/Pets/PigeonPet.png")
+            : require("../assets/Pets/CandlePet.png")
         }
       />
       <Text style={styles.text}>{name}</Text>

@@ -7,6 +7,7 @@ import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { User, Project, Projects } from "../interface";
 import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
+import NewProjectScreen from '../screens/NewProjectScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,7 @@ const Tabs = ({
   setWorkTime,
   setShortPomTime,
   setLongPomTime,
+  createNewProject,
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
@@ -31,6 +33,7 @@ const Tabs = ({
   setWorkTime: any;
   setShortPomTime: any;
   setLongPomTime: any;
+  createNewProject: any
   userWorkTime: any;
   userShortPomTime: any;
   userLongPomTime: any;
@@ -69,6 +72,16 @@ const Tabs = ({
             </View>
           ),
         }}
+      />
+
+      <Tab.Screen
+      name="New Project"
+      children={(props) => (
+        <NewProjectScreen createNewProject={createNewProject}  {...props} />
+      )}
+      options={{
+        tabBarButton: () => null
+      }}
       />
 
       <Tab.Screen
