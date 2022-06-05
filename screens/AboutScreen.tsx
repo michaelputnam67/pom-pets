@@ -3,24 +3,14 @@ import { SafeAreaView } from "react-native";
 import { COLORS } from "../constants/Colors";
 import {
   useFonts,
-  Nunito_200ExtraLight,
-  Nunito_300Light,
-  Nunito_400Regular,
   Nunito_500Medium,
-  Nunito_600SemiBold,
-  Nunito_700Bold,
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
 
 export default function AboutScreen({ navigation }: { navigation: any }) {
   let [fontsLoaded] = useFonts({
-    Nunito_200ExtraLight,
-    Nunito_300Light,
-    Nunito_400Regular,
     Nunito_500Medium,
-    Nunito_600SemiBold,
-    Nunito_700Bold,
     Nunito_800ExtraBold,
     Nunito_900Black,
   });
@@ -38,10 +28,10 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
           source={require("../assets/PomTimer.png")}
         />
         <View style={styles.paragraphContainer}>
-          <Text style={styles.h2}>What is it?</Text>
+          <Text style={styles.h2}>How to Use Your Pom Pet</Text>
           <View style={styles.listContainer}>
             <Text style={styles.h3}>Step 1 📝</Text>
-            <Text style={styles.paragraph}>Pick a task</Text>
+            <Text style={styles.paragraph}>Pick a project to work on</Text>
           </View>
           <View style={styles.listContainer}>
             <Text style={styles.h3}>Step 2 ⏱</Text>
@@ -49,7 +39,7 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
           </View>
           <View style={styles.listContainer}>
             <Text style={styles.h3}>Step 3 🧑‍💻</Text>
-            <Text style={styles.paragraph}>Work on the task</Text>
+            <Text style={styles.paragraph}>Work on the project</Text>
           </View>
           <View style={styles.listContainer}>
             <Text style={styles.h3}>Step 4 🍅</Text>
@@ -163,13 +153,10 @@ const styles = StyleSheet.create({
     height: 280,
     width: 280,
     alignSelf: "center",
-    marginBottom: 30,
+    // marginBottom: 10,
   },
   view: {
     backgroundColor: COLORS.white,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   paragraphContainer: {
     alignSelf: "center",

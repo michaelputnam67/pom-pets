@@ -1,6 +1,14 @@
-import { Text, Image, View, StyleSheet, TextInput } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React from "react";
-import { SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import {
@@ -22,7 +30,6 @@ export default function LoginScreen({
   password: string;
   login: any;
 }) {
-
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -31,9 +38,9 @@ export default function LoginScreen({
   if (!fontsLoaded) {
     return <></>;
   }
-  
+
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container}>
       <View>
         <Text style={styles.title}>Pom Pets</Text>
         <Image
@@ -58,7 +65,7 @@ export default function LoginScreen({
           <Button text="Sign In" onPress={login}></Button>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -74,25 +81,24 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    width: 200,
-    borderColor: "black",
+    width: "65%",
+    borderColor: COLORS.grey,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 25,
     alignSelf: "center",
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 15,
     margin: 20,
-    marginBottom: 30,
   },
   title: {
     fontSize: 55,
     marginTop: 50,
     fontFamily: "Nunito_900Black",
     alignSelf: "center",
-    color: COLORS.primary
+    color: COLORS.primary,
   },
   button: {
     marginTop: 20,
     marginBottom: 0,
-  }
+  },
 });

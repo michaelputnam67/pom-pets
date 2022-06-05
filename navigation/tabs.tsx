@@ -20,8 +20,10 @@ const Tabs = ({
   setWorkTime,
   setShortPomTime,
   setLongPomTime,
-  createNewProject
-
+  createNewProject,
+  userWorkTime,
+  userShortPomTime,
+  userLongPomTime,
 }: {
   projects: Projects | null;
   user: User;
@@ -32,6 +34,9 @@ const Tabs = ({
   setShortPomTime: any;
   setLongPomTime: any;
   createNewProject: any
+  userWorkTime: any;
+  userShortPomTime: any;
+  userLongPomTime: any;
 }) => {
   return (
     <Tab.Navigator
@@ -111,11 +116,10 @@ const Tabs = ({
           ),
         }}
       />
-
       <Tab.Screen
         name="Pet"
         children={(props) => (
-          <ProjectTimer currentProject={currentProject} {...props} />
+          <ProjectTimer currentProject={currentProject} userWorkTime={userWorkTime} userShortPomTime={userShortPomTime} userLongPomTime={userLongPomTime} {...props} />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },
