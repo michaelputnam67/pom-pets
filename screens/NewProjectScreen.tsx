@@ -117,7 +117,7 @@ export default function NewProjectScreen({
           contentContainerStyle={{
             paddingHorizontal: itemSpacing,
           }}
-          style={{ flex: 0 }}
+          style={styles.flatList}
           renderItem={renderIcon}
         />
       </Animated.View>
@@ -130,10 +130,10 @@ export default function NewProjectScreen({
       />
       <TextInput
         autoCapitalize={"none"}
-				autoCorrect={false}
+        autoCorrect={false}
         style={styles.input}
         onChangeText={setGitHubUrl}
-				value={`https://github.com/${gitHubUrl.slice(19)}`} 
+        value={`https://github.com/${gitHubUrl.slice(19)}`}
       />
       <Button
         text="Submit"
@@ -162,17 +162,20 @@ const styles = StyleSheet.create({
     height: height / 4,
     width: width / 2,
   },
+  flatList: {
+    flex: 0,
+    marginBottom: 50,
+  },
   input: {
     height: 50,
-    width: 300,
-    borderColor: "black",
+    width: "65%",
+    borderColor: COLORS.grey,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 25,
     alignSelf: "center",
     textAlign: "center",
     fontSize: 15,
-    margin: 20,
-    marginBottom: 30,
+    margin: 15,
   },
   carouselMessage: {
     marginTop: 30,

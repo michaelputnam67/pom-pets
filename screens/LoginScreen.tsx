@@ -1,6 +1,14 @@
-import { Text, Image, View, StyleSheet, TextInput, Modal } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  TextInput,
+  Modal,
+  Alert,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Components/Button";
 import AppLoader from "../Components/AppLoader";
 import { COLORS } from "../constants/Colors";
@@ -16,14 +24,22 @@ export default function LoginScreen({
   setUserName,
   userName,
   password,
+  modalStatus,
 }: {
   setPassword: any;
   setUserName: any;
   userName: string;
   password: string;
   login: any;
+  modalStatus: boolean;
 }) {
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (modalStatus === true) {
+      setModalVisible(true);
+    }
+  }, [modalStatus]);
 
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
@@ -63,7 +79,6 @@ export default function LoginScreen({
           <Button
             text="Sign In"
             onPress={() => {
-              setModalVisible(true);
               login();
             }}
           ></Button>

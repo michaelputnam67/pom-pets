@@ -1,5 +1,5 @@
-import { Text, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Alert, StyleSheet } from "react-native";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects, Pet } from "./interface";
 import Tabs from "./navigation/tabs";
@@ -13,11 +13,11 @@ export default function App() {
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
     undefined
   );
-  const [loginError, setLoginError] = useState(false);
   const [pets, setPets] = useState<Projects | null>(null);
   const [userWorkTime, setUserWorkTime] = useState(0);
   const [userShortPomTime, setUserShortPomTime] = useState(0);
   const [userLongPomTime, setUserLongPomTime] = useState(0);
+  const [modalStatus, setModalStatus] = useState(false);
 
   const resetLogin = () => {
     setUserName("");
@@ -27,17 +27,20 @@ export default function App() {
   const login = () => {
     if (password === "Password") {
       resetLogin();
-      setLoginError(false);
-      apiCalls.getUser(`${userName}`).then((data) => {
-        setUser(data.data);
-        setCurrentProject(data.data.attributes.projects[0]);
-        setPets(data.data.attributes.projects);
-        setUserWorkTime(data.data.attributes.settings.workTime);
-        setUserShortPomTime(data.data.attributes.settings.shortPomTime);
-        setUserLongPomTime(data.data.attributes.settings.longPomTime);
-      });
+      setModalStatus(true);
+      apiCalls
+        .getUser(`${userName}`)
+        .then((data) => {
+          setUser(data.data);
+          setCurrentProject(data.data.attributes.projects[0]);
+          setPets(data.data.attributes.projects);
+          setUserWorkTime(data.data.attributes.settings.workTime);
+          setUserShortPomTime(data.data.attributes.settings.shortPomTime);
+          setUserLongPomTime(data.data.attributes.settings.longPomTime);
+        })
+        .then(() => setModalStatus(false));
     } else {
-      setLoginError(true);
+      Alert.alert("Incorrect login information");
     }
   };
 
@@ -104,10 +107,8 @@ export default function App() {
           setUserName={setUserName}
           setPassword={setPassword}
           login={login}
+          modalStatus={modalStatus}
         />
-      )}
-      {loginError && (
-        <Text style={styles.error}>Invalid Username or Password</Text>
       )}
       {user && (
         <Tabs
