@@ -1,12 +1,4 @@
-import {
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TextInput,
-  Modal,
-  Alert,
-} from "react-native";
+import { Text, Image, View, StyleSheet, TextInput, Modal } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React, { useEffect, useState } from "react";
 import Button from "../Components/Button";
@@ -25,7 +17,9 @@ export default function LoginScreen({
   userName,
   password,
   modalStatus,
+  viewCreateProfile,
 }: {
+  viewCreateProfile: any;
   setPassword: any;
   setUserName: any;
   userName: string;
@@ -80,6 +74,12 @@ export default function LoginScreen({
             text="Sign In"
             onPress={() => {
               login();
+            }}
+          ></Button>
+          <Button
+            text="Create Profile"
+            onPress={() => {
+              viewCreateProfile(true);
             }}
           ></Button>
         </View>
