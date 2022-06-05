@@ -33,6 +33,7 @@ export default function ProjectTimer({
   const [pomType, setPomType] = useState("");
   const { mins, secs } = getRemaining(remainingSecs);
   const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
+  const [isNegative, setIsNegative] = useState(false)
 
   useEffect(() => {
     setRemainingSecs(userWorkTime * 60);
@@ -65,6 +66,9 @@ export default function ProjectTimer({
   };
 
   useEffect(() => {
+    if(remainingSecs === 0) {
+      setIsNegative(true)
+    }
     let interval: NodeJS.Timeout | undefined;
     if (isTraining) {
       interval = setInterval(() => {
@@ -84,6 +88,41 @@ export default function ProjectTimer({
     }
   };
 
+  const collectWorkTime = () => {
+    let negTime = 0;
+    let workTime = 0;
+    let breakTime = 0;
+    let overBreakTime = 0;
+
+    // worktime not on break 
+    if (!isNegative && !onPom) {
+      workTime = (userWorkTime * 60) - remainingSecs
+    // neg work time not on break
+    } else if (isNegative && !onPom) {
+      negTime = -remainingSecs
+    // worktime on break
+    } else if (!isNegative && onPom) {
+      if (pomType === 'long') {
+        breakTime = (userLongPomTime * 60) - remainingSecs 
+      } else if (pomType === 'short') {
+        breakTime = (userShortPomTime * 60) - remainingSecs
+      }
+      // neg worktime on break
+    } else if (isNegative && onPom) {
+      if (pomType === 'long') {
+        overBreakTime = -remainingSecs 
+        breakTime = breakTime + (userLongPomTime * 60)
+      } else if (pomType === 'short') {
+        overBreakTime = -remainingSecs
+        breakTime = breakTime + (userShortPomTime * 60)
+      }
+    }
+    console.log("WORKTIME", workTime, "NEGTIME", negTime)
+    console.log("BREAKTIME", breakTime, "OVERBREAKTIME", overBreakTime)
+  }
+
+  
+
   return (
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
       <View style={styles.petStatusBar}>
@@ -102,6 +141,7 @@ export default function ProjectTimer({
       {!onPom && (
         <Button
           onPress={isTraining ? reset : toggle}
+          //need to add setIsNegative(false) to onPress and collectWorkTime()
           text={isTraining ? "End Training" : "Start Training"}
           isTraining={isTraining}
         ></Button>
@@ -110,12 +150,26 @@ export default function ProjectTimer({
         <Button onPress={seeStats} text="See Stats"></Button>
       )}
       {isTraining && !onPom && (
-        <Button onPress={feedPet} text="Feed Pet"></Button>
+        <Button onPress={() => {
+          feedPet();
+          collectWorkTime();
+          setIsNegative(false)
+          }
+        } text="Feed Pet"></Button>
       )}
       {isTraining && !onPom && (
-        <Button onPress={walkPet} text="Walk Pet"></Button>
+        <Button onPress={() => {
+          walkPet();
+          setIsNegative(false);
+          } 
+        } text="Walk Pet"></Button>
       )}
-      {onPom && <Button onPress={reset} text="End Break"></Button>}
+      {onPom && <Button onPress={() => {
+        reset();
+        collectWorkTime();
+        setIsNegative(false);
+        }
+        } text="End Break"></Button>}
       {onPom && (
         <View>
           <Text style={styles.pomText}>{showMessage()}</Text>

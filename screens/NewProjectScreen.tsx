@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 
 const { width, height } = Dimensions.get("window");
 const itemSize = width / 2;
@@ -104,68 +106,73 @@ export default function NewProjectScreen({
   };
 
   return (
-    <SafeAreaView>
-      <Text style={styles.h1}>New Project</Text>
-      <Animated.View>
-        <Animated.FlatList
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: xScroll } } }],
-            { useNativeDriver: true }
-          )}
-          bounces={false}
-          horizontal={true}
-          data={images}
-          onMomentumScrollEnd={(event) => {
-            const index = Math.round(
-              event.nativeEvent.contentOffset.x / itemSize
-            );
-            setPet(images[index]);
-          }}
-          showsHorizontalScrollIndicator={false}
-          decelerationRate="fast"
-          snapToInterval={itemSize}
-          contentContainerStyle={{
-            paddingHorizontal: itemSpacing,
-          }}
-          style={{ flex: 0 }}
-          renderItem={renderIcon}
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView>
+        <Text style={styles.h1}>New Project</Text>
+        <Animated.View>
+          <Animated.FlatList
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: xScroll } } }],
+              { useNativeDriver: true }
+            )}
+            bounces={false}
+            horizontal={true}
+            data={images}
+            onMomentumScrollEnd={(event) => {
+              const index = Math.round(
+                event.nativeEvent.contentOffset.x / itemSize
+              );
+              setPet(images[index]);
+            }}
+            showsHorizontalScrollIndicator={false}
+            decelerationRate="fast"
+            snapToInterval={itemSize}
+            contentContainerStyle={{
+              paddingHorizontal: itemSpacing,
+            }}
+            style={{ flex: 0 }}
+            renderItem={renderIcon}
+          />
+        </Animated.View>
+        <TextInput
+          autoCapitalize={"none"}
+          style={styles.input}
+          onChangeText={setProjectName}
+          value={projectName}
+          placeholder={"Project Name"}
         />
-      </Animated.View>
-      <TextInput
-        autoCapitalize={"none"}
-        style={styles.input}
-        onChangeText={setProjectName}
-        value={projectName}
-        placeholder={"Project Name"}
-      />
-      <TextInput
-        autoCapitalize={"none"}
-				autoCorrect={false}
-        style={styles.input}
-        onChangeText={setGitHubUrl}
-				value={`https://github.com/${gitHubUrl.slice(19)}`} 
-      />
-      <Button
-        text="Submit"
-        onPress={() => {
-          if (!pet.image || !projectName || !gitHubUrl) {
-            Alert.alert("Please fill in all inputs!");
-          } else if (!checkURL(gitHubUrl)) {
-            Alert.alert("Please provide a valid url");
-          } else {
-            createNewProject(pet, projectName, gitHubUrl);
-            navigation.navigate("Pet");
-            loadNewProject();
-            clearInputs();
+        <TextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          style={styles.input}
+          onChangeText={setGitHubUrl}
+          value={`https://github.com/${gitHubUrl.slice(19)}`} 
+        />
+        <Button
+          text="Submit"
+          onPress={() => {
+            if (!pet.image || !projectName || !gitHubUrl) {
+              Alert.alert("Please fill in all inputs!");
+            } else if (!checkURL(gitHubUrl)) {
+              Alert.alert("Please provide a valid url");
+            } else {
+              createNewProject(pet, projectName, gitHubUrl);
+              navigation.navigate("Pet");
+              loadNewProject();
+              clearInputs();
+              }
             }
           }
-        }
-      />
+        />
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   h1: {
     fontFamily: "Nunito_900Black",
     alignSelf: "center",
