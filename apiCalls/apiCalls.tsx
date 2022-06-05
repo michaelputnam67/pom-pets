@@ -16,8 +16,19 @@ const apiCalls = {
       body: JSON.stringify(patch),
       redirect: "follow",
     })
-      .then((response) => response.text())
-      .catch((error) => console.log("error", error));
+      .then((res) => res.text())
+      .catch((err) => Alert.alert(err));
+  },
+
+  createProject: (post: any) => {
+    fetch("https://pom-pets-api.herokuapp.com/api/v1/projects", {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(post),
+      redirect: "follow",
+    })
+      .then((res) => res.json())
+      .catch((err) => Alert.alert(err));
   },
 };
 

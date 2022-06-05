@@ -19,6 +19,11 @@ export interface Settings {
   shortPomTime: number;
 }
 
+export interface Pet {
+  image: string | null;
+  name: string | null;
+}
+
 export type Projects = [Project];
 
 export interface Project {

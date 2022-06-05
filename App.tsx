@@ -1,7 +1,7 @@
 import {Text, StyleSheet} from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { User, Project, Projects } from "./interface";
+import { User, Project, Projects, Pet } from "./interface";
 import Tabs from "./navigation/tabs";
 import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
@@ -25,6 +25,7 @@ export default function App() {
     user?.attributes.settings.longPomTime
   );
 
+  
   const login = () => {
     if (userName === "JoeRupp" && password === "PigeonsRLife") {
       setLoginError(false)
@@ -38,6 +39,27 @@ export default function App() {
     }
   };
 
+  const createNewProject = (pet: Pet, projectName: string, gitHubUrl: string ) => {
+    const post = {
+      projectName: projectName,
+      petHealth: 3,
+      petLevel: 1,
+      projectPet: pet.image,
+      projectGitHub: gitHubUrl,
+      petImage: pet.name,
+      "user_id": user?.id,
+      stats: {
+        totalWorkTime: 0,
+        totalWorkSessions: 0,
+        totalShortPomTime: 0,
+        totalShortSessions: 0,
+        totalLongPomTime: 0,
+        totalLongSessions: 0
+      }
+    }
+    apiCalls.createProject(post)
+  }
+  
   const setWorkTime = (text: number) => {
     setUserWorkTime(text);
     apiCalls.updateUser({ settings: { workTime: `${text}` } });
@@ -89,6 +111,7 @@ export default function App() {
           setWorkTime={setWorkTime}
           setShortPomTime={setShortPomTime}
           setLongPomTime={setLongPomTime}
+          createNewProject={createNewProject}
         />
       )}
     </NavigationContainer>

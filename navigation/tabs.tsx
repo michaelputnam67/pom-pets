@@ -20,6 +20,8 @@ const Tabs = ({
   setWorkTime,
   setShortPomTime,
   setLongPomTime,
+  createNewProject
+
 }: {
   projects: Projects | null;
   user: User;
@@ -29,6 +31,7 @@ const Tabs = ({
   setWorkTime: any;
   setShortPomTime: any;
   setLongPomTime: any;
+  createNewProject: any
 }) => {
   return (
     <Tab.Navigator
@@ -68,10 +71,9 @@ const Tabs = ({
 
       <Tab.Screen
       name="New Project"
-      component={NewProjectScreen}
-      // children={(props) => (
-      //   <NewProjectScreen  {...props} />
-      // )}
+      children={(props) => (
+        <NewProjectScreen createNewProject={createNewProject}  {...props} />
+      )}
       options={{
         tabBarButton: () => null
       }}
