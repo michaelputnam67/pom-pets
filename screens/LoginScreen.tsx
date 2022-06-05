@@ -8,7 +8,7 @@ import {
   Keyboard,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import {
@@ -16,6 +16,7 @@ import {
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
+import CreateNewUserScreen from "./CreateNewUserScreen";
 
 export default function LoginScreen({
   login,
@@ -30,6 +31,7 @@ export default function LoginScreen({
   password: string;
   login: any;
 }) {
+  const [signingUp, setSignUp] = useState<boolean | null>(null)
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -37,6 +39,12 @@ export default function LoginScreen({
 
   if (!fontsLoaded) {
     return <></>;
+  }
+
+  if(signingUp) {
+    return (
+      <CreateNewUserScreen />
+    )
   }
 
   return (
@@ -65,6 +73,7 @@ export default function LoginScreen({
           <Button text="Sign In" onPress={login}></Button>
         </View>
       </View>
+      <Button text="Sign Up" onPress={() => setSignUp(true)} ></Button>
     </KeyboardAwareScrollView>
   );
 }
