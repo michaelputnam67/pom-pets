@@ -47,11 +47,11 @@ const images = [
 export default function NewProjectScreen({
   createNewProject,
   navigation,
-  login
+  loadNewProject
 }: {
   createNewProject: any;
   navigation: any;
-  login: any;
+  loadNewProject: any;
 }) {
   const [pet, setPet] = useState(images[0]);
   const [projectName, setProjectName] = useState("");
@@ -61,9 +61,11 @@ export default function NewProjectScreen({
     setPet(images[0]);
   }
 
-  useEffect(() => {
-    login();
-  }, [currentProject]);
+  const clearInputs = () => {
+    setProjectName('')
+    setGitHubUrl('')
+    setPet(images[0])
+  }
 
   const xScroll = useRef(new Animated.Value(0)).current;
   const renderIcon = ({ item, index }: { item: any; index: any }) => {
@@ -152,8 +154,9 @@ export default function NewProjectScreen({
             Alert.alert("Please provide a valid url");
           } else {
             createNewProject(pet, projectName, gitHubUrl);
-            login();
             navigation.navigate("Pet");
+            loadNewProject();
+            clearInputs();
             }
           }
         }

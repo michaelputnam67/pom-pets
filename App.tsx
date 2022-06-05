@@ -36,6 +36,17 @@ export default function App() {
     }
   };
 
+  const loadNewProject = () => {
+    apiCalls.getUser().then((data) => {
+      setUser(data.data);
+      setCurrentProject(data.data.attributes.projects[data.data.attributes.projects.length - 1]);
+      setPets(data.data.attributes.projects);
+      setUserWorkTime(data.data.attributes.settings.workTime);
+      setUserShortPomTime(data.data.attributes.settings.shortPomTime);
+      setUserLongPomTime(data.data.attributes.settings.longPomTime);
+    });
+  }
+
   const createNewProject = (pet: Pet, projectName: string, gitHubUrl: string ) => {
     const post = {
       projectName: projectName,
@@ -83,6 +94,7 @@ export default function App() {
     const project: Project | undefined = pets.find((pet) => {
       return item.id === pet.id;
     });
+    console.log("PROJECT", project)
     setCurrentProject(project);
   };
 
@@ -114,7 +126,7 @@ export default function App() {
           userWorkTime={userWorkTime}
           userShortPomTime={userShortPomTime}
           userLongPomTime={userLongPomTime}
-          login={login}
+          loadNewProject={loadNewProject}
         />
       )}
     </NavigationContainer>
