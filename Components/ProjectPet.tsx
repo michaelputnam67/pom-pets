@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, Image, Pressable, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
+import { useFonts, Nunito_500Medium } from "@expo-google-fonts/nunito";
 
 export default function ProjectPet({
   navigation,
@@ -13,6 +14,14 @@ export default function ProjectPet({
   updateCurrentProject: any;
   item: any;
 }) {
+  let [fontsLoaded] = useFonts({
+    Nunito_500Medium,
+  });
+
+  if (!fontsLoaded) {
+    return <></>;
+  }
+
   return (
     <Pressable
       style={styles.main}
@@ -65,8 +74,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   text: {
-    fontSize: 20,
     color: COLORS.primary,
     alignSelf: "center",
+    fontFamily: "Nunito_500Medium",
+    fontSize: 18,
   },
 });

@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     margin: 10,
+
+    shadowColor: "#717171",
+    shadowOpacity: 0.5,
+    elevation: 5,
+    backgroundColor: "#0000",
+    shadowRadius: 5,
+    shadowOffset: { width: 3, height: 5 },
+    borderWidth: 0,
   },
   text: {
     fontFamily: "Nunito_900Black",

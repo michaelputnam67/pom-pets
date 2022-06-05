@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet, SafeAreaView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
+import HealthIcons from "../Components/HealthIcons";
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -15,18 +16,27 @@ const getRemaining = (time: number) => {
 export default function ProjectTimer({
   navigation,
   currentProject,
+  userWorkTime,
+  userShortPomTime,
+  userLongPomTime,
 }: {
   navigation: any;
   currentProject?: Project | undefined;
+  userWorkTime: any;
+  userShortPomTime: any;
+  userLongPomTime: any;
 }) {
-
-  const [remainingSecs, setRemainingSecs] = useState(1500);
+  const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
   const [negativeTime, setNegativeTime] = useState(0);
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
   const { mins, secs } = getRemaining(remainingSecs);
-  const [image, setImage] = useState(require('../assets/Pets/PigeonPet.png'))
+  const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
+
+  useEffect(() => {
+    setRemainingSecs(userWorkTime * 60);
+  }, [userWorkTime]);
 
   const toggle = () => {
     setIsTraining(!isTraining);
@@ -37,19 +47,19 @@ export default function ProjectTimer({
   };
 
   const reset = () => {
-    setRemainingSecs(1500);
+    setRemainingSecs(userWorkTime * 60);
     setIsTraining(false);
     setOnPom(false);
   };
 
   const feedPet = () => {
-    setRemainingSecs(300);
+    setRemainingSecs(userShortPomTime * 60);
     setOnPom(true);
     setPomType("short");
   };
 
   const walkPet = () => {
-    setRemainingSecs(900);
+    setRemainingSecs(userLongPomTime * 60);
     setOnPom(true);
     setPomType("long");
   };
@@ -68,30 +78,17 @@ export default function ProjectTimer({
 
   const showMessage = () => {
     if (pomType === "short") {
-      return "You Fed your Pet!";
+      return "You fed your pet!";
     } else if (pomType === "long") {
-      return "You walked your Pet!";
+      return "You walked your pet!";
     }
   };
 
   return (
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
       <View style={styles.petStatusBar}>
-        <Text style={styles.text}>Lvl 1</Text>
-        <View style={styles.healthContainer}>
-          <Image
-            style={styles.healthIcon}
-            source={require("../assets/Icons-Buttons/HeartIcon-Grey-Empty.png")}
-          />
-          <Image
-            style={styles.healthIcon}
-            source={require("../assets/Icons-Buttons/HeartIcon-Grey.png")}
-          />
-          <Image
-            style={styles.healthIcon}
-            source={require("../assets/Icons-Buttons/HeartIcon-Grey.png")}
-          />
-        </View>
+        <Text style={styles.text}>Level {currentProject.petLevel}</Text>
+        <HealthIcons health={currentProject?.petHealth} />
       </View>
       <Image
         style={styles.pet}
@@ -116,7 +113,7 @@ export default function ProjectTimer({
         <Button onPress={feedPet} text="Feed Pet"></Button>
       )}
       {isTraining && !onPom && (
-        <Button onPress={walkPet} text="Take a Walk"></Button>
+        <Button onPress={walkPet} text="Walk Pet"></Button>
       )}
       {onPom && <Button onPress={reset} text="End Break"></Button>}
       {onPom && (
@@ -124,7 +121,7 @@ export default function ProjectTimer({
           <Text style={styles.pomText}>{showMessage()}</Text>
           <Text
             style={styles.pomText}
-          >{`Great work, time to take a ${pomType} break`}</Text>
+          >{`Great work, time to take a ${pomType} pom.`}</Text>
         </View>
       )}
     </SafeAreaView>
@@ -132,15 +129,6 @@ export default function ProjectTimer({
 }
 
 const styles = StyleSheet.create({
-  healthIcon: {
-    height: 35,
-    width: 35,
-    tintColor: COLORS.grey,
-  },
-  healthContainer: {
-    display: "flex",
-    flexDirection: "row",
-  },
   petStatusBar: {
     display: "flex",
     flexDirection: "row",
@@ -151,6 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: "bold",
     color: COLORS.grey,
+    fontFamily: "Nunito_800ExtraBold",
   },
   pet: {
     height: 280,
@@ -158,12 +147,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 30,
   },
-  petContainer: {},
   timerText: {
-    color: COLORS.primary,
+    color: "black",
     fontSize: 75,
     marginBottom: 20,
     alignSelf: "center",
+    fontFamily: "Nunito_900Black",
   },
   background: {
     flex: 1,
@@ -179,5 +168,6 @@ const styles = StyleSheet.create({
     width: "80%",
     fontSize: 30,
     marginTop: 10,
+    fontFamily: "Nunito_800ExtraBold",
   },
 });

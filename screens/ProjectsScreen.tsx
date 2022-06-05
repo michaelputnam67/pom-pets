@@ -10,17 +10,25 @@ import {
 import ProjectPet from "../Components/ProjectPet";
 import { COLORS } from "../constants/Colors";
 import { Projects } from "../interface";
+import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
 
 export default function ProjectsScreen({
   navigation,
   projects,
-  updateCurrentProject
+  updateCurrentProject,
 }: {
   updateCurrentProject: any;
   navigation?: any;
   projects: Projects | null;
 }) {
-  
+  let [fontsLoaded] = useFonts({
+    Nunito_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return <></>;
+  }
+
   const renderPet = ({
     item,
   }: {
@@ -31,14 +39,13 @@ export default function ProjectsScreen({
       item={item}
       key={item.id}
       name={item.projectName}
-      // source={item.petImage}
       updateCurrentProject={updateCurrentProject}
     />
   );
 
   return (
     <SafeAreaView style={styles.view}>
-      <Text style={styles.header}>Your Pets</Text>
+      <Text style={styles.h1}>Your Pets</Text>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={projects}
@@ -73,11 +80,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  header: {
+  h1: {
+    fontFamily: "Nunito_900Black",
+    alignSelf: "center",
     color: COLORS.primary,
     fontSize: 40,
-    fontWeight: "bold",
     marginBottom: 10,
   },
 });
-
