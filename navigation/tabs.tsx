@@ -24,6 +24,7 @@ const Tabs = ({
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
+  login
 }: {
   projects: Projects | null;
   user: User;
@@ -37,6 +38,7 @@ const Tabs = ({
   userWorkTime: any;
   userShortPomTime: any;
   userLongPomTime: any;
+  login: any;
 }) => {
   return (
     <Tab.Navigator
@@ -77,7 +79,7 @@ const Tabs = ({
       <Tab.Screen
       name="New Project"
       children={(props) => (
-        <NewProjectScreen createNewProject={createNewProject}  {...props} />
+        <NewProjectScreen createNewProject={createNewProject}  login={login} {...props} />
       )}
       options={{
         tabBarButton: () => null

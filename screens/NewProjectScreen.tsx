@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Alert,
   Dimensions,
@@ -46,8 +46,12 @@ const images = [
 
 export default function NewProjectScreen({
   createNewProject,
+  navigation,
+  login
 }: {
   createNewProject: any;
+  navigation: any;
+  login: any;
 }) {
   const [pet, setPet] = useState(images[0]);
   const [projectName, setProjectName] = useState("");
@@ -56,6 +60,10 @@ export default function NewProjectScreen({
   if (!pet.image) {
     setPet(images[0]);
   }
+
+  useEffect(() => {
+    login();
+  }, [currentProject]);
 
   const xScroll = useRef(new Animated.Value(0)).current;
   const renderIcon = ({ item, index }: { item: any; index: any }) => {
@@ -139,13 +147,16 @@ export default function NewProjectScreen({
         text="Submit"
         onPress={() => {
           if (!pet.image || !projectName || !gitHubUrl) {
-            Alert.alert("Please fill out all the forms!");
+            Alert.alert("Please fill in all inputs!");
           } else if (!checkURL(gitHubUrl)) {
             Alert.alert("Please provide a valid url");
           } else {
             createNewProject(pet, projectName, gitHubUrl);
+            login();
+            navigation.navigate("Pet");
+            }
           }
-        }}
+        }
       />
     </SafeAreaView>
   );

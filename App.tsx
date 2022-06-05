@@ -114,6 +114,7 @@ export default function App() {
           userWorkTime={userWorkTime}
           userShortPomTime={userShortPomTime}
           userLongPomTime={userLongPomTime}
+          login={login}
         />
       )}
     </NavigationContainer>
