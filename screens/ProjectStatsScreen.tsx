@@ -17,9 +17,17 @@ import * as Linking from "expo-linking";
 export default function ProjectStatisticsScreen({
   currentProject,
   navigation,
+  totalWorkTime,
+  totalNegWorkTime,
+  totalBreakTime,
+  totalOverBreakTime
 }: {
   navigation: any;
   currentProject: Project | undefined;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
 }) {
   const toTraining = () => {
     navigation.navigate("Pet");
@@ -54,17 +62,17 @@ export default function ProjectStatisticsScreen({
           </View>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={currentProject?.stats.totalWorkTime} />
+          <RenderTime time={totalWorkTime} />
           <Text style={styles.label}>Total Training Time</Text>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={currentProject?.stats.totalLongPomTime} />
-          <Text style={styles.label}>Total Long Pom Time</Text>
+          <RenderTime time={totalBreakTime} />
+          <Text style={styles.label}>Total Pom Time</Text>
         </View>
-        <View style={styles.statContainer}>
+        {/* <View style={styles.statContainer}>
           <RenderTime time={currentProject?.stats.totalShortPomTime} />
           <Text style={styles.label}>Total Short Pom Time</Text>
-        </View>
+        </View> */}
         <View style={styles.statContainer}>
           <Text style={styles.number}>
             {currentProject?.stats.totalWorkSessions}
@@ -75,7 +83,7 @@ export default function ProjectStatisticsScreen({
           <Text style={styles.number}>
             {currentProject?.stats.totalShortSessions}
           </Text>
-          <Text style={styles.label}>Number of Short Breaks</Text>
+          <Text style={styles.label}>Number of Breaks</Text>
         </View>
         <View style={{ marginBottom: 50 }}>
           <Text

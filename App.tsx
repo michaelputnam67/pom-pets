@@ -19,6 +19,11 @@ export default function App() {
   const [userShortPomTime, setUserShortPomTime] = useState(0);
   const [userLongPomTime, setUserLongPomTime] = useState(0);
 
+  const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
+  const [totalWorkTime, setTotalWorkTime] = useState(0)
+  const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
+  const [totalBreakTime, setTotalBreakTime] = useState(0)
+
   
   const login = () => {
     if (userName === "Joe" && password === "PigeonsRLife") {
@@ -98,6 +103,20 @@ export default function App() {
     setCurrentProject(project);
   };
 
+  const updateTimerStats = (newState: number, state: string) => {
+    if (state === 'workTime') {
+      setTotalWorkTime(totalWorkTime + newState)
+    }else if (state === 'negWorkTime') {
+      setTotalNegWorkTime(totalNegWorkTime + newState)
+    }else if (state === 'breakTime') {
+      setTotalBreakTime(totalBreakTime + newState)
+    } else if (state === 'overBreakTime') {
+      setTotalOverBreakTime(totalOverBreakTime + newState)
+    }
+   
+    
+    
+  }
   return (
     <NavigationContainer>
       {!user && (
@@ -127,6 +146,11 @@ export default function App() {
           userShortPomTime={userShortPomTime}
           userLongPomTime={userLongPomTime}
           loadNewProject={loadNewProject}
+          totalWorkTime={totalWorkTime}
+          totalNegWorkTime={totalNegWorkTime}
+          totalBreakTime={totalBreakTime}
+          totalOverBreakTime={totalOverBreakTime}
+          updateTimerStats={updateTimerStats}
         />
       )}
     </NavigationContainer>

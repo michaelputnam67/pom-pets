@@ -172,6 +172,7 @@ export default function NewProjectScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.white
   },
   h1: {
     fontFamily: "Nunito_900Black",

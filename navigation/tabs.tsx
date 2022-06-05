@@ -24,7 +24,12 @@ const Tabs = ({
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
-  loadNewProject
+  loadNewProject,
+  totalWorkTime,
+  totalNegWorkTime,
+  totalBreakTime,
+  totalOverBreakTime,
+  updateTimerStats,
 }: {
   projects: Projects | null;
   user: User;
@@ -39,6 +44,11 @@ const Tabs = ({
   userShortPomTime: any;
   userLongPomTime: any;
   loadNewProject: any;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  updateTimerStats: any,
 }) => {
   return (
     <Tab.Navigator
@@ -121,7 +131,16 @@ const Tabs = ({
       <Tab.Screen
         name="Pet"
         children={(props) => (
-          <ProjectTimer currentProject={currentProject} userWorkTime={userWorkTime} userShortPomTime={userShortPomTime} userLongPomTime={userLongPomTime} {...props} />
+          <ProjectTimer 
+          updateTimerStats={updateTimerStats}
+          totalWorkTime={totalWorkTime}
+          totalNegWorkTime={totalNegWorkTime}
+          totalBreakTime={totalBreakTime}
+          totalOverBreakTime={totalOverBreakTime}
+          currentProject={currentProject} 
+          userWorkTime={userWorkTime} 
+          userShortPomTime={userShortPomTime} 
+          userLongPomTime={userLongPomTime} {...props} />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },
@@ -149,7 +168,12 @@ const Tabs = ({
       <Tab.Screen
         name="Stats"
         children={(props) => (
-          <ProjectStatisticsScreen currentProject={currentProject} {...props} />
+          <ProjectStatisticsScreen 
+          totalWorkTime={totalWorkTime}
+          totalNegWorkTime={totalNegWorkTime}
+          totalBreakTime={totalBreakTime}
+          totalOverBreakTime={totalOverBreakTime}
+          currentProject={currentProject} {...props} />
         )}
         options={{
           tabBarButton: () => null

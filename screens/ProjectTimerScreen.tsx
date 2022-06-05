@@ -19,15 +19,30 @@ export default function ProjectTimer({
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
+  totalWorkTime,
+  totalNegWorkTime,
+  totalBreakTime,
+  totalOverBreakTime,
+  updateTimerStats
 }: {
   navigation: any;
   currentProject?: Project | undefined;
   userWorkTime: any;
   userShortPomTime: any;
   userLongPomTime: any;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  updateTimerStats: any;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
-  const [negativeTime, setNegativeTime] = useState(0);
+
+  // const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
+  // const [totalWorkTime, setTotalWorkTime] = useState(0)
+  // const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
+  // const [totalBreakTime, setTotalBreakTime] = useState(0)
+
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
@@ -52,6 +67,12 @@ export default function ProjectTimer({
     setIsTraining(false);
     setOnPom(false);
   };
+
+  const handleButtonPress= () => {
+    isTraining ? reset() : toggle();
+    collectWorkTime();
+    setIsNegative(false)
+  } 
 
   const feedPet = () => {
     setRemainingSecs(userShortPomTime * 60);
@@ -89,36 +110,29 @@ export default function ProjectTimer({
   };
 
   const collectWorkTime = () => {
-    let negTime = 0;
-    let workTime = 0;
-    let breakTime = 0;
-    let overBreakTime = 0;
-
     // worktime not on break 
     if (!isNegative && !onPom) {
-      workTime = (userWorkTime * 60) - remainingSecs
+      updateTimerStats(((userWorkTime * 60) - remainingSecs), 'workTime')
     // neg work time not on break
     } else if (isNegative && !onPom) {
-      negTime = -remainingSecs
-    // worktime on break
+      updateTimerStats((-remainingSecs), 'negWorkTime')
+    // time on break
     } else if (!isNegative && onPom) {
       if (pomType === 'long') {
-        breakTime = (userLongPomTime * 60) - remainingSecs 
+        updateTimerStats(((userLongPomTime * 60) - remainingSecs), 'breakTime') 
       } else if (pomType === 'short') {
-        breakTime = (userShortPomTime * 60) - remainingSecs
+        updateTimerStats(((userShortPomTime * 60) - remainingSecs), 'breakTime')
       }
-      // neg worktime on break
+      // neg time on break
     } else if (isNegative && onPom) {
       if (pomType === 'long') {
-        overBreakTime = -remainingSecs 
-        breakTime = breakTime + (userLongPomTime * 60)
+        updateTimerStats((-remainingSecs), 'overBreakTime')
+        updateTimerStats((totalBreakTime + (userLongPomTime * 60)), 'breakTime')
       } else if (pomType === 'short') {
-        overBreakTime = -remainingSecs
-        breakTime = breakTime + (userShortPomTime * 60)
+        updateTimerStats((-remainingSecs), 'overBreakTime')
+        updateTimerStats((totalBreakTime + (userShortPomTime * 60)), 'breakTime')
       }
     }
-    console.log("WORKTIME", workTime, "NEGTIME", negTime)
-    console.log("BREAKTIME", breakTime, "OVERBREAKTIME", overBreakTime)
   }
 
   
@@ -134,14 +148,15 @@ export default function ProjectTimer({
         source={
           currentProject?.petImage === "tomato-image"
             ? require("../assets/Pets/TomatoPet.png")
-            : require("../assets/Pets/PigeonPet.png")
+            : (currentProject?.petImage === "pigeon-image") ?
+            require("../assets/Pets/PigeonPet.png")
+            : require("../assets/Pets/CandlePet.png")
         }
       />
-      <Text style={styles.timerText}>{`${mins} : ${secs}`}</Text>
+      <Text style={isNegative ? styles.timerText1 : styles.timerText }>{`${mins} : ${secs}`}</Text>
       {!onPom && (
         <Button
-          onPress={isTraining ? reset : toggle}
-          //need to add setIsNegative(false) to onPress and collectWorkTime()
+          onPress={() => handleButtonPress()}
           text={isTraining ? "End Training" : "Start Training"}
           isTraining={isTraining}
         ></Button>
@@ -160,6 +175,7 @@ export default function ProjectTimer({
       {isTraining && !onPom && (
         <Button onPress={() => {
           walkPet();
+          collectWorkTime();
           setIsNegative(false);
           } 
         } text="Walk Pet"></Button>
@@ -203,6 +219,13 @@ const styles = StyleSheet.create({
   },
   timerText: {
     color: "black",
+    fontSize: 75,
+    marginBottom: 20,
+    alignSelf: "center",
+    fontFamily: "Nunito_900Black",
+  },
+  timerText1: {
+    color: COLORS.primary,
     fontSize: 75,
     marginBottom: 20,
     alignSelf: "center",
