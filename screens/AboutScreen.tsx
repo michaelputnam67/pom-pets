@@ -3,24 +3,14 @@ import { SafeAreaView } from "react-native";
 import { COLORS } from "../constants/Colors";
 import {
   useFonts,
-  Nunito_200ExtraLight,
-  Nunito_300Light,
-  Nunito_400Regular,
   Nunito_500Medium,
-  Nunito_600SemiBold,
-  Nunito_700Bold,
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
 
 export default function AboutScreen({ navigation }: { navigation: any }) {
   let [fontsLoaded] = useFonts({
-    Nunito_200ExtraLight,
-    Nunito_300Light,
-    Nunito_400Regular,
     Nunito_500Medium,
-    Nunito_600SemiBold,
-    Nunito_700Bold,
     Nunito_800ExtraBold,
     Nunito_900Black,
   });

@@ -34,6 +34,10 @@ export default function ProjectTimer({
   const { mins, secs } = getRemaining(remainingSecs);
   const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
 
+  useEffect(() => {
+    setRemainingSecs(userWorkTime * 60);
+  }, [userWorkTime]);
+
   const toggle = () => {
     setIsTraining(!isTraining);
   };
@@ -47,10 +51,6 @@ export default function ProjectTimer({
     setIsTraining(false);
     setOnPom(false);
   };
-
-  useEffect(() => {
-    reset;
-  });
 
   const feedPet = () => {
     setRemainingSecs(userShortPomTime * 60);
@@ -78,9 +78,9 @@ export default function ProjectTimer({
 
   const showMessage = () => {
     if (pomType === "short") {
-      return "You Fed your Pet!";
+      return "You fed your pet!";
     } else if (pomType === "long") {
-      return "You walked your Pet!";
+      return "You walked your pet!";
     }
   };
 
@@ -113,7 +113,7 @@ export default function ProjectTimer({
         <Button onPress={feedPet} text="Feed Pet"></Button>
       )}
       {isTraining && !onPom && (
-        <Button onPress={walkPet} text="Take a Walk"></Button>
+        <Button onPress={walkPet} text="Walk Pet"></Button>
       )}
       {onPom && <Button onPress={reset} text="End Break"></Button>}
       {onPom && (
@@ -121,7 +121,7 @@ export default function ProjectTimer({
           <Text style={styles.pomText}>{showMessage()}</Text>
           <Text
             style={styles.pomText}
-          >{`Great work, time to take a ${pomType} break`}</Text>
+          >{`Great work, time to take a ${pomType} pom.`}</Text>
         </View>
       )}
     </SafeAreaView>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: "bold",
     color: COLORS.grey,
+    fontFamily: "Nunito_800ExtraBold",
   },
   pet: {
     height: 280,
@@ -146,12 +147,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 30,
   },
-  petContainer: {},
   timerText: {
     color: "black",
     fontSize: 75,
     marginBottom: 20,
     alignSelf: "center",
+    fontFamily: "Nunito_900Black",
   },
   background: {
     flex: 1,
@@ -167,5 +168,6 @@ const styles = StyleSheet.create({
     width: "80%",
     fontSize: 30,
     marginTop: 10,
+    fontFamily: "Nunito_800ExtraBold",
   },
 });
