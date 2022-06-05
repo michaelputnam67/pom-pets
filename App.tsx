@@ -7,8 +7,8 @@ import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
-  const [userName, setUserName] = useState("Joe");
-  const [password, setPassword] = useState("PigeonsRLife");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
     undefined
@@ -19,11 +19,16 @@ export default function App() {
   const [userShortPomTime, setUserShortPomTime] = useState(0);
   const [userLongPomTime, setUserLongPomTime] = useState(0);
 
-  
+  const resetLogin = () => {
+    setUserName("");
+    setPassword("");
+  };
+
   const login = () => {
-    if (userName === "Joe" && password === "PigeonsRLife") {
+    if (password === "Password") {
+      resetLogin();
       setLoginError(false);
-      apiCalls.getUser().then((data) => {
+      apiCalls.getUser(`${userName}`).then((data) => {
         setUser(data.data);
         setCurrentProject(data.data.attributes.projects[0]);
         setPets(data.data.attributes.projects);
@@ -36,7 +41,11 @@ export default function App() {
     }
   };
 
-  const createNewProject = (pet: Pet, projectName: string, gitHubUrl: string ) => {
+  const createNewProject = (
+    pet: Pet,
+    projectName: string,
+    gitHubUrl: string
+  ) => {
     const post = {
       projectName: projectName,
       petHealth: 3,
@@ -44,19 +53,19 @@ export default function App() {
       projectPet: pet.image,
       projectGitHub: gitHubUrl,
       petImage: pet.name,
-      "user_id": user?.id,
+      user_id: user?.id,
       stats: {
         totalWorkTime: 0,
         totalWorkSessions: 0,
         totalShortPomTime: 0,
         totalShortSessions: 0,
         totalLongPomTime: 0,
-        totalLongSessions: 0
-      }
-    }
-    apiCalls.createProject(post)
-  }
-  
+        totalLongSessions: 0,
+      },
+    };
+    apiCalls.createProject(post);
+  };
+
   const setWorkTime = (text: number) => {
     setUserWorkTime(text);
     apiCalls.updateUser({ settings: { workTime: `${text}` } });
