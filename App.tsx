@@ -5,6 +5,11 @@ import { User, Project, Projects, Pet } from "./interface";
 import Tabs from "./navigation/tabs";
 import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
+import * as Application from 'expo-application';
+
+
+
+
 
 export default function App() {
   const [userName, setUserName] = useState("Joe");

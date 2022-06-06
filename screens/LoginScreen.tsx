@@ -16,7 +16,6 @@ import {
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
-import CreateNewUserScreen from "./CreateNewUserScreen";
 
 export default function LoginScreen({
   login,
@@ -31,7 +30,6 @@ export default function LoginScreen({
   password: string;
   login: any;
 }) {
-  const [signingUp, setSignUp] = useState<boolean | null>(null)
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -39,12 +37,6 @@ export default function LoginScreen({
 
   if (!fontsLoaded) {
     return <></>;
-  }
-
-  if(signingUp) {
-    return (
-      <CreateNewUserScreen />
-    )
   }
 
   return (

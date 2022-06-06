@@ -8,7 +8,6 @@ import ProfileScreen from "../screens/ProfileScreen";
 import { User, Project, Projects } from "../interface";
 import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
 import NewProjectScreen from '../screens/NewProjectScreen';
-import CreateNewUserScreen from '../screens/CreateNewUserScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -144,7 +143,7 @@ const Tabs = ({
           ),
         }}
       />
-      
+
 
       <Tab.Screen
         name="Stats"
