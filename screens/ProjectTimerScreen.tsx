@@ -94,8 +94,10 @@ export default function ProjectTimer({
         style={styles.pet}
         source={
           currentProject?.petImage === "tomato-image"
-            ? require("../assets/Pets/TomatoPet.png")
-            : require("../assets/Pets/PigeonPet.png")
+          ? require("../assets/Pets/TomatoPet.png")
+          : (currentProject?.petImage === "pigeon-image") ?
+          require("../assets/Pets/PigeonPet.png")
+          : require("../assets/Pets/CandlePet.png")
         }
       />
       <Text style={styles.timerText}>{`${mins} : ${secs}`}</Text>

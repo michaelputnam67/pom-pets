@@ -5,6 +5,14 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -13,6 +21,10 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "infoPlist": {
+      "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use the camera",
+      "NSMMicrophoneUsageDescription":"Allow $(PRODUCT_NAME) to use the microphone"
     }
   }
 }

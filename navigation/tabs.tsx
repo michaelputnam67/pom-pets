@@ -150,6 +150,7 @@ const Tabs = ({
         }}
       />
 
+
       <Tab.Screen
         name="Stats"
         children={(props) => (

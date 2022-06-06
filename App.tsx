@@ -6,6 +6,11 @@ import Tabs from "./navigation/tabs";
 import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
 
+
+
+
+import CreateProfileScreen from "./screens/CreateProfileScreen";
+
 export default function App() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +23,7 @@ export default function App() {
   const [userShortPomTime, setUserShortPomTime] = useState(0);
   const [userLongPomTime, setUserLongPomTime] = useState(0);
   const [modalStatus, setModalStatus] = useState(false);
+  const [createProfile, viewCreateProfile] = useState(false);
 
   const resetLogin = () => {
     setUserName("");
@@ -29,7 +35,7 @@ export default function App() {
       resetLogin();
       setModalStatus(true);
       apiCalls
-        .getUser(`${userName}`)
+        .getUser(`${userName}`, setModalStatus)
         .then((data) => {
           setUser(data.data);
           setCurrentProject(data.data.attributes.projects[0]);
@@ -37,8 +43,11 @@ export default function App() {
           setUserWorkTime(data.data.attributes.settings.workTime);
           setUserShortPomTime(data.data.attributes.settings.shortPomTime);
           setUserLongPomTime(data.data.attributes.settings.longPomTime);
-        })
-        .then(() => setModalStatus(false));
+        }).catch(err => Alert.alert(err))
+        .then(() => {
+          setModalStatus(false)
+        } 
+        );
     } else {
       Alert.alert("Incorrect login information");
     }
@@ -71,17 +80,17 @@ export default function App() {
 
   const setWorkTime = (text: number) => {
     setUserWorkTime(text);
-    apiCalls.updateUser({ settings: { workTime: `${text}` } });
+    apiCalls.updateUser({ settings: { workTime: `${text}` } }, user?.id);
   };
 
   const setShortPomTime = (text: number) => {
     setUserShortPomTime(text);
-    apiCalls.updateUser({ settings: { shortPomTime: `${text}` } });
+    apiCalls.updateUser({ settings: { shortPomTime: `${text}` } }, user?.id);
   };
 
   const setLongPomTime = (text: number) => {
     setUserLongPomTime(text);
-    apiCalls.updateUser({ settings: { longPomTime: `${text}` } });
+    apiCalls.updateUser({ settings: { longPomTime: `${text}` } }, user?.id);
   };
 
   const logOut = () => {
@@ -100,7 +109,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {!user && (
+      {!user && !createProfile && (
         <LoginScreen
           userName={userName}
           password={password}
@@ -108,8 +117,10 @@ export default function App() {
           setPassword={setPassword}
           login={login}
           modalStatus={modalStatus}
+          viewCreateProfile={viewCreateProfile}
         />
       )}
+      {createProfile && <CreateProfileScreen></CreateProfileScreen>}
       {user && (
         <Tabs
           updateCurrentProject={updateCurrentProject}

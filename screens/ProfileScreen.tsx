@@ -34,6 +34,8 @@ export default function ProfileScreen({
     currentUser.attributes.settings.longPomTime
   );
 
+  const [photo, setPhoto] = useState(currentUser.attributes.profilePhoto)
+
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -63,7 +65,7 @@ export default function ProfileScreen({
       <Text style={styles.h1}>User Profile</Text>
       <Image
         style={styles.image}
-        source={require("../assets/JoeProfilePicture.png")}
+        source={photo ? {uri: photo} : require("../assets/JoeProfilePicture.png")}
       />
       <View style={styles.userInfoContainer}>
         <Text style={styles.h2}>Username:</Text>
