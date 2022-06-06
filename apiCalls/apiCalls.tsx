@@ -30,6 +30,17 @@ const apiCalls = {
       .then((res) => res.json())
       .catch((err) => Alert.alert(err));
   },
+
+  updateProjectStats: (patch: any, projectID: number) => {
+    return fetch(`https://pom-pets-api.herokuapp.com/api/v1/projects/${projectID}`, {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(patch),
+      redirect: "follow",
+    })
+      .then((res) => res.text())
+      .catch((err) => Alert.alert(err));
+  }
 };
 
 export default apiCalls;

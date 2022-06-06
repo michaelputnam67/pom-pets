@@ -55,6 +55,23 @@ export default function App() {
     });
   }
 
+  const reloadProjectAfterFetch = () => {
+    apiCalls.getUser().then((data) => {
+      setUser(data.data);
+    
+      setPets(data.data.attributes.projects);
+      setUserWorkTime(data.data.attributes.settings.workTime);
+      setUserShortPomTime(data.data.attributes.settings.shortPomTime);
+      setUserLongPomTime(data.data.attributes.settings.longPomTime);
+      setTotalWorkTime(0);
+      setTotalNegWorkTime(0);
+      setTotalBreakTime(0);
+      setTotalOverBreakTime(0);
+      setNumBreaks(0)
+      setNumWorkSessions(0)
+    });
+  }
+
   const createNewProject = (pet: Pet, projectName: string, gitHubUrl: string ) => {
     const post = {
       projectName: projectName,
@@ -95,15 +112,16 @@ export default function App() {
     setUser(null);
   };
 
-  const updateCurrentProject = (item: any) => {
+  const updateCurrentProject = async (item: any) => {
+    await resetTimerState();
     if (!pets) {
       return;
     }
     const project: Project | undefined = pets.find((pet) => {
       return item.id === pet.id;
     });
-    console.log("PROJECT", project)
     setCurrentProject(project);
+    reloadProjectAfterFetch();
   };
 
   const updateTimerStats = (newState: number, state: string) => {
@@ -121,6 +139,24 @@ export default function App() {
   const updateSessionCount = (addWork: number, addBreak: number) => {
     setNumWorkSessions(numWorkSessions + addWork )
     setNumBreaks(numBreaks + addBreak)
+  }
+
+  const resetTimerState = async () => {
+    const sendWorkTime = Number(currentProject?.stats.totalWorkTime) + totalWorkTime;
+    const sendBreakTime = Number(currentProject?.stats.totalLongPomTime) + totalBreakTime;
+    const sendWorkSessions = Number(currentProject?.stats.totalWorkSessions) + numWorkSessions;
+    const sendBreakSessions = Number(currentProject?.stats.totalLongSessions) + numBreaks;
+  
+    console.log(currentProject?.projectName, "WORKTIME", sendWorkTime, "LOCAL", totalWorkTime)
+    console.log(currentProject?.projectName, "BREAKTIME", sendBreakTime,"LOCAL", totalBreakTime)
+    console.log(currentProject?.projectName, "WORKSESSIONS", sendWorkSessions, "LOCAL", numWorkSessions)
+    console.log(currentProject?.projectName, "BREAKSESSIONS", sendBreakSessions, "LOCAL", numBreaks)
+   
+    await apiCalls.updateProjectStats({ stats: { totalWorkTime: sendWorkTime }}, Number(currentProject?.id))
+    await apiCalls.updateProjectStats({ stats: { totalLongPomTime: sendBreakTime }}, Number(currentProject?.id));
+    await apiCalls.updateProjectStats({ stats: { totalLongSessions: sendBreakSessions }}, Number(currentProject?.id));
+    await apiCalls.updateProjectStats({ stats: { totalWorkSessions: sendWorkSessions }}, Number(currentProject?.id))
+    
   }
 
   return (
@@ -160,6 +196,7 @@ export default function App() {
           numBreaks={numBreaks}
           numWorkSessions={numWorkSessions}
           updateSessionCount={updateSessionCount}
+          resetTimerState={resetTimerState}
         />
       )}
     </NavigationContainer>

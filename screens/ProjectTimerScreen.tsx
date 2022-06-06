@@ -44,11 +44,6 @@ export default function ProjectTimer({
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
 
-  // const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
-  // const [totalWorkTime, setTotalWorkTime] = useState(0)
-  // const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
-  // const [totalBreakTime, setTotalBreakTime] = useState(0)
-
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
@@ -117,20 +112,16 @@ export default function ProjectTimer({
   };
 
   const collectWorkTime = () => {
-    // worktime not on break 
     if (!isNegative && !onPom) {
       updateTimerStats(((userWorkTime * 60) - remainingSecs), 'workTime')
-    // neg work time not on break
     } else if (isNegative && !onPom) {
       updateTimerStats((-remainingSecs), 'negWorkTime')
-    // time on break
     } else if (!isNegative && onPom) {
       if (pomType === 'long') {
         updateTimerStats(((userLongPomTime * 60) - remainingSecs), 'breakTime') 
       } else if (pomType === 'short') {
         updateTimerStats(((userShortPomTime * 60) - remainingSecs), 'breakTime')
       }
-      // neg time on break
     } else if (isNegative && onPom) {
       if (pomType === 'long') {
         updateTimerStats((-remainingSecs), 'overBreakTime')

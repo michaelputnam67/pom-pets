@@ -68,26 +68,22 @@ export default function ProjectStatisticsScreen({
           </View>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={totalWorkTime} />
+          <RenderTime time={Number(currentProject?.stats.totalWorkTime) + totalWorkTime} />
           <Text style={styles.label}>Total Training Time</Text>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={totalBreakTime} />
+          <RenderTime time={Number(currentProject?.stats.totalLongPomTime) + totalBreakTime} />
           <Text style={styles.label}>Total Pom Time</Text>
         </View>
-        {/* <View style={styles.statContainer}>
-          <RenderTime time={currentProject?.stats.totalShortPomTime} />
-          <Text style={styles.label}>Total Short Pom Time</Text>
-        </View> */}
         <View style={styles.statContainer}>
           <Text style={styles.number}>
-            {numWorkSessions}
+            {Number(currentProject?.stats.totalWorkSessions) + numWorkSessions}
           </Text>
           <Text style={styles.label}>Number of Work Sessions</Text>
         </View>
         <View style={styles.statContainer}>
           <Text style={styles.number}>
-            {numBreaks}
+            {Number(currentProject?.stats.totalLongSessions) + numBreaks}
           </Text>
           <Text style={styles.label}>Number of Breaks</Text>
         </View>
