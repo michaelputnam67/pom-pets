@@ -22,7 +22,10 @@ export default function App() {
   const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
   const [totalWorkTime, setTotalWorkTime] = useState(0)
   const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
-  const [totalBreakTime, setTotalBreakTime] = useState(0)
+  const [totalBreakTime, setTotalBreakTime] = useState(0);
+
+  const [numWorkSessions, setNumWorkSessions] = useState(0)
+  const [numBreaks, setNumBreaks] = useState(0)
 
   
   const login = () => {
@@ -113,10 +116,13 @@ export default function App() {
     } else if (state === 'overBreakTime') {
       setTotalOverBreakTime(totalOverBreakTime + newState)
     }
-   
-    
-    
   }
+
+  const updateSessionCount = (addWork: number, addBreak: number) => {
+    setNumWorkSessions(numWorkSessions + addWork )
+    setNumBreaks(numBreaks + addBreak)
+  }
+
   return (
     <NavigationContainer>
       {!user && (
@@ -151,6 +157,9 @@ export default function App() {
           totalBreakTime={totalBreakTime}
           totalOverBreakTime={totalOverBreakTime}
           updateTimerStats={updateTimerStats}
+          numBreaks={numBreaks}
+          numWorkSessions={numWorkSessions}
+          updateSessionCount={updateSessionCount}
         />
       )}
     </NavigationContainer>

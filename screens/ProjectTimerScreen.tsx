@@ -23,7 +23,10 @@ export default function ProjectTimer({
   totalNegWorkTime,
   totalBreakTime,
   totalOverBreakTime,
-  updateTimerStats
+  updateTimerStats,
+  numBreaks,
+  numWorkSessions,
+  updateSessionCount,
 }: {
   navigation: any;
   currentProject?: Project | undefined;
@@ -35,6 +38,9 @@ export default function ProjectTimer({
   totalBreakTime: number;
   totalOverBreakTime: number;
   updateTimerStats: any;
+  numBreaks: number;
+  numWorkSessions: number;
+  updateSessionCount: any;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
 
@@ -56,6 +62,7 @@ export default function ProjectTimer({
 
   const toggle = () => {
     setIsTraining(!isTraining);
+    updateSessionCount(1, 0)
   };
 
   const seeStats = () => {
@@ -168,7 +175,8 @@ export default function ProjectTimer({
         <Button onPress={() => {
           feedPet();
           collectWorkTime();
-          setIsNegative(false)
+          setIsNegative(false);
+          updateSessionCount(0, 1)
           }
         } text="Feed Pet"></Button>
       )}
@@ -177,6 +185,7 @@ export default function ProjectTimer({
           walkPet();
           collectWorkTime();
           setIsNegative(false);
+          updateSessionCount(0, 1)
           } 
         } text="Walk Pet"></Button>
       )}

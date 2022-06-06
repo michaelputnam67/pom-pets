@@ -20,7 +20,9 @@ export default function ProjectStatisticsScreen({
   totalWorkTime,
   totalNegWorkTime,
   totalBreakTime,
-  totalOverBreakTime
+  totalOverBreakTime,
+  numBreaks,
+  numWorkSessions
 }: {
   navigation: any;
   currentProject: Project | undefined;
@@ -28,6 +30,8 @@ export default function ProjectStatisticsScreen({
   totalNegWorkTime: number;
   totalBreakTime: number;
   totalOverBreakTime: number;
+  numBreaks: number;
+  numWorkSessions: number;
 }) {
   const toTraining = () => {
     navigation.navigate("Pet");
@@ -40,8 +44,10 @@ export default function ProjectStatisticsScreen({
         style={styles.pet}
         source={
           currentProject?.petImage === "tomato-image"
-            ? require("../assets/Pets/TomatoPet.png")
-            : require("../assets/Pets/PigeonPet.png")
+          ? require("../assets/Pets/TomatoPet.png")
+          : (currentProject?.petImage === "pigeon-image") ?
+          require("../assets/Pets/PigeonPet.png")
+          : require("../assets/Pets/CandlePet.png")
         }
       />
       <Text style={styles.projectName}>
@@ -75,13 +81,13 @@ export default function ProjectStatisticsScreen({
         </View> */}
         <View style={styles.statContainer}>
           <Text style={styles.number}>
-            {currentProject?.stats.totalWorkSessions}
+            {numWorkSessions}
           </Text>
           <Text style={styles.label}>Number of Work Sessions</Text>
         </View>
         <View style={styles.statContainer}>
           <Text style={styles.number}>
-            {currentProject?.stats.totalShortSessions}
+            {numBreaks}
           </Text>
           <Text style={styles.label}>Number of Breaks</Text>
         </View>

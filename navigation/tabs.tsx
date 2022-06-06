@@ -30,6 +30,9 @@ const Tabs = ({
   totalBreakTime,
   totalOverBreakTime,
   updateTimerStats,
+  numBreaks,
+  numWorkSessions,
+  updateSessionCount
 }: {
   projects: Projects | null;
   user: User;
@@ -49,6 +52,9 @@ const Tabs = ({
   totalBreakTime: number;
   totalOverBreakTime: number;
   updateTimerStats: any,
+  numBreaks: number,
+  numWorkSessions: number,
+  updateSessionCount: any,
 }) => {
   return (
     <Tab.Navigator
@@ -132,6 +138,9 @@ const Tabs = ({
         name="Pet"
         children={(props) => (
           <ProjectTimer 
+          updateSessionCount={updateSessionCount}
+          numBreaks={numBreaks}
+          numWorkSessions={numWorkSessions}
           updateTimerStats={updateTimerStats}
           totalWorkTime={totalWorkTime}
           totalNegWorkTime={totalNegWorkTime}
@@ -169,6 +178,8 @@ const Tabs = ({
         name="Stats"
         children={(props) => (
           <ProjectStatisticsScreen 
+          numBreaks={numBreaks}
+          numWorkSessions={numWorkSessions}
           totalWorkTime={totalWorkTime}
           totalNegWorkTime={totalNegWorkTime}
           totalBreakTime={totalBreakTime}
