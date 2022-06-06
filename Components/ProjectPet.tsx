@@ -41,8 +41,8 @@ export default function ProjectPet({
         source={
           item.petImage === "tomato-image"
             ? require("../assets/Pets/TomatoPet.png")
-            : (item.petImage === "pigeon-image") ?
-            require("../assets/Pets/PigeonPet.png")
+            : item.petImage === "pigeon-image"
+            ? require("../assets/Pets/PigeonPet.png")
             : require("../assets/Pets/CandlePet.png")
         }
       />
@@ -64,6 +64,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.accent,
     borderRadius: 30,
     marginTop: 25,
+    shadowColor: "#717171",
+    shadowOpacity: 0.5,
+    elevation: 5,
+    shadowRadius: 5,
+    shadowOffset: { width: 3, height: 5 },
+    borderWidth: 0,
   },
   deleteButton: {
     height: 30,
