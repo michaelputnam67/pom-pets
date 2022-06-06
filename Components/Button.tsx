@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     margin: 10,
-
     shadowColor: "#717171",
     shadowOpacity: 0.5,
     elevation: 5,

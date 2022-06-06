@@ -7,7 +7,7 @@ import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { User, Project, Projects } from "../interface";
 import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
-import NewProjectScreen from '../screens/NewProjectScreen';
+import NewProjectScreen from "../screens/NewProjectScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +33,7 @@ const Tabs = ({
   setWorkTime: any;
   setShortPomTime: any;
   setLongPomTime: any;
-  createNewProject: any
+  createNewProject: any;
   userWorkTime: any;
   userShortPomTime: any;
   userLongPomTime: any;
@@ -75,13 +75,13 @@ const Tabs = ({
       />
 
       <Tab.Screen
-      name="New Project"
-      children={(props) => (
-        <NewProjectScreen createNewProject={createNewProject}  {...props} />
-      )}
-      options={{
-        tabBarButton: () => null
-      }}
+        name="New Project"
+        children={(props) => (
+          <NewProjectScreen createNewProject={createNewProject} {...props} />
+        )}
+        options={{
+          tabBarButton: () => null,
+        }}
       />
 
       <Tab.Screen
@@ -119,7 +119,13 @@ const Tabs = ({
       <Tab.Screen
         name="Pet"
         children={(props) => (
-          <ProjectTimer currentProject={currentProject} userWorkTime={userWorkTime} userShortPomTime={userShortPomTime} userLongPomTime={userLongPomTime} {...props} />
+          <ProjectTimer
+            currentProject={currentProject}
+            userWorkTime={userWorkTime}
+            userShortPomTime={userShortPomTime}
+            userLongPomTime={userLongPomTime}
+            {...props}
+          />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },
@@ -151,7 +157,7 @@ const Tabs = ({
           <ProjectStatisticsScreen currentProject={currentProject} {...props} />
         )}
         options={{
-          tabBarButton: () => null
+          tabBarButton: () => null,
         }}
       />
 
