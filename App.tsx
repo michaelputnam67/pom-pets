@@ -35,7 +35,7 @@ export default function App() {
       resetLogin();
       setModalStatus(true);
       apiCalls
-        .getUser(`${userName}`)
+        .getUser(`${userName}`, setModalStatus)
         .then((data) => {
           setUser(data.data);
           setCurrentProject(data.data.attributes.projects[0]);
@@ -43,8 +43,11 @@ export default function App() {
           setUserWorkTime(data.data.attributes.settings.workTime);
           setUserShortPomTime(data.data.attributes.settings.shortPomTime);
           setUserLongPomTime(data.data.attributes.settings.longPomTime);
-        })
-        .then(() => setModalStatus(false));
+        }).catch(err => Alert.alert(err))
+        .then(() => {
+          setModalStatus(false)
+        } 
+        );
     } else {
       Alert.alert("Incorrect login information");
     }

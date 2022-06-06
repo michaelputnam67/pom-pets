@@ -84,7 +84,6 @@ export default function LoginScreen({
           ></Button>
         </View>
       </View>
-      {/* <Button text="Sign Up" onPress={() => setSignUp(true)} ></Button> */}
     </KeyboardAwareScrollView>
   );
 }
