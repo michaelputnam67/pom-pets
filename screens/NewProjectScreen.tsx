@@ -172,9 +172,20 @@ export default function NewProjectScreen({
 }
 
 const styles = StyleSheet.create({
+  carouselMessage: {
+    alignSelf: "center",
+    fontSize: 40,
+    textAlign: "center",
+    textWrap: true,
+    marginTop: 30,
+  },
   container: {
+    backgroundColor: COLORS.white,
     flex: 1,
-    backgroundColor: COLORS.white
+  },
+  flatList: {
+    flex: 0,
+    marginBottom: 50,
   },
   h1: {
     fontFamily: "Nunito_900Black",
@@ -186,26 +197,15 @@ const styles = StyleSheet.create({
     height: height / 4,
     width: width / 2,
   },
-  flatList: {
-    flex: 0,
-    marginBottom: 50,
-  },
   input: {
-    height: 50,
-    width: "65%",
-    borderColor: COLORS.grey,
-    borderWidth: 1,
-    borderRadius: 25,
     alignSelf: "center",
+    borderColor: COLORS.grey,
+    borderRadius: 25,
+    borderWidth: 1,
+    height: 50,
     textAlign: "center",
     fontSize: 15,
     margin: 15,
-  },
-  carouselMessage: {
-    marginTop: 30,
-    fontSize: 40,
-    textWrap: true,
-    textAlign: "center",
-    alignSelf: "center",
-  },
+    width: "65%",
+  },  
 });

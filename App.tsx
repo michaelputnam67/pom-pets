@@ -43,17 +43,20 @@ export default function App() {
       apiCalls
         .getUser(`${userName}`)
         .then((data) => {
+          if(data.error === "User not found") {
+            setModalStatus(false)
+            Alert.alert(data.error)
+          }
           setUser(data.data);
           setCurrentProject(data.data.attributes.projects[0]);
           setPets(data.data.attributes.projects);
           setUserWorkTime(data.data.attributes.settings.workTime);
           setUserShortPomTime(data.data.attributes.settings.shortPomTime);
           setUserLongPomTime(data.data.attributes.settings.longPomTime);
-        }).catch(err => Alert.alert(err))
+        })
         .then(() => {
           setModalStatus(false)
-        } 
-        );
+        });
     } else {
       Alert.alert("Incorrect login information");
     }
@@ -187,7 +190,7 @@ export default function App() {
           viewCreateProfile={viewCreateProfile}
         />
       )}
-      {createProfile && <CreateProfileScreen></CreateProfileScreen>}
+      {createProfile && <CreateProfileScreen viewCreateProfile={viewCreateProfile} ></CreateProfileScreen>}
       {user && (
         <Tabs
           updateCurrentProject={updateCurrentProject}

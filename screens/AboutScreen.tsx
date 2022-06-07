@@ -120,15 +120,15 @@ export default function AboutScreen({ navigation }: { navigation: any }) {
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
+    fontFamily: "Nunito_900Black",
     fontSize: 40,
   },
   h2: {
-    fontFamily: "Nunito_800ExtraBold",
     alignSelf: "center",
     color: COLORS.secondary,
+    fontFamily: "Nunito_800ExtraBold",
     fontSize: 25,
     marginBottom: 20,
     marginTop: 30,
@@ -139,27 +139,26 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 10,
   },
+  image: {
+    alignSelf: "center",
+    height: 280,
+    width: 280,
+  },
   listContainer: {
     flexDirection: "row",
     width: "75%",
   },
   paragraph: {
-    fontFamily: "Nunito_500Medium",
     flexWrap: "wrap",
+    fontFamily: "Nunito_500Medium",
     fontSize: 16,
     marginBottom: 40,
-  },
-  image: {
-    height: 280,
-    width: 280,
-    alignSelf: "center",
-    // marginBottom: 10,
-  },
-  view: {
-    backgroundColor: COLORS.white,
   },
   paragraphContainer: {
     alignSelf: "center",
     width: "90%",
+  },
+  view: {
+    backgroundColor: COLORS.white,
   },
 });

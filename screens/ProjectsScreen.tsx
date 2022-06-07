@@ -60,7 +60,7 @@ export default function ProjectsScreen({
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "center",
-          padding: 15,
+          padding: 20,
         }}
         ListFooterComponent={() => (
           <Pressable
@@ -81,18 +81,18 @@ export default function ProjectsScreen({
 
 const styles = StyleSheet.create({
   main: {
-    height: 200,
-    width: 200,
-    flex: 1,
-    flexDirection: "column",
     backgroundColor: COLORS.accent,
     borderRadius: 30,
+    height: 200,
+    flex: 1,
+    flexDirection: "column",
     marginTop: 25,
+    width: 200,
   },
   view: {
+    alignItems: "center",
     backgroundColor: COLORS.white,
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
   },
   h1: {

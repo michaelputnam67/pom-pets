@@ -6,12 +6,7 @@ myHeaders.append("Content-Type", "application/json");
 const apiCalls = {
   getUser: (userID: any) =>
     fetch(`https://pom-pets-api.herokuapp.com/api/v1/users/${userID}`)
-      .then((res) => res.json())
-      .catch((err) => {
-        // setModalStatus(false)
-        Alert.alert(err)
-      }
-      ),
+      .then((res) => res.json()),
 
   updateUser: (patch: any, userID: any) => {
     return fetch(`https://pom-pets-api.herokuapp.com/api/v1/users/${userID}`, {

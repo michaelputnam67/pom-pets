@@ -106,15 +106,15 @@ export default function ProfileScreen({
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
+    fontFamily: "Nunito_900Black",
     fontSize: 40,
     marginBottom: 30,
   },
   h2: {
-    fontFamily: "Nunito_800ExtraBold",
     color: COLORS.secondary,
+    fontFamily: "Nunito_800ExtraBold",
     fontSize: 25,
     marginRight: 25,
   },
@@ -123,27 +123,28 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   h4: {
-    fontFamily: "Nunito_800ExtraBold",
     color: COLORS.grey,
+    fontFamily: "Nunito_800ExtraBold",
     fontSize: 18,
     marginBottom: 5,
   },
-  userInfoContainer: {
-    flexDirection: "row",
-    width: "75%",
-    alignItems: "center",
-    marginBottom: 15,
-  },
   image: {
-    height: 180,
-    width: 180,
     alignSelf: "center",
+    borderRadius: 100,
+    height: 180,
     marginBottom: 10,
+    width: 180,
+  },
+  userInfoContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 15,
+    width: "75%",
   },
   view: {
+    alignItems: "center",
     backgroundColor: COLORS.white,
     flex: 1,
-    alignItems: "center",
     justifyContent: "flex-start",
   },
 });
