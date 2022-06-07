@@ -1,15 +1,8 @@
-import {
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { Text, Image, View, StyleSheet, TextInput, Modal } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Components/Button";
+import AppLoader from "../Components/AppLoader";
 import { COLORS } from "../constants/Colors";
 import {
   useFonts,
@@ -23,13 +16,25 @@ export default function LoginScreen({
   setUserName,
   userName,
   password,
+  modalStatus,
+  viewCreateProfile,
 }: {
+  viewCreateProfile: any;
   setPassword: any;
   setUserName: any;
   userName: string;
   password: string;
   login: any;
+  modalStatus: boolean;
 }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (modalStatus === true) {
+      setModalVisible(true);
+    }
+  }, [modalStatus]);
+
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -41,6 +46,9 @@ export default function LoginScreen({
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
+      <Modal animationType="fade" visible={modalVisible}>
+        <AppLoader></AppLoader>
+      </Modal>
       <View>
         <Text style={styles.title}>Pom Pets</Text>
         <Image
@@ -62,7 +70,18 @@ export default function LoginScreen({
           placeholder={"password"}
         />
         <View style={styles.button}>
-          <Button text="Sign In" onPress={login}></Button>
+          <Button
+            text="Sign In"
+            onPress={() => {
+              login();
+            }}
+          ></Button>
+          <Button
+            text="Create Profile"
+            onPress={() => {
+              viewCreateProfile(true);
+            }}
+          ></Button>
         </View>
       </View>
     </KeyboardAwareScrollView>

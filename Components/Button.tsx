@@ -1,12 +1,18 @@
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Dimensions, Pressable, Text, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
+const {height, width } = Dimensions.get('window')
+
 
 export default function Button({
   text,
   onPress,
   isTraining,
+  pressableStyle,
+  textStyle,
 }: {
+  textStyle?: any
+  pressableStyle?: any
   text: string;
   onPress: any;
   isTraining?: boolean;
@@ -24,12 +30,14 @@ export default function Button({
       onPress={onPress}
       style={{
         ...styles.button,
+        ...pressableStyle,
         backgroundColor: isTraining ? COLORS.accent : COLORS.secondary,
       }}
     >
       <Text
         style={{
           ...styles.text,
+          ...textStyle,
           color: isTraining ? COLORS.primary : COLORS.white,
         }}
       >
@@ -47,7 +55,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     margin: 10,
-
     shadowColor: "#717171",
     shadowOpacity: 0.5,
     elevation: 5,

@@ -1,23 +1,31 @@
-import { Text, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Alert, StyleSheet } from "react-native";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects, Pet } from "./interface";
 import Tabs from "./navigation/tabs";
 import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
 
+import CreateProfileScreen from "./screens/CreateProfileScreen";
+
 export default function App() {
-  const [userName, setUserName] = useState("Joe");
-  const [password, setPassword] = useState("PigeonsRLife");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(
     undefined
   );
-  const [loginError, setLoginError] = useState(false);
   const [pets, setPets] = useState<Projects | null>(null);
   const [userWorkTime, setUserWorkTime] = useState(0);
   const [userShortPomTime, setUserShortPomTime] = useState(0);
   const [userLongPomTime, setUserLongPomTime] = useState(0);
+  const [modalStatus, setModalStatus] = useState(false);
+  const [createProfile, viewCreateProfile] = useState(false);
+
+  const resetLogin = () => {
+    setUserName("");
+    setPassword("");
+  };
 
   const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
   const [totalWorkTime, setTotalWorkTime] = useState(0)
@@ -29,18 +37,25 @@ export default function App() {
 
   
   const login = () => {
-    if (userName === "Joe" && password === "PigeonsRLife") {
-      setLoginError(false);
-      apiCalls.getUser().then((data) => {
-        setUser(data.data);
-        setCurrentProject(data.data.attributes.projects[0]);
-        setPets(data.data.attributes.projects);
-        setUserWorkTime(data.data.attributes.settings.workTime);
-        setUserShortPomTime(data.data.attributes.settings.shortPomTime);
-        setUserLongPomTime(data.data.attributes.settings.longPomTime);
-      });
+    if (password === "Password") {
+      resetLogin();
+      setModalStatus(true);
+      apiCalls
+        .getUser(`${userName}`, setModalStatus)
+        .then((data) => {
+          setUser(data.data);
+          setCurrentProject(data.data.attributes.projects[0]);
+          setPets(data.data.attributes.projects);
+          setUserWorkTime(data.data.attributes.settings.workTime);
+          setUserShortPomTime(data.data.attributes.settings.shortPomTime);
+          setUserLongPomTime(data.data.attributes.settings.longPomTime);
+        }).catch(err => Alert.alert(err))
+        .then(() => {
+          setModalStatus(false)
+        } 
+        );
     } else {
-      setLoginError(true);
+      Alert.alert("Incorrect login information");
     }
   };
 
@@ -80,32 +95,32 @@ export default function App() {
       projectPet: pet.image,
       projectGitHub: gitHubUrl,
       petImage: pet.name,
-      "user_id": user?.id,
+      user_id: user?.id,
       stats: {
         totalWorkTime: 0,
         totalWorkSessions: 0,
         totalShortPomTime: 0,
         totalShortSessions: 0,
         totalLongPomTime: 0,
-        totalLongSessions: 0
-      }
-    }
-    apiCalls.createProject(post)
-  }
-  
+        totalLongSessions: 0,
+      },
+    };
+    apiCalls.createProject(post);
+  };
+
   const setWorkTime = (text: number) => {
     setUserWorkTime(text);
-    apiCalls.updateUser({ settings: { workTime: `${text}` } });
+    apiCalls.updateUser({ settings: { workTime: `${text}` } }, user?.id);
   };
 
   const setShortPomTime = (text: number) => {
     setUserShortPomTime(text);
-    apiCalls.updateUser({ settings: { shortPomTime: `${text}` } });
+    apiCalls.updateUser({ settings: { shortPomTime: `${text}` } }, user?.id);
   };
 
   const setLongPomTime = (text: number) => {
     setUserLongPomTime(text);
-    apiCalls.updateUser({ settings: { longPomTime: `${text}` } });
+    apiCalls.updateUser({ settings: { longPomTime: `${text}` } }, user?.id);
   };
 
   const logOut = () => {
@@ -161,18 +176,18 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {!user && (
+      {!user && !createProfile && (
         <LoginScreen
           userName={userName}
           password={password}
           setUserName={setUserName}
           setPassword={setPassword}
           login={login}
+          modalStatus={modalStatus}
+          viewCreateProfile={viewCreateProfile}
         />
       )}
-      {loginError && (
-        <Text style={styles.error}>Invalid Username or Password</Text>
-      )}
+      {createProfile && <CreateProfileScreen></CreateProfileScreen>}
       {user && (
         <Tabs
           updateCurrentProject={updateCurrentProject}

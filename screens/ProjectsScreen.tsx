@@ -47,8 +47,8 @@ export default function ProjectsScreen({
   );
 
   const goToAddProjectsScreen = () => {
-    navigation.navigate("New Project")
-  }
+    navigation.navigate("New Project");
+  };
 
   return (
     <SafeAreaView style={styles.view}>
@@ -57,8 +57,16 @@ export default function ProjectsScreen({
         showsVerticalScrollIndicator={false}
         data={projects}
         renderItem={renderPet}
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+          padding: 15,
+        }}
         ListFooterComponent={() => (
-          <Pressable style={styles.view} onPress={() => goToAddProjectsScreen()}>
+          <Pressable
+            style={styles.view}
+            onPress={() => goToAddProjectsScreen()}
+          >
             <Image
               style={{ ...styles.main }}
               source={require("../assets/Icons-Buttons/AddProjectBtn.png")}

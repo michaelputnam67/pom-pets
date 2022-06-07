@@ -7,7 +7,7 @@ import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { User, Project, Projects } from "../interface";
 import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
-import NewProjectScreen from '../screens/NewProjectScreen';
+import NewProjectScreen from "../screens/NewProjectScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ const Tabs = ({
   setWorkTime: any;
   setShortPomTime: any;
   setLongPomTime: any;
-  createNewProject: any
+  createNewProject: any;
   userWorkTime: any;
   userShortPomTime: any;
   userLongPomTime: any;
@@ -177,6 +177,7 @@ const Tabs = ({
         }}
       />
 
+
       <Tab.Screen
         name="Stats"
         children={(props) => (
@@ -190,7 +191,7 @@ const Tabs = ({
           currentProject={currentProject} {...props} />
         )}
         options={{
-          tabBarButton: () => null
+          tabBarButton: () => null,
         }}
       />
 
