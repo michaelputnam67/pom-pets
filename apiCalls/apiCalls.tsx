@@ -30,7 +30,6 @@ const apiCalls = {
       .catch((err) => Alert.alert(err))
   },
 
-
   createProject: (post: any) => {
     return fetch("https://pom-pets-api.herokuapp.com/api/v1/projects", {
       method: "POST",

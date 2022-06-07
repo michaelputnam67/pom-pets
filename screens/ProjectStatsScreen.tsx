@@ -111,23 +111,8 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: "Nunito_900Black",
   },
-  pet: {
-    height: 230,
-    width: 230,
-    alignSelf: "center",
-    marginBottom: 10,
-  },
-  projectName: {
-    textAlign: "center",
-    fontSize: 25,
-    color: COLORS.primary,
-    fontFamily: "Nunito_500Medium",
-    marginBottom: 20,
-  },
-  statsContainer: {
-    height: 300,
-    marginBottom: 30,
-    marginTop: 35,
+  health: {
+    marginLeft: 50,
   },
   healthContainer: {
     justifyContent: "center",
@@ -147,14 +132,29 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginBottom: 20,
   },
-  health: {
-    marginLeft: 50,
-  },
   number: {
     textAlign: "center",
     fontSize: 40,
     color: COLORS.primary,
     fontFamily: "Nunito_800ExtraBold",
+  },
+  pet: {
+    height: 230,
+    width: 230,
+    alignSelf: "center",
+    marginBottom: 10,
+  },
+  projectName: {
+    textAlign: "center",
+    fontSize: 25,
+    color: COLORS.primary,
+    fontFamily: "Nunito_500Medium",
+    marginBottom: 20,
+  },
+  statsContainer: {
+    height: 300,
+    marginBottom: 30,
+    marginTop: 35,
   },
   statContainer: {
     marginBottom: 18,

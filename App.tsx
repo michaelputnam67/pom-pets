@@ -35,7 +35,6 @@ export default function App() {
   const [numWorkSessions, setNumWorkSessions] = useState(0)
   const [numBreaks, setNumBreaks] = useState(0)
 
-  
   const login = () => {
     if (password === "Password") {
       resetLogin();

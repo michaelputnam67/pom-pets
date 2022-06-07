@@ -80,6 +80,13 @@ export default function ProjectsScreen({
 }
 
 const styles = StyleSheet.create({
+  h1: {
+    alignSelf: "center",
+    color: COLORS.primary,
+    fontFamily: "Nunito_900Black",
+    fontSize: 40,
+    marginBottom: 10,
+  },
   main: {
     backgroundColor: COLORS.accent,
     borderRadius: 30,
@@ -94,12 +101,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     flex: 1,
     justifyContent: "center",
-  },
-  h1: {
-    fontFamily: "Nunito_900Black",
-    alignSelf: "center",
-    color: COLORS.primary,
-    fontSize: 40,
-    marginBottom: 10,
   },
 });
