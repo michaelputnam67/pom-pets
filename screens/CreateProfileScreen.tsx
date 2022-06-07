@@ -1,4 +1,12 @@
-import { Text, StyleSheet, View, TextInput, Image, Modal, Alert } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  Modal,
+  Alert,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React, { useState } from "react";
 import Button from "../Components/Button";
@@ -12,7 +20,7 @@ import {
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
 import { initializeApp } from "firebase/app";
-import AppLoader from '../Components/AppLoader';
+import AppLoader from "../Components/AppLoader";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEnXq52ByAhEgHbP96fLCf-zHxK9hKgCE",
@@ -27,20 +35,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export default function CreateProfileScreen({ viewCreateProfile }: { viewCreateProfile : any}) {
+export default function CreateProfileScreen({
+  viewCreateProfile,
+}: {
+  viewCreateProfile: any;
+}) {
   const [newUserName, setNewUserName] = useState<string | undefined>(undefined);
-  const [newPassword, setNewPassword] = useState<string | undefined>(undefined);
   const [newEmail, setNewEmail] = useState<string | undefined>(undefined);
   const [choosingPhoto, setChoosingPhoto] = useState(false);
   const [photo, setPhoto] = useState<any>();
-  const [loading, setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const goBack = () => {
     setChoosingPhoto(false);
   };
 
   const usePhoto = async () => {
-    const response = await fetch(photo.uri)
+    const response = await fetch(photo.uri);
     const blob = await response.blob();
     const fileRef = ref(getStorage(), `users/${newUserName}/profile-photo.jpg`);
     const result = await uploadBytes(fileRef, blob);
@@ -49,12 +60,13 @@ export default function CreateProfileScreen({ viewCreateProfile }: { viewCreateP
   };
 
   const generateNewUser = async () => {
-    if(!newUserName || !newEmail) {
-      return Alert.alert("Check your inputs!")
-    } 
-    const url = await usePhoto()
-      setLoading(true)
-      apiCalls.createNewUser({
+    if (!newUserName || !newEmail) {
+      return Alert.alert("Check your inputs!");
+    }
+    const url = await usePhoto();
+    setLoading(true);
+    apiCalls
+      .createNewUser({
         username: newUserName,
         email: newEmail,
         profilePhoto: url,
@@ -63,10 +75,11 @@ export default function CreateProfileScreen({ viewCreateProfile }: { viewCreateP
           shortPomTime: 5,
           longPomTime: 10,
         },
-      }).then(() => {
-          setLoading(false)
-          viewCreateProfile(false)
       })
+      .then(() => {
+        setLoading(false);
+        viewCreateProfile(false);
+      });
   };
 
   let [fontsLoaded] = useFonts({
@@ -80,7 +93,7 @@ export default function CreateProfileScreen({ viewCreateProfile }: { viewCreateP
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
-      <Modal animationType='fade' visible={loading}>
+      <Modal animationType="fade" visible={loading}>
         <AppLoader></AppLoader>
       </Modal>
       <Modal animationType="slide" visible={choosingPhoto}>
@@ -120,7 +133,10 @@ export default function CreateProfileScreen({ viewCreateProfile }: { viewCreateP
         />
       </View>
       <Button text="Create Profile" onPress={generateNewUser}></Button>
-      <Button text="Back to Login" onPress={() => viewCreateProfile(false)}></Button>
+      <Button
+        text="Back to Login"
+        onPress={() => viewCreateProfile(false)}
+      ></Button>
     </KeyboardAwareScrollView>
   );
 }

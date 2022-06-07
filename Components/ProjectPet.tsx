@@ -7,14 +7,12 @@ export default function ProjectPet({
   navigation,
   name,
   updateCurrentProject,
-  item,
-  resetTimerState
+  item
 }: {
   navigation: any;
   name: string;
   updateCurrentProject: any;
   item: any;
-  resetTimerState: any;
 }) {
   let [fontsLoaded] = useFonts({
     Nunito_500Medium,
@@ -28,7 +26,6 @@ export default function ProjectPet({
     <Pressable
       style={styles.main}
       onPress={() => {
-        // resetTimerState();
         updateCurrentProject(item);
         navigation.navigate("Pet");
       }}

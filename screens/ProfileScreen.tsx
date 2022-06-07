@@ -4,7 +4,7 @@ import { SafeAreaView, ScrollView } from "react-native";
 
 import Button from "../Components/Button";
 import ButtonGroup from "../Components/ButtonGroup";
-import { User, Attributes } from "../interface";
+import { User } from "../interface";
 import { COLORS } from "../constants/Colors";
 import {
   useFonts,

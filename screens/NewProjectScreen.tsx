@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import {
   Alert,
   Dimensions,
@@ -11,7 +11,6 @@ import {
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
 
 const { width, height } = Dimensions.get("window");
 const itemSize = width / 2;
@@ -49,7 +48,7 @@ const images = [
 export default function NewProjectScreen({
   createNewProject,
   navigation,
-  loadNewProject
+  loadNewProject,
 }: {
   createNewProject: any;
   navigation: any;
@@ -64,10 +63,10 @@ export default function NewProjectScreen({
   }
 
   const clearInputs = () => {
-    setProjectName('')
-    setGitHubUrl('')
-    setPet(images[0])
-  }
+    setProjectName("");
+    setGitHubUrl("");
+    setPet(images[0]);
+  };
 
   const xScroll = useRef(new Animated.Value(0)).current;
   const renderIcon = ({ item, index }: { item: any; index: any }) => {
@@ -146,7 +145,7 @@ export default function NewProjectScreen({
           autoCorrect={false}
           style={styles.input}
           onChangeText={setGitHubUrl}
-          value={`https://github.com/${gitHubUrl.slice(19)}`} 
+          value={`https://github.com/${gitHubUrl.slice(19)}`}
         />
         <Button
           text="Submit"
@@ -156,15 +155,14 @@ export default function NewProjectScreen({
             } else if (!checkURL(gitHubUrl)) {
               Alert.alert("Please provide a valid url");
             } else {
-              createNewProject(pet, projectName, gitHubUrl).then(() => {
-                loadNewProject().then(() => {
+              createNewProject(pet, projectName, gitHubUrl).then((res:any) => {
+               return loadNewProject(res).then(() => {
                   clearInputs();
                   navigation.navigate("Pet");
-                })
-              })
-              }
+                });
+              });
             }
-          }
+          }}
         />
       </KeyboardAwareScrollView>
     </SafeAreaView>
@@ -207,5 +205,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     margin: 15,
     width: "65%",
-  },  
+  },
 });

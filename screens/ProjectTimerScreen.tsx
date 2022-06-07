@@ -49,7 +49,7 @@ export default function ProjectTimer({
   const [pomType, setPomType] = useState("");
   const { mins, secs } = getRemaining(remainingSecs);
   const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
-  const [isNegative, setIsNegative] = useState(false)
+  const [isNegative, setIsNegative] = useState(false);
 
   useEffect(() => {
     setRemainingSecs(userWorkTime * 60);
@@ -57,7 +57,7 @@ export default function ProjectTimer({
 
   const toggle = () => {
     setIsTraining(!isTraining);
-    updateSessionCount(1, 0)
+    updateSessionCount(1, 0);
   };
 
   const seeStats = () => {
@@ -70,11 +70,11 @@ export default function ProjectTimer({
     setOnPom(false);
   };
 
-  const handleButtonPress= () => {
+  const handleButtonPress = () => {
     isTraining ? reset() : toggle();
     collectWorkTime();
-    setIsNegative(false)
-  } 
+    setIsNegative(false);
+  };
 
   const feedPet = () => {
     setRemainingSecs(userShortPomTime * 60);
@@ -89,8 +89,8 @@ export default function ProjectTimer({
   };
 
   useEffect(() => {
-    if(remainingSecs === 0) {
-      setIsNegative(true)
+    if (remainingSecs === 0) {
+      setIsNegative(true);
     }
     let interval: NodeJS.Timeout | undefined;
     if (isTraining) {
@@ -113,27 +113,25 @@ export default function ProjectTimer({
 
   const collectWorkTime = () => {
     if (!isNegative && !onPom) {
-      updateTimerStats(((userWorkTime * 60) - remainingSecs), 'workTime')
+      updateTimerStats(userWorkTime * 60 - remainingSecs, "workTime");
     } else if (isNegative && !onPom) {
-      updateTimerStats((-remainingSecs), 'negWorkTime')
+      updateTimerStats(-remainingSecs, "negWorkTime");
     } else if (!isNegative && onPom) {
-      if (pomType === 'long') {
-        updateTimerStats(((userLongPomTime * 60) - remainingSecs), 'breakTime') 
-      } else if (pomType === 'short') {
-        updateTimerStats(((userShortPomTime * 60) - remainingSecs), 'breakTime')
+      if (pomType === "long") {
+        updateTimerStats(userLongPomTime * 60 - remainingSecs, "breakTime");
+      } else if (pomType === "short") {
+        updateTimerStats(userShortPomTime * 60 - remainingSecs, "breakTime");
       }
     } else if (isNegative && onPom) {
-      if (pomType === 'long') {
-        updateTimerStats((-remainingSecs), 'overBreakTime')
-        updateTimerStats((totalBreakTime + (userLongPomTime * 60)), 'breakTime')
-      } else if (pomType === 'short') {
-        updateTimerStats((-remainingSecs), 'overBreakTime')
-        updateTimerStats((totalBreakTime + (userShortPomTime * 60)), 'breakTime')
+      if (pomType === "long") {
+        updateTimerStats(-remainingSecs, "overBreakTime");
+        updateTimerStats(totalBreakTime + userLongPomTime * 60, "breakTime");
+      } else if (pomType === "short") {
+        updateTimerStats(-remainingSecs, "overBreakTime");
+        updateTimerStats(totalBreakTime + userShortPomTime * 60, "breakTime");
       }
     }
-  }
-
-  
+  };
 
   return (
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
@@ -146,12 +144,14 @@ export default function ProjectTimer({
         source={
           currentProject?.petImage === "tomato-image"
             ? require("../assets/Pets/TomatoPet.png")
-            : (currentProject?.petImage === "pigeon-image") ?
-            require("../assets/Pets/PigeonPet.png")
+            : currentProject?.petImage === "pigeon-image"
+            ? require("../assets/Pets/PigeonPet.png")
             : require("../assets/Pets/CandlePet.png")
         }
       />
-      <Text style={isNegative ? styles.timerText1 : styles.timerText }>{`${mins} : ${secs}`}</Text>
+      <Text
+        style={isNegative ? styles.timerText1 : styles.timerText}
+      >{`${mins} : ${secs}`}</Text>
       {!onPom && (
         <Button
           onPress={() => handleButtonPress()}
@@ -163,29 +163,37 @@ export default function ProjectTimer({
         <Button onPress={seeStats} text="See Stats"></Button>
       )}
       {isTraining && !onPom && (
-        <Button onPress={() => {
-          feedPet();
-          collectWorkTime();
-          setIsNegative(false);
-          updateSessionCount(0, 1)
-          }
-        } text="Feed Pet"></Button>
+        <Button
+          onPress={() => {
+            feedPet();
+            collectWorkTime();
+            setIsNegative(false);
+            updateSessionCount(0, 1);
+          }}
+          text="Feed Pet"
+        ></Button>
       )}
       {isTraining && !onPom && (
-        <Button onPress={() => {
-          walkPet();
-          collectWorkTime();
-          setIsNegative(false);
-          updateSessionCount(0, 1)
-          } 
-        } text="Walk Pet"></Button>
+        <Button
+          onPress={() => {
+            walkPet();
+            collectWorkTime();
+            setIsNegative(false);
+            updateSessionCount(0, 1);
+          }}
+          text="Walk Pet"
+        ></Button>
       )}
-      {onPom && <Button onPress={() => {
-        reset();
-        collectWorkTime();
-        setIsNegative(false);
-        }
-        } text="End Break"></Button>}
+      {onPom && (
+        <Button
+          onPress={() => {
+            reset();
+            collectWorkTime();
+            setIsNegative(false);
+          }}
+          text="End Break"
+        ></Button>
+      )}
       {onPom && (
         <View>
           <Text style={styles.pomText}>{showMessage()}</Text>

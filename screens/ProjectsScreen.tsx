@@ -16,12 +16,10 @@ export default function ProjectsScreen({
   navigation,
   projects,
   updateCurrentProject,
-  resetTimerState,
 }: {
   updateCurrentProject: any;
   navigation?: any;
   projects: Projects | null;
-  resetTimerState: any;
 }) {
   let [fontsLoaded] = useFonts({
     Nunito_900Black,
@@ -42,7 +40,6 @@ export default function ProjectsScreen({
       key={item.id}
       name={item.projectName}
       updateCurrentProject={updateCurrentProject}
-      resetTimerState={resetTimerState}
     />
   );
 

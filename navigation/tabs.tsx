@@ -33,7 +33,6 @@ const Tabs = ({
   numBreaks,
   numWorkSessions,
   updateSessionCount,
-  resetTimerState
 }: {
   projects: Projects | null;
   user: User;
@@ -52,11 +51,10 @@ const Tabs = ({
   totalNegWorkTime: number;
   totalBreakTime: number;
   totalOverBreakTime: number;
-  updateTimerStats: any,
-  numBreaks: number,
-  numWorkSessions: number,
-  updateSessionCount: any,
-  resetTimerState: any
+  updateTimerStats: any;
+  numBreaks: number;
+  numWorkSessions: number;
+  updateSessionCount: any;
 }) => {
   return (
     <Tab.Navigator
@@ -95,13 +93,17 @@ const Tabs = ({
       />
 
       <Tab.Screen
-      name="New Project"
-      children={(props) => (
-        <NewProjectScreen createNewProject={createNewProject}  loadNewProject={loadNewProject} {...props} />
-      )}
-      options={{
-        tabBarButton: () => null
-      }}
+        name="New Project"
+        children={(props) => (
+          <NewProjectScreen
+            createNewProject={createNewProject}
+            loadNewProject={loadNewProject}
+            {...props}
+          />
+        )}
+        options={{
+          tabBarButton: () => null,
+        }}
       />
 
       <Tab.Screen
@@ -110,7 +112,6 @@ const Tabs = ({
           <ProjectsScreen
             projects={projects}
             updateCurrentProject={updateCurrentProject}
-            resetTimerState={resetTimerState}
             {...props}
           />
         )}
@@ -140,19 +141,21 @@ const Tabs = ({
       <Tab.Screen
         name="Pet"
         children={(props) => (
-          <ProjectTimer 
-          updateSessionCount={updateSessionCount}
-          numBreaks={numBreaks}
-          numWorkSessions={numWorkSessions}
-          updateTimerStats={updateTimerStats}
-          totalWorkTime={totalWorkTime}
-          totalNegWorkTime={totalNegWorkTime}
-          totalBreakTime={totalBreakTime}
-          totalOverBreakTime={totalOverBreakTime}
-          currentProject={currentProject} 
-          userWorkTime={userWorkTime} 
-          userShortPomTime={userShortPomTime} 
-          userLongPomTime={userLongPomTime} {...props} />
+          <ProjectTimer
+            updateSessionCount={updateSessionCount}
+            numBreaks={numBreaks}
+            numWorkSessions={numWorkSessions}
+            updateTimerStats={updateTimerStats}
+            totalWorkTime={totalWorkTime}
+            totalNegWorkTime={totalNegWorkTime}
+            totalBreakTime={totalBreakTime}
+            totalOverBreakTime={totalOverBreakTime}
+            currentProject={currentProject}
+            userWorkTime={userWorkTime}
+            userShortPomTime={userShortPomTime}
+            userLongPomTime={userLongPomTime}
+            {...props}
+          />
         )}
         options={{
           tabBarLabelStyle: { display: "none" },
@@ -177,18 +180,19 @@ const Tabs = ({
         }}
       />
 
-
       <Tab.Screen
         name="Stats"
         children={(props) => (
-          <ProjectStatisticsScreen 
-          numBreaks={numBreaks}
-          numWorkSessions={numWorkSessions}
-          totalWorkTime={totalWorkTime}
-          totalNegWorkTime={totalNegWorkTime}
-          totalBreakTime={totalBreakTime}
-          totalOverBreakTime={totalOverBreakTime}
-          currentProject={currentProject} {...props} />
+          <ProjectStatisticsScreen
+            numBreaks={numBreaks}
+            numWorkSessions={numWorkSessions}
+            totalWorkTime={totalWorkTime}
+            totalNegWorkTime={totalNegWorkTime}
+            totalBreakTime={totalBreakTime}
+            totalOverBreakTime={totalOverBreakTime}
+            currentProject={currentProject}
+            {...props}
+          />
         )}
         options={{
           tabBarButton: () => null,

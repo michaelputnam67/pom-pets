@@ -1,6 +1,6 @@
 import { Text, Image, View, StyleSheet, TextInput, Modal } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "../Components/Button";
 import AppLoader from "../Components/AppLoader";
 import { COLORS } from "../constants/Colors";
@@ -27,7 +27,6 @@ export default function LoginScreen({
   login: any;
   modalStatus: boolean;
 }) {
-
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -75,7 +74,6 @@ export default function LoginScreen({
               viewCreateProfile(true);
             }}
           ></Button>
-
         </View>
       </View>
     </KeyboardAwareScrollView>

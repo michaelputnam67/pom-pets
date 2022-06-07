@@ -8,7 +8,7 @@ import {
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
 
-export default function AboutScreen({ navigation }: { navigation: any }) {
+export default function AboutScreen() {
   let [fontsLoaded] = useFonts({
     Nunito_500Medium,
     Nunito_800ExtraBold,
