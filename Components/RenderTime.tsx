@@ -32,9 +32,8 @@ export default function RenderTime({ time }: { time: number | undefined }) {
 
 const styles = StyleSheet.create({
   timer: {
-    textAlign: 'center',
-    // marginLeft: 70,
+    textAlign: "center",
     fontSize: 45,
     color: COLORS.secondary,
-  }
-})
+  },
+});

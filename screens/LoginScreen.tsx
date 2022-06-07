@@ -1,6 +1,6 @@
 import { Text, Image, View, StyleSheet, TextInput, Modal } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "../Components/Button";
 import AppLoader from "../Components/AppLoader";
 import { COLORS } from "../constants/Colors";
@@ -27,14 +27,6 @@ export default function LoginScreen({
   login: any;
   modalStatus: boolean;
 }) {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    if (modalStatus === true) {
-      setModalVisible(true);
-    }
-  }, [modalStatus]);
-
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -46,7 +38,7 @@ export default function LoginScreen({
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
-      <Modal animationType="fade" visible={modalVisible}>
+      <Modal animationType="fade" visible={modalStatus}>
         <AppLoader></AppLoader>
       </Modal>
       <View>
@@ -89,35 +81,35 @@ export default function LoginScreen({
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 0,
+    marginTop: 20,
+  },
   container: {
     flex: 1,
   },
-  image: {
-    height: 300,
-    width: 300,
-    alignSelf: "center",
-    marginBottom: 30,
-  },
   input: {
-    height: 50,
-    width: "65%",
-    borderColor: COLORS.grey,
-    borderWidth: 1,
-    borderRadius: 25,
     alignSelf: "center",
-    textAlign: "center",
+    borderColor: COLORS.grey,
+    borderRadius: 25,
+    borderWidth: 1,
     fontSize: 15,
+    height: 50,
     margin: 20,
+    textAlign: "center",
+    width: "65%",
+  },
+  image: {
+    alignSelf: "center",
+    height: 300,
+    marginBottom: 30,
+    width: 300,
   },
   title: {
-    fontSize: 55,
-    marginTop: 50,
-    fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
-  },
-  button: {
-    marginTop: 20,
-    marginBottom: 0,
+    fontFamily: "Nunito_900Black",
+    fontSize: 55,
+    marginTop: 50,
   },
 });

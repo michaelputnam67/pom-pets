@@ -57,7 +57,7 @@ export default function ProjectsScreen({
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "center",
-          padding: 15,
+          padding: 20,
         }}
         ListFooterComponent={() => (
           <Pressable
@@ -77,26 +77,26 @@ export default function ProjectsScreen({
 }
 
 const styles = StyleSheet.create({
-  main: {
-    height: 200,
-    width: 200,
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: COLORS.accent,
-    borderRadius: 30,
-    marginTop: 25,
-  },
-  view: {
-    backgroundColor: COLORS.white,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   h1: {
-    fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
+    fontFamily: "Nunito_900Black",
     fontSize: 40,
     marginBottom: 10,
+  },
+  main: {
+    backgroundColor: COLORS.accent,
+    borderRadius: 30,
+    height: 200,
+    flex: 1,
+    flexDirection: "column",
+    marginTop: 25,
+    width: 200,
+  },
+  view: {
+    alignItems: "center",
+    backgroundColor: COLORS.white,
+    flex: 1,
+    justifyContent: "center",
   },
 });

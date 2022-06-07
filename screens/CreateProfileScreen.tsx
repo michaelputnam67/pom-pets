@@ -1,4 +1,12 @@
-import { Text, StyleSheet, View, TextInput, Image, Modal } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  Modal,
+  Alert,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React, { useState } from "react";
 import Button from "../Components/Button";
@@ -12,6 +20,7 @@ import {
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
 import { initializeApp } from "firebase/app";
+import AppLoader from "../Components/AppLoader";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEnXq52ByAhEgHbP96fLCf-zHxK9hKgCE",
@@ -26,12 +35,16 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export default function CreateProfileScreen() {
-  const [newUserName, setNewUserName] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newEmail, setNewEmail] = useState("");
+export default function CreateProfileScreen({
+  viewCreateProfile,
+}: {
+  viewCreateProfile: any;
+}) {
+  const [newUserName, setNewUserName] = useState<string | undefined>(undefined);
+  const [newEmail, setNewEmail] = useState<string | undefined>(undefined);
   const [choosingPhoto, setChoosingPhoto] = useState(false);
   const [photo, setPhoto] = useState<any>();
+  const [loading, setLoading] = useState(false);
 
   const goBack = () => {
     setChoosingPhoto(false);
@@ -47,17 +60,26 @@ export default function CreateProfileScreen() {
   };
 
   const generateNewUser = async () => {
+    if (!newUserName || !newEmail) {
+      return Alert.alert("Check your inputs!");
+    }
     const url = await usePhoto();
-    apiCalls.createNewUser({
-      username: newUserName,
-      email: newEmail,
-      profilePhoto: url,
-      settings: {
-        workTime: 25,
-        shortPomTime: 5,
-        longPomTime: 10,
-      },
-    });
+    setLoading(true);
+    apiCalls
+      .createNewUser({
+        username: newUserName,
+        email: newEmail,
+        profilePhoto: url,
+        settings: {
+          workTime: 25,
+          shortPomTime: 5,
+          longPomTime: 10,
+        },
+      })
+      .then(() => {
+        setLoading(false);
+        viewCreateProfile(false);
+      });
   };
 
   let [fontsLoaded] = useFonts({
@@ -71,6 +93,9 @@ export default function CreateProfileScreen() {
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
+      <Modal animationType="fade" visible={loading}>
+        <AppLoader></AppLoader>
+      </Modal>
       <Modal animationType="slide" visible={choosingPhoto}>
         <ProfilePhoto photo={photo} setPhoto={setPhoto} goBack={goBack} />
       </Modal>
@@ -106,56 +131,53 @@ export default function CreateProfileScreen() {
           value={newEmail}
           placeholder={"francesco.cirillo@pompets.com"}
         />
-        <Text style={styles.label}>Create a password:</Text>
-        <TextInput
-          autoCapitalize={"none"}
-          style={styles.input}
-          onChangeText={setNewPassword}
-          value={newPassword}
-          placeholder={"password123"}
-        />
       </View>
       <Button text="Create Profile" onPress={generateNewUser}></Button>
+      <Button
+        text="Back to Login"
+        onPress={() => viewCreateProfile(false)}
+      ></Button>
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: COLORS.white,
+    flex: 1,
+  },
+  h1: {
+    alignSelf: "center",
+    color: COLORS.primary,
+    fontFamily: "Nunito_900Black",
+    fontSize: 40,
+    marginTop: 50,
   },
   image: {
-    height: 200,
-    width: 200,
     alignSelf: "center",
+    height: 200,
     margin: 20,
+    width: 200,
   },
   input: {
-    height: 50,
-    width: "65%",
-    borderColor: COLORS.grey,
-    borderWidth: 1,
-    borderRadius: 25,
     alignSelf: "center",
-    textAlign: "center",
+    borderColor: COLORS.grey,
+    borderRadius: 25,
+    borderWidth: 1,
     fontSize: 15,
-  },
-  label: {
-    fontFamily: "Nunito_500Medium",
+    height: 50,
     textAlign: "center",
-    fontSize: 18,
-    color: COLORS.grey,
-    marginTop: 15,
+    width: "65%",
   },
   inputContainer: {
     margin: 20,
   },
-  h1: {
-    marginTop: 50,
-    fontFamily: "Nunito_900Black",
-    alignSelf: "center",
-    color: COLORS.primary,
-    fontSize: 40,
+  label: {
+    color: COLORS.grey,
+    fontFamily: "Nunito_500Medium",
+    fontSize: 18,
+    marginTop: 15,
+    marginBottom: 8,
+    textAlign: "center",
   },
 });

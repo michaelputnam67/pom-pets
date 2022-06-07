@@ -13,22 +13,24 @@ import Button from "../Components/Button";
 
 const { height, width } = Dimensions.get("window");
 
-export default function ProfilePhoto({goBack, setPhoto, photo} : {goBack: any, setPhoto: any, photo:any}) {
+export default function ProfilePhoto({
+  goBack,
+  setPhoto,
+  photo,
+}: {
+  goBack: any;
+  setPhoto: any;
+  photo: any;
+}) {
   let cameraRef = useRef<Camera | any>();
   const [hasCameraPermission, setHasCameraPermission] = useState<
-    boolean | null
-  >(null);
-  const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState<
     boolean | null
   >(null);
   const [type, setType] = useState(CameraType.front);
   useEffect(() => {
     (async () => {
       const cameraPermission = await Camera.requestCameraPermissionsAsync();
-      const mediaLibraryPermission =
-        await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraPermission.status === "granted");
-      setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
     })();
   }, []);
 
@@ -87,9 +89,9 @@ export default function ProfilePhoto({goBack, setPhoto, photo} : {goBack: any, s
       <View style={styles.container}>
         <Camera style={styles.camera} ref={cameraRef} type={type}>
           <Pressable onPress={goBack}>
-            <Image 
+            <Image
               style={styles.backButton}
-              source={require('../assets/Icons-Buttons/ViewLeftBtn.png')}
+              source={require("../assets/Icons-Buttons/ViewLeftBtn.png")}
             />
           </Pressable>
         </Camera>
@@ -141,6 +143,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     height: height / 10,
-    width: width / 10
-  }
+    width: width / 10,
+  },
 });

@@ -7,7 +7,7 @@ export default function ProjectPet({
   navigation,
   name,
   updateCurrentProject,
-  item,
+  item
 }: {
   navigation: any;
   name: string;

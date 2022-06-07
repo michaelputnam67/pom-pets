@@ -24,6 +24,15 @@ const Tabs = ({
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
+  loadNewProject,
+  totalWorkTime,
+  totalNegWorkTime,
+  totalBreakTime,
+  totalOverBreakTime,
+  updateTimerStats,
+  numBreaks,
+  numWorkSessions,
+  updateSessionCount,
 }: {
   projects: Projects | null;
   user: User;
@@ -37,6 +46,15 @@ const Tabs = ({
   userWorkTime: any;
   userShortPomTime: any;
   userLongPomTime: any;
+  loadNewProject: any;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  updateTimerStats: any;
+  numBreaks: number;
+  numWorkSessions: number;
+  updateSessionCount: any;
 }) => {
   return (
     <Tab.Navigator
@@ -77,7 +95,11 @@ const Tabs = ({
       <Tab.Screen
         name="New Project"
         children={(props) => (
-          <NewProjectScreen createNewProject={createNewProject} {...props} />
+          <NewProjectScreen
+            createNewProject={createNewProject}
+            loadNewProject={loadNewProject}
+            {...props}
+          />
         )}
         options={{
           tabBarButton: () => null,
@@ -120,6 +142,14 @@ const Tabs = ({
         name="Pet"
         children={(props) => (
           <ProjectTimer
+            updateSessionCount={updateSessionCount}
+            numBreaks={numBreaks}
+            numWorkSessions={numWorkSessions}
+            updateTimerStats={updateTimerStats}
+            totalWorkTime={totalWorkTime}
+            totalNegWorkTime={totalNegWorkTime}
+            totalBreakTime={totalBreakTime}
+            totalOverBreakTime={totalOverBreakTime}
             currentProject={currentProject}
             userWorkTime={userWorkTime}
             userShortPomTime={userShortPomTime}
@@ -150,11 +180,19 @@ const Tabs = ({
         }}
       />
 
-
       <Tab.Screen
         name="Stats"
         children={(props) => (
-          <ProjectStatisticsScreen currentProject={currentProject} {...props} />
+          <ProjectStatisticsScreen
+            numBreaks={numBreaks}
+            numWorkSessions={numWorkSessions}
+            totalWorkTime={totalWorkTime}
+            totalNegWorkTime={totalNegWorkTime}
+            totalBreakTime={totalBreakTime}
+            totalOverBreakTime={totalOverBreakTime}
+            currentProject={currentProject}
+            {...props}
+          />
         )}
         options={{
           tabBarButton: () => null,

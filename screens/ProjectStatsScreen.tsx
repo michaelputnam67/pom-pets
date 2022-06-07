@@ -17,9 +17,21 @@ import * as Linking from "expo-linking";
 export default function ProjectStatisticsScreen({
   currentProject,
   navigation,
+  totalWorkTime,
+  totalNegWorkTime,
+  totalBreakTime,
+  totalOverBreakTime,
+  numBreaks,
+  numWorkSessions
 }: {
   navigation: any;
   currentProject: Project | undefined;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  numBreaks: number;
+  numWorkSessions: number;
 }) {
   const toTraining = () => {
     navigation.navigate("Pet");
@@ -32,8 +44,10 @@ export default function ProjectStatisticsScreen({
         style={styles.pet}
         source={
           currentProject?.petImage === "tomato-image"
-            ? require("../assets/Pets/TomatoPet.png")
-            : require("../assets/Pets/PigeonPet.png")
+          ? require("../assets/Pets/TomatoPet.png")
+          : (currentProject?.petImage === "pigeon-image") ?
+          require("../assets/Pets/PigeonPet.png")
+          : require("../assets/Pets/CandlePet.png")
         }
       />
       <Text style={styles.projectName}>
@@ -54,28 +68,24 @@ export default function ProjectStatisticsScreen({
           </View>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={currentProject?.stats.totalWorkTime} />
+          <RenderTime time={Number(currentProject?.stats.totalWorkTime) + totalWorkTime} />
           <Text style={styles.label}>Total Training Time</Text>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={currentProject?.stats.totalLongPomTime} />
-          <Text style={styles.label}>Total Long Pom Time</Text>
-        </View>
-        <View style={styles.statContainer}>
-          <RenderTime time={currentProject?.stats.totalShortPomTime} />
-          <Text style={styles.label}>Total Short Pom Time</Text>
+          <RenderTime time={Number(currentProject?.stats.totalLongPomTime) + totalBreakTime} />
+          <Text style={styles.label}>Total Pom Time</Text>
         </View>
         <View style={styles.statContainer}>
           <Text style={styles.number}>
-            {currentProject?.stats.totalWorkSessions}
+            {Number(currentProject?.stats.totalWorkSessions) + numWorkSessions}
           </Text>
           <Text style={styles.label}>Number of Work Sessions</Text>
         </View>
         <View style={styles.statContainer}>
           <Text style={styles.number}>
-            {currentProject?.stats.totalShortSessions}
+            {Number(currentProject?.stats.totalLongSessions) + numBreaks}
           </Text>
-          <Text style={styles.label}>Number of Short Breaks</Text>
+          <Text style={styles.label}>Number of Breaks</Text>
         </View>
         <View style={{ marginBottom: 50 }}>
           <Text
@@ -101,23 +111,8 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: "Nunito_900Black",
   },
-  pet: {
-    height: 230,
-    width: 230,
-    alignSelf: "center",
-    marginBottom: 10,
-  },
-  projectName: {
-    textAlign: "center",
-    fontSize: 25,
-    color: COLORS.primary,
-    fontFamily: "Nunito_500Medium",
-    marginBottom: 20,
-  },
-  statsContainer: {
-    height: 300,
-    marginBottom: 30,
-    marginTop: 35,
+  health: {
+    marginLeft: 50,
   },
   healthContainer: {
     justifyContent: "center",
@@ -137,14 +132,29 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginBottom: 20,
   },
-  health: {
-    marginLeft: 50,
-  },
   number: {
     textAlign: "center",
     fontSize: 40,
     color: COLORS.primary,
     fontFamily: "Nunito_800ExtraBold",
+  },
+  pet: {
+    height: 230,
+    width: 230,
+    alignSelf: "center",
+    marginBottom: 10,
+  },
+  projectName: {
+    textAlign: "center",
+    fontSize: 25,
+    color: COLORS.primary,
+    fontFamily: "Nunito_500Medium",
+    marginBottom: 20,
+  },
+  statsContainer: {
+    height: 300,
+    marginBottom: 30,
+    marginTop: 35,
   },
   statContainer: {
     marginBottom: 18,

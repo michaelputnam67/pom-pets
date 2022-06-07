@@ -4,17 +4,12 @@ let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 const apiCalls = {
-  getUser: (userID: any, setModalStatus: any) =>
+  getUser: (userID: any) =>
     fetch(`https://pom-pets-api.herokuapp.com/api/v1/users/${userID}`)
-      .then((res) => res.json())
-      .catch((err) => {
-        setModalStatus(false)
-        Alert.alert(err)
-      }
-      ),
+      .then((res) => res.json()),
 
   updateUser: (patch: any, userID: any) => {
-    fetch(`https://pom-pets-api.herokuapp.com/api/v1/users/${userID}`, {
+    return fetch(`https://pom-pets-api.herokuapp.com/api/v1/users/${userID}`, {
       method: "PATCH",
       headers: myHeaders,
       body: JSON.stringify(patch),
@@ -25,7 +20,7 @@ const apiCalls = {
   },
 
   createNewUser: (post: any) => {
-    fetch('https://pom-pets-api.herokuapp.com/api/v1/users', {
+    return fetch('https://pom-pets-api.herokuapp.com/api/v1/users', {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(post),
@@ -35,9 +30,8 @@ const apiCalls = {
       .catch((err) => Alert.alert(err))
   },
 
-
   createProject: (post: any) => {
-    fetch("https://pom-pets-api.herokuapp.com/api/v1/projects", {
+    return fetch("https://pom-pets-api.herokuapp.com/api/v1/projects", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(post),
@@ -46,6 +40,17 @@ const apiCalls = {
       .then((res) => res.json())
       .catch((err) => Alert.alert(err));
   },
+
+  updateProjectStats: (patch: any, projectID: number) => {
+    return fetch(`https://pom-pets-api.herokuapp.com/api/v1/projects/${projectID}`, {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(patch),
+      redirect: "follow",
+    })
+      .then((res) => res.text())
+      .catch((err) => Alert.alert(err));
+  }
 };
 
 export default apiCalls;

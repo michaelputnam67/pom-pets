@@ -1,9 +1,10 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
+
 import Button from "../Components/Button";
 import ButtonGroup from "../Components/ButtonGroup";
-import { User, Attributes } from "../interface";
+import { User } from "../interface";
 import { COLORS } from "../constants/Colors";
 import {
   useFonts,
@@ -62,59 +63,61 @@ export default function ProfileScreen({
 
   return (
     <SafeAreaView style={styles.view}>
-      <Text style={styles.h1}>User Profile</Text>
-      <Image
-        style={styles.image}
-        source={photo ? {uri: photo} : require("../assets/JoeProfilePicture.png")}
-      />
-      <View style={styles.userInfoContainer}>
-        <Text style={styles.h2}>Username:</Text>
-        <Text style={styles.h3}>{`${currentUser.attributes.username}`}</Text>
-      </View>
-      <View style={styles.userInfoContainer}>
-        <Text style={styles.h2}>Email:</Text>
-        <Text style={styles.h3}>{`${currentUser.attributes.email}`}</Text>
-      </View>
-      <Text style={styles.h4}>Work Time</Text>
-      <ButtonGroup
-        currentlyActive={userWorkTime}
-        onPress={setLocalWorkTime}
-        text1="15"
-        text2="25"
-        text3="35"
-      ></ButtonGroup>
-      <Text style={styles.h4}>Short Pom Time</Text>
-      <ButtonGroup
-        currentlyActive={userShortPomTime}
-        onPress={setLocalShortPomTime}
-        text1="2"
-        text2="5"
-        text3="10"
-      ></ButtonGroup>
-      <Text style={styles.h4}>Long Pom Time</Text>
-      <ButtonGroup
-        currentlyActive={userLongPomTime}
-        onPress={setLocalLongPomTime}
-        text1="10"
-        text2="15"
-        text3="20"
-      ></ButtonGroup>
-      <Button text="Sign Out" onPress={logOut}></Button>
+      <ScrollView>
+        <Text style={styles.h1}>User Profile</Text>
+        <Image
+          style={styles.image}
+          source={photo ? {uri: photo} : require("../assets/JoeProfilePicture.png")}
+        />
+        <View style={styles.userInfoContainer}>
+          <Text style={styles.h2}>Username:</Text>
+          <Text style={styles.h3}>{`${currentUser.attributes.username}`}</Text>
+        </View>
+        <View style={styles.userInfoContainer}>
+          <Text style={styles.h2}>Email:</Text>
+          <Text style={styles.h3}>{`${currentUser.attributes.email}`}</Text>
+        </View>
+        <Text style={styles.h4}>Work Time</Text>
+        <ButtonGroup
+          currentlyActive={userWorkTime}
+          onPress={setLocalWorkTime}
+          text1="15"
+          text2="25"
+          text3="35"
+        ></ButtonGroup>
+        <Text style={styles.h4}>Short Pom Time</Text>
+        <ButtonGroup
+          currentlyActive={userShortPomTime}
+          onPress={setLocalShortPomTime}
+          text1="2"
+          text2="5"
+          text3="10"
+        ></ButtonGroup>
+        <Text style={styles.h4}>Long Pom Time</Text>
+        <ButtonGroup
+          currentlyActive={userLongPomTime}
+          onPress={setLocalLongPomTime}
+          text1="10"
+          text2="15"
+          text3="20"
+        ></ButtonGroup>
+        <Button text="Sign Out" onPress={logOut}></Button>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: "Nunito_900Black",
     alignSelf: "center",
     color: COLORS.primary,
+    fontFamily: "Nunito_900Black",
     fontSize: 40,
     marginBottom: 30,
   },
   h2: {
-    fontFamily: "Nunito_800ExtraBold",
     color: COLORS.secondary,
+    fontFamily: "Nunito_800ExtraBold",
     fontSize: 25,
     marginRight: 25,
   },
@@ -123,27 +126,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   h4: {
-    fontFamily: "Nunito_800ExtraBold",
     color: COLORS.grey,
+    fontFamily: "Nunito_800ExtraBold",
     fontSize: 18,
     marginBottom: 5,
-  },
-  userInfoContainer: {
-    flexDirection: "row",
-    width: "75%",
-    alignItems: "center",
-    marginBottom: 15,
+    alignSelf: 'center'
   },
   image: {
-    height: 180,
-    width: 180,
     alignSelf: "center",
+    borderRadius: 100,
+    height: 180,
     marginBottom: 10,
+    width: 180,
+  },
+  userInfoContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 15,
+    width: "75%",
   },
   view: {
+    alignItems: "center",
     backgroundColor: COLORS.white,
     flex: 1,
-    alignItems: "center",
     justifyContent: "flex-start",
   },
 });

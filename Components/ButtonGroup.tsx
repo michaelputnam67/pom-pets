@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Pressable, Text, StyleSheet, View } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
