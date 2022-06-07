@@ -45,7 +45,7 @@ Profile screen:
 - `cd` into the application.
 - Run `npm install` to install all the project dependencies.
 - Run `npm start` to see the application.
-  - Press `i` to start iOS simulation
+  - Press `i` to start iOS simulation.
   - If you need to stop running the application, run `Control + C`.
   - You can also download the Expo Go app and scan the QR code that appears to run the app on your phone.
 
