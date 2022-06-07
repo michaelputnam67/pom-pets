@@ -41,7 +41,7 @@ export default function App() {
       resetLogin();
       setModalStatus(true);
       apiCalls
-        .getUser(`${userName}`, setModalStatus)
+        .getUser(`${userName}`)
         .then((data) => {
           setUser(data.data);
           setCurrentProject(data.data.attributes.projects[0]);
@@ -60,7 +60,7 @@ export default function App() {
   };
 
   const loadNewProject = () => {
-    apiCalls.getUser().then((data) => {
+    return apiCalls.getUser(`${user?.id}`).then((data) => {
       setUser(data.data);
       setCurrentProject(data.data.attributes.projects[data.data.attributes.projects.length - 1]);
       setPets(data.data.attributes.projects);
@@ -71,7 +71,7 @@ export default function App() {
   }
 
   const reloadProjectAfterFetch = () => {
-    apiCalls.getUser().then((data) => {
+    apiCalls.getUser(`${user?.id}`).then((data) => {
       setUser(data.data);
     
       setPets(data.data.attributes.projects);
@@ -105,7 +105,7 @@ export default function App() {
         totalLongSessions: 0,
       },
     };
-    apiCalls.createProject(post);
+    return apiCalls.createProject(post);
   };
 
   const setWorkTime = (text: number) => {

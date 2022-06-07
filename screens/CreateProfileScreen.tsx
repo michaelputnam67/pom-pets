@@ -116,6 +116,7 @@ export default function CreateProfileScreen() {
         />
       </View>
       <Button text="Create Profile" onPress={generateNewUser}></Button>
+      {/* add Button to back to login screen */}
     </KeyboardAwareScrollView>
   );
 }

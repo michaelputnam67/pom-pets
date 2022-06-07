@@ -156,10 +156,12 @@ export default function NewProjectScreen({
             } else if (!checkURL(gitHubUrl)) {
               Alert.alert("Please provide a valid url");
             } else {
-              createNewProject(pet, projectName, gitHubUrl);
-              navigation.navigate("Pet");
-              loadNewProject();
-              clearInputs();
+              createNewProject(pet, projectName, gitHubUrl).then(() => {
+                loadNewProject().then(() => {
+                  clearInputs();
+                  navigation.navigate("Pet");
+                })
+              })
               }
             }
           }
