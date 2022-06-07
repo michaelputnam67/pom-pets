@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     color: COLORS.grey,
     fontSize: 18,
     marginBottom: 5,
+    alignSelf: 'center'
   },
   userInfoContainer: {
     flexDirection: "row",
