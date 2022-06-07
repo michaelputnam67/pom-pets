@@ -14,14 +14,40 @@ A Pom Pet is a way to help measure your poms and productivity while working. By 
 
 ## Application in Action:
 
+Login page:
+
+![login page](https://media.giphy.com/media/gIxvDMoJAIfpGEqMRL/giphy.gif)
+
+About screen:
+
+![About screen](https://media.giphy.com/media/kWFh3iPyYeJoZGKXWS/giphy.gif)
+
+Projects screen and adding a projects:
+
+![Projects Screen and adding a projects](https://media.giphy.com/media/Ywerw5wjGN9aOYQK5N/giphy.gif)
+
+Timer screen and taking a break:
+
+![Timer screen and taking a break](https://media.giphy.com/media/ZhTHbhwjDhxAhFF8dQ/giphy.gif)
+
+Stats screen:
+
+![Stats screen](https://media.giphy.com/media/2DmhnKhv3G9yekyfct/giphy.gif)
+
+Profile screen:
+
+![Profile Screen](https://media.giphy.com/media/wmm7jREApFfhLmjJQh/giphy.gif)
+
 ## Set Up:
 
+- Install Xcode to run the simulator.
 - Clone the repository to your local machine.
 - `cd` into the application.
 - Run `npm install` to install all the project dependencies.
 - Run `npm start` to see the application.
-  - Paste http://localhost:3000/ into your browser to view.
+  - Press `i` to start iOS simulation
   - If you need to stop running the application, run `Control + C`.
+  - You can also download the Expo Go app and scan the QR code that appears to run the app on your phone.
 
 Pom Pets API/Backend: https://github.com/dylan-harper/Pom-Pets-API
 
