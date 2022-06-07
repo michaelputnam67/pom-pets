@@ -6,11 +6,11 @@
     "description": "A Pom Pet is a way to help measure your poms and productivity while working. By taking the Pomodoro concept]and 'gamifying' it by borrowing themes from games like Tamagotchi, Pom Pets creates a way to visually represent your work/break time as a Pet. The stricter you are with your work and break schedule, the healthier the pet. If your work and break time are too disproportionate, your Pet's health will decrease.",
     "orientation": "portrait",
     "splash": {
-      "image": "./assets/AppIcon.png",
+      "image": "./assets/PomPetsSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "icon": "./assets/AppIcon.png",
+    "icon": "./assets/PomPetsIcon.png",
     "userInterfaceStyle": "light",
     "plugins": [
       [
