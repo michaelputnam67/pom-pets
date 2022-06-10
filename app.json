@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "mikeputnam713",
     "name": "Pom Pets",
     "slug": "pom-pets",
     "version": "1.0.0",
@@ -29,8 +30,12 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use the camera",
-        "NSMMicrophoneUsageDescription":"Allow $(PRODUCT_NAME) to use the microphone"
-      }
+        "NSMMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use the microphone"
+      },
+      "bundleIdentifier": "pom.pets"
+    },
+    "android": {
+      "package": "pom.pets"
     }
   }
 }
