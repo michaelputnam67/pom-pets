@@ -36,7 +36,7 @@ export default function App() {
   const [numBreaks, setNumBreaks] = useState(0);
 
   const login = () => {
-    if (password === "Password") {
+    if (password === "Password" && userName !== '15') {
       resetLogin();
       setModalStatus(true);
       apiCalls
