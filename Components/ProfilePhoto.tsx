@@ -11,12 +11,6 @@ import {
 import { Camera, CameraType } from "expo-camera";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
-import {
-  useFonts,
-  Nunito_500Medium,
-  Nunito_800ExtraBold,
-  Nunito_900Black,
-} from "@expo-google-fonts/nunito";
 
 const { height, width } = Dimensions.get("window");
 
@@ -40,16 +34,6 @@ export default function ProfilePhoto({
       setHasCameraPermission(cameraPermission.status === "granted");
     })();
   }, []);
-
-  let [fontsLoaded] = useFonts({
-    Nunito_500Medium,
-    Nunito_800ExtraBold,
-    Nunito_900Black,
-  });
-
-  if (!fontsLoaded) {
-    return <></>;
-  }
 
   if (hasCameraPermission === null) {
     return <Text>Requesting Permission...</Text>;
@@ -104,15 +88,13 @@ export default function ProfilePhoto({
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <View style={styles.backButtonContainer}>
-          <Pressable onPress={goBack}>
-            <Image
-              style={styles.backButton}
-              source={require("../assets/Icons-Buttons/ViewLeftBtn.png")}
-            />
-          </Pressable>
+        <Pressable style={styles.goBackPressable} onPress={goBack}>
+          <Image
+            style={styles.backButton}
+            source={require("../assets/Icons-Buttons/ViewLeftBtn.png")}
+          />
           <Text style={styles.h3}>back</Text>
-        </View>
+        </Pressable>
         <Camera style={styles.camera} ref={cameraRef} type={type}></Camera>
         <View style={styles.buttonContainer}>
           <Button
@@ -159,23 +141,22 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: height * 0.04,
   },
-  backButtonContainer: {
+  goBackPressable: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
     width: width * 0.8,
+    marginTop: height * 0.02,
   },
   h3: {
     fontFamily: "Nunito_800ExtraBold",
     fontSize: 20,
     color: COLORS.grey,
     margin: 8,
-    paddingTop: 7,
   },
   backButton: {
     height: height / 25,
     width: width / 25,
-    marginTop: height * 0.01,
   },
 });

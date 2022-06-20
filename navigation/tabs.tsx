@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Dimensions } from "react-native";
 import { COLORS } from "../constants/Colors";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
@@ -10,6 +10,8 @@ import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
 import NewProjectScreen from "../screens/NewProjectScreen";
 
 const Tab = createBottomTabNavigator();
+
+const { height, width } = Dimensions.get("window");
 
 const Tabs = ({
   user,
