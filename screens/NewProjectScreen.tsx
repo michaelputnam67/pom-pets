@@ -49,10 +49,12 @@ export default function NewProjectScreen({
   createNewProject,
   navigation,
   loadNewProject,
+  resetTimerState
 }: {
   createNewProject: any;
   navigation: any;
   loadNewProject: any;
+  resetTimerState: any
 }) {
   const [pet, setPet] = useState(images[0]);
   const [projectName, setProjectName] = useState("");
@@ -155,6 +157,7 @@ export default function NewProjectScreen({
             } else if (!checkURL(gitHubUrl)) {
               Alert.alert("Please provide a valid url");
             } else {
+              resetTimerState()
               createNewProject(pet, projectName, gitHubUrl).then((res:any) => {
                return loadNewProject(res).then(() => {
                   clearInputs();

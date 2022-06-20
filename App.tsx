@@ -79,6 +79,12 @@ export default function App() {
       setUserWorkTime(data.data.attributes.settings.workTime);
       setUserShortPomTime(data.data.attributes.settings.shortPomTime);
       setUserLongPomTime(data.data.attributes.settings.longPomTime);
+      setTotalWorkTime(0);
+      setTotalNegWorkTime(0);
+      setTotalBreakTime(0);
+      setTotalOverBreakTime(0);
+      setNumBreaks(0);
+      setNumWorkSessions(0);
     });
   };
 
@@ -240,6 +246,7 @@ export default function App() {
           numBreaks={numBreaks}
           numWorkSessions={numWorkSessions}
           updateSessionCount={updateSessionCount}
+          resetTimerState={resetTimerState}
         />
       )}
     </NavigationContainer>
