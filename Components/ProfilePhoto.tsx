@@ -11,6 +11,12 @@ import {
 import { Camera, CameraType } from "expo-camera";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
+import {
+  useFonts,
+  Nunito_500Medium,
+  Nunito_800ExtraBold,
+  Nunito_900Black,
+} from "@expo-google-fonts/nunito";
 
 const { height, width } = Dimensions.get("window");
 
@@ -34,6 +40,16 @@ export default function ProfilePhoto({
       setHasCameraPermission(cameraPermission.status === "granted");
     })();
   }, []);
+
+  let [fontsLoaded] = useFonts({
+    Nunito_500Medium,
+    Nunito_800ExtraBold,
+    Nunito_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return <></>;
+  }
 
   if (hasCameraPermission === null) {
     return <Text>Requesting Permission...</Text>;
