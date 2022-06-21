@@ -1,5 +1,5 @@
 import { Alert, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects, Pet } from "./interface";
 import Tabs from "./navigation/tabs";
@@ -27,6 +27,8 @@ export default function App() {
     setPassword("");
   };
 
+  const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState(0);
+  const [projectHealth, setProjectHealth] = useState<number | undefined>(0);
   const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
   const [totalWorkTime, setTotalWorkTime] = useState(0);
   const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
@@ -35,8 +37,46 @@ export default function App() {
   const [numWorkSessions, setNumWorkSessions] = useState(0);
   const [numBreaks, setNumBreaks] = useState(0);
 
+  useEffect(() => {
+    if(!currentProject) return
+    let totalNumberOfBreaks = currentProject.stats.totalLongSessions + numBreaks
+    let calculateTotalBreakTime = () => {
+      let output = 0;
+      for (let i = 1; i <= totalNumberOfBreaks; i++) {
+        if (i % 4 === 0) {
+          output += userLongPomTime * 60;
+        } else {
+          output += userShortPomTime * 60;
+        }
+      }  
+      return output;
+    };
+    let totalWorkTimeS = totalTimeShouldHaveWorked + Number(currentProject?.stats.totalShortSessions)
+    let totalBreakTimeS = calculateTotalBreakTime() || 0
+    console.log(totalBreakTime)
+    console.log("Current Project:", currentProject.projectName, "TotalWorkTime:", totalWorkTimeS, "TotalBreakTime:", totalBreakTimeS, "ACTUALWORKTIME:",(totalWorkTime + Number(currentProject.stats.totalWorkTime)) , "ACTUALBREAKTIME:", (totalBreakTime + Number(currentProject?.stats.totalLongPomTime)))
+
+    let calculateHealthModifier = () => {
+      let output =
+        (((totalBreakTime + Number(currentProject?.stats.totalLongPomTime)) + (totalWorkTime + Number(currentProject.stats.totalWorkTime)) + totalNegWorkTime + totalOverBreakTime) / (totalWorkTimeS + totalBreakTimeS))
+      return output;
+    };
+    console.log(calculateHealthModifier())
+    let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)))
+    console.log(healthModifier)
+    if (healthModifier <= .25) {
+      setProjectHealth(3);
+    } else if (healthModifier > .25 && healthModifier <= .75) {
+      setProjectHealth(2);
+    } else {
+      setProjectHealth(1);
+    }
+    console.log(projectHealth, currentProject.petHealth)
+
+  }, [totalTimeShouldHaveWorked, totalWorkTime, totalBreakTime]);
+
   const login = () => {
-    if (password === "Password" && userName !== '15') {
+    if (password === "Password" && userName !== "15") {
       resetLogin();
       setModalStatus(true);
       apiCalls
@@ -95,6 +135,7 @@ export default function App() {
       setTotalOverBreakTime(0);
       setNumBreaks(0);
       setNumWorkSessions(0);
+      setTotalTimeShouldHaveWorked(0);
     });
   };
 
@@ -173,13 +214,22 @@ export default function App() {
 
   const resetTimerState = async () => {
     const sendWorkTime =
-      Number(currentProject?.stats.totalWorkTime) + totalWorkTime;
+      Number(currentProject?.stats.totalWorkTime) +
+      totalWorkTime +
+      totalNegWorkTime;
     const sendBreakTime =
-      Number(currentProject?.stats.totalLongPomTime) + totalBreakTime;
+      Number(currentProject?.stats.totalLongPomTime) +
+      totalBreakTime +
+      totalOverBreakTime;
     const sendWorkSessions =
       Number(currentProject?.stats.totalWorkSessions) + numWorkSessions;
     const sendBreakSessions =
       Number(currentProject?.stats.totalLongSessions) + numBreaks;
+
+    // Need to change totalShortSessions to timeShouldHaveWorked
+    const totalPossibleWorkTime =
+      Number(currentProject?.stats.totalShortSessions) +
+      totalTimeShouldHaveWorked;
 
     await apiCalls.updateProjectStats(
       { stats: { totalWorkTime: sendWorkTime } },
@@ -197,8 +247,16 @@ export default function App() {
       { stats: { totalWorkSessions: sendWorkSessions } },
       Number(currentProject?.id)
     );
+    await apiCalls.updateProjectStats(
+      { stats: { totalShortSessions: totalPossibleWorkTime } },
+      Number(currentProject?.id)
+    );
+    await apiCalls.updateProjectStats(
+      { petHealth: projectHealth },
+      Number(currentProject?.id)
+    );
   };
-
+      
   return (
     <NavigationContainer>
       {!user && !createProfile && (
@@ -219,6 +277,10 @@ export default function App() {
       )}
       {user && (
         <Tabs
+          totalTimeShouldHaveWorked={totalTimeShouldHaveWorked}
+          setTotalTimeShouldHaveWorked={setTotalTimeShouldHaveWorked}
+          setProjectHealth={setProjectHealth}
+          projectHealth={projectHealth}
           updateCurrentProject={updateCurrentProject}
           currentProject={currentProject}
           projects={pets}

@@ -14,6 +14,10 @@ const getRemaining = (time: number) => {
 };
 
 export default function ProjectTimer({
+  totalTimeShouldHaveWorked,
+  setTotalTimeShouldHaveWorked,
+  projectHealth,
+  setProjectHealth,
   navigation,
   currentProject,
   userWorkTime,
@@ -28,6 +32,10 @@ export default function ProjectTimer({
   numWorkSessions,
   updateSessionCount,
 }: {
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: any;
+  projectHealth: number | undefined;
+  setProjectHealth: any;
   navigation: any;
   currentProject?: Project | undefined;
   userWorkTime: any;
@@ -43,7 +51,7 @@ export default function ProjectTimer({
   updateSessionCount: any;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
-
+ 
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
@@ -73,6 +81,8 @@ export default function ProjectTimer({
   const handleButtonPress = () => {
     isTraining ? reset() : toggle();
     collectWorkTime();
+    let timeWorked = totalTimeShouldHaveWorked + userWorkTime * 60
+    isTraining && setTotalTimeShouldHaveWorked(timeWorked)
     setIsNegative(false);
   };
 
