@@ -1,8 +1,7 @@
 import { Dimensions, Pressable, Text, StyleSheet } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
-const {height, width } = Dimensions.get('window')
-
+const { height, width } = Dimensions.get("window");
 
 export default function Button({
   text,
@@ -11,8 +10,8 @@ export default function Button({
   pressableStyle,
   textStyle,
 }: {
-  textStyle?: any
-  pressableStyle?: any
+  textStyle?: any;
+  pressableStyle?: any;
   text: string;
   onPress: any;
   isTraining?: boolean;
@@ -50,8 +49,8 @@ export default function Button({
 const styles = StyleSheet.create({
   button: {
     borderRadius: 45,
-    width: "65%",
-    height: 45,
+    width: width * 0.65,
+    height: height * 0.05,
     alignSelf: "center",
     justifyContent: "center",
     margin: 10,
@@ -67,6 +66,6 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito_900Black",
     alignSelf: "center",
     fontWeight: "bold",
-    fontSize: 28,
+    fontSize: 24,
   },
 });

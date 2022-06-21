@@ -1,4 +1,12 @@
-import { Text, Image, View, StyleSheet, TextInput, Modal } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  TextInput,
+  Modal,
+  Dimensions,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React from "react";
 import Button from "../Components/Button";
@@ -9,6 +17,8 @@ import {
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
+
+const { height, width } = Dimensions.get("window");
 
 export default function LoginScreen({
   login,
@@ -94,22 +104,22 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderWidth: 1,
     fontSize: 15,
-    height: 50,
-    margin: 20,
+    height: height * 0.06,
+    width: width * 0.65,
+    margin: height * 0.02,
     textAlign: "center",
-    width: "65%",
   },
   image: {
     alignSelf: "center",
-    height: 300,
+    height: height * 0.3,
     marginBottom: 30,
-    width: 300,
+    width: width * 0.6,
   },
   title: {
     alignSelf: "center",
     color: COLORS.primary,
     fontFamily: "Nunito_900Black",
     fontSize: 55,
-    marginTop: 50,
+    marginTop: height * 0.07,
   },
 });

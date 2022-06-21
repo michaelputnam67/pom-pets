@@ -1,7 +1,9 @@
 import React from "react";
-import { Pressable, Text, StyleSheet, View } from "react-native";
+import { Pressable, Text, StyleSheet, View, Dimensions } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
+
+const { height, width } = Dimensions.get("window");
 
 export default function Button({
   text1,
@@ -98,12 +100,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 50,
-    width: "35%",
+    width: width * 0.2,
     borderRadius: 10,
   },
   buttonContainer: {
     flexDirection: "row",
-    width: "75%",
+    width: width * 0.6,
     alignSelf: "center",
     justifyContent: "center",
     height: 50,

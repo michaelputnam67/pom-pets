@@ -1,4 +1,4 @@
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 
@@ -11,6 +11,8 @@ import {
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
+
+const { height, width } = Dimensions.get("window");
 
 export default function ProfileScreen({
   logOut,
@@ -35,7 +37,7 @@ export default function ProfileScreen({
     currentUser.attributes.settings.longPomTime
   );
 
-  const [photo, setPhoto] = useState(currentUser.attributes.profilePhoto)
+  const [photo, setPhoto] = useState(currentUser.attributes.profilePhoto);
 
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
@@ -63,11 +65,13 @@ export default function ProfileScreen({
 
   return (
     <SafeAreaView style={styles.view}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.h1}>User Profile</Text>
         <Image
           style={styles.image}
-          source={photo ? {uri: photo} : require("../assets/JoeProfilePicture.png")}
+          source={
+            photo ? { uri: photo } : require("../assets/JoeProfilePicture.png")
+          }
         />
         <View style={styles.userInfoContainer}>
           <Text style={styles.h2}>Username:</Text>
@@ -101,8 +105,19 @@ export default function ProfileScreen({
           text2="15"
           text3="20"
         ></ButtonGroup>
-        <Button text="Sign Out" onPress={logOut}></Button>
+        <Button
+          pressableStyle={{ marginTop: height * 0.05 }}
+          text="Sign Out"
+          onPress={logOut}
+        ></Button>
+        <Button
+          isTraining={true}
+          text="Delete Profile"
+          onPress={() => console.log("delete")}
+        ></Button>
+        <View style={{ height: 50 }}></View>
       </ScrollView>
+      <View style={{ height: height * 0.09 }}></View>
     </SafeAreaView>
   );
 }
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     color: COLORS.secondary,
     fontFamily: "Nunito_800ExtraBold",
     fontSize: 25,
-    marginRight: 25,
+    marginRight: width * 0.05,
   },
   h3: {
     fontFamily: "Nunito_800ExtraBold",
@@ -130,19 +145,19 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito_800ExtraBold",
     fontSize: 18,
     marginBottom: 5,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   image: {
     alignSelf: "center",
     borderRadius: 100,
     height: 180,
-    marginBottom: 10,
+    marginBottom: height * 0.015,
     width: 180,
   },
   userInfoContainer: {
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 15,
+    marginBottom: height * 0.02,
     width: "75%",
   },
   view: {
