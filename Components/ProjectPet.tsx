@@ -7,7 +7,7 @@ export default function ProjectPet({
   navigation,
   name,
   updateCurrentProject,
-  item
+  item,
 }: {
   navigation: any;
   name: string;
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: COLORS.accent,
     borderRadius: 30,
-    marginTop: 25,
+    marginTop: 15,
+    marginBottom: 15,
     shadowColor: "#717171",
     shadowOpacity: 0.5,
     elevation: 5,

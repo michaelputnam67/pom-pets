@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Camera, CameraType } from "expo-camera";
 import Button from "../Components/Button";
+import { COLORS } from "../constants/Colors";
 
 const { height, width } = Dimensions.get("window");
 
@@ -87,14 +88,14 @@ export default function ProfilePhoto({
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Camera style={styles.camera} ref={cameraRef} type={type}>
-          <Pressable onPress={goBack}>
-            <Image
-              style={styles.backButton}
-              source={require("../assets/Icons-Buttons/ViewLeftBtn.png")}
-            />
-          </Pressable>
-        </Camera>
+        <Pressable style={styles.goBackPressable} onPress={goBack}>
+          <Image
+            style={styles.backButton}
+            source={require("../assets/Icons-Buttons/ViewLeftBtn.png")}
+          />
+          <Text style={styles.h3}>back</Text>
+        </Pressable>
+        <Camera style={styles.camera} ref={cameraRef} type={type}></Camera>
         <View style={styles.buttonContainer}>
           <Button
             pressableStyle={styles.button}
@@ -110,8 +111,10 @@ export default function ProfilePhoto({
 
 const styles = StyleSheet.create({
   camera: {
-    height: height * 0.9,
-    width: width,
+    height: height * 0.5,
+    width: width * 0.8,
+    marginBottom: height * 0.05,
+    marginTop: height * 0.02,
   },
   container: {
     display: "flex",
@@ -120,29 +123,40 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: height * 0.1,
-    wdith: width,
+    width: width * 0.7,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     margin: 0,
   },
   image: {
-    height: height * 0.9,
+    height: height * 0.8,
     width: width,
   },
   button: {
-    height: height * 0.1,
-    width: width / 2,
+    height: height * 0.05,
     margin: 0,
     flex: 1,
   },
   buttonText: {
     fontSize: height * 0.04,
   },
+  goBackPressable: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: width * 0.8,
+    marginTop: height * 0.02,
+  },
+  h3: {
+    fontFamily: "Nunito_800ExtraBold",
+    fontSize: 20,
+    color: COLORS.grey,
+    margin: 8,
+  },
   backButton: {
-    marginTop: 20,
-    marginLeft: 20,
-    height: height / 10,
-    width: width / 10,
+    height: height / 25,
+    width: width / 25,
   },
 });

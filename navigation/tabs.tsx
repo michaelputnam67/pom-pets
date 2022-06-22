@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Dimensions } from "react-native";
 import { COLORS } from "../constants/Colors";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
@@ -10,6 +10,8 @@ import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
 import NewProjectScreen from "../screens/NewProjectScreen";
 
 const Tab = createBottomTabNavigator();
+
+const { height, width } = Dimensions.get("window");
 
 const Tabs = ({
   totalTimeShouldHaveWorked,
@@ -82,9 +84,11 @@ const Tabs = ({
           tabBarIcon: ({ focused }) => (
             <View
               style={{
+                marginTop: height * 0.03,
+                display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
               }}
             >
               <Image
@@ -129,9 +133,11 @@ const Tabs = ({
           tabBarIcon: ({ focused }) => (
             <View
               style={{
+                marginTop: height * 0.03,
+                display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
               }}
             >
               <Image
@@ -174,9 +180,11 @@ const Tabs = ({
           tabBarIcon: ({ focused }) => (
             <View
               style={{
+                marginTop: height * 0.03,
+                display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
               }}
             >
               <Image
@@ -228,9 +236,11 @@ const Tabs = ({
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                alignItems: "center",
+                marginTop: height * 0.03,
+                display: "flex",
+                flexDirection: "column",
+                alignContent: "center",
                 justifyContent: "center",
-                top: 10,
               }}
             >
               <Image
@@ -254,16 +264,16 @@ export default Tabs;
 const navStyles = StyleSheet.create({
   tabNavigator: {
     position: "absolute",
-    bottom: 20,
-    left: 20,
-    right: 20,
+    bottom: height * 0.02,
+    left: width * 0.055,
+    right: width * 0.055,
     elevation: 0,
     backgroundColor: COLORS.accent,
     borderRadius: 45,
-    height: 90,
+    height: height * 0.1,
   },
   tabScreen: {
-    width: 70,
-    height: 70,
+    width: width * 0.2,
+    height: height * 0.08,
   },
 });

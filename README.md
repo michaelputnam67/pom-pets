@@ -6,7 +6,7 @@ Pom Pets is a pomodoro/time management mobile application themed around taking c
 
 A Pom Pet is a way to help measure your poms and productivity while working. By taking the [Pomodoro concept](https://todoist.com/productivity-methods/pomodoro-technique) and "gamifying" it by borrowing themes from games like [Tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi), Pom Pets creates a way to visually represent your work/break time as a Pet. The stricter you are with your work and break schedule, the healthier the pet. If your work and break time are too disproportionate, your Pet's health will decrease.
 
-[Check out the deployed app here]()
+[Check out the deployed app here](https://expo.dev/@mikeputnam713/pom-pets?serviceType=classic&distribution=expo-go)
 
 [Original project spec can be found here](https://frontend.turing.edu/projects/module-3/stretch.html)
 
