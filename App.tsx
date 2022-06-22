@@ -38,8 +38,9 @@ export default function App() {
   const [numBreaks, setNumBreaks] = useState(0);
 
   useEffect(() => {
-    if(!currentProject) return
-    let totalNumberOfBreaks = currentProject.stats.totalLongSessions + numBreaks
+    if (!currentProject) return;
+    let totalNumberOfBreaks =
+      currentProject.stats.totalLongSessions + numBreaks;
     let calculateTotalBreakTime = () => {
       let output = 0;
       for (let i = 1; i <= totalNumberOfBreaks; i++) {
@@ -48,27 +49,33 @@ export default function App() {
         } else {
           output += userShortPomTime * 60;
         }
-      }  
+      }
       return output;
     };
-    let totalWorkTimeS = totalTimeShouldHaveWorked + Number(currentProject?.stats.totalShortSessions)
-    let totalBreakTimeS = calculateTotalBreakTime() || 0
+    let totalWorkTimeS =
+      totalTimeShouldHaveWorked +
+      Number(currentProject?.stats.totalShortSessions);
+    let totalBreakTimeS = calculateTotalBreakTime() || 0;
 
     let calculateHealthModifier = () => {
       let output =
-        (((totalBreakTime + Number(currentProject?.stats.totalLongPomTime)) + (totalWorkTime + Number(currentProject.stats.totalWorkTime)) + totalNegWorkTime + totalOverBreakTime) / (totalWorkTimeS + totalBreakTimeS))
+        (totalBreakTime +
+          Number(currentProject?.stats.totalLongPomTime) +
+          (totalWorkTime + Number(currentProject.stats.totalWorkTime)) +
+          totalNegWorkTime +
+          totalOverBreakTime) /
+        (totalWorkTimeS + totalBreakTimeS);
       return output;
     };
-    let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)))
+    let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)));
 
-    if (healthModifier <= .25) {
+    if (healthModifier <= 0.25) {
       setProjectHealth(3);
-    } else if (healthModifier > .25 && healthModifier <= .75) {
+    } else if (healthModifier > 0.25 && healthModifier <= 0.75) {
       setProjectHealth(2);
     } else {
       setProjectHealth(1);
     }
-
   }, [totalTimeShouldHaveWorked, totalWorkTime, totalBreakTime]);
 
   const login = () => {
@@ -185,6 +192,43 @@ export default function App() {
     setUser(null);
   };
 
+  const deleteUser = () => {
+    Alert.alert(
+      "Delete Account",
+      "This will permanently delete all your account info and all your projects.",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            //DELETE Request
+            logOut();
+          },
+        },
+        {
+          text: "No",
+          onPress: () => console.log("Nope, did not delete account"),
+        },
+      ]
+    );
+  };
+
+  const removeProject = (id: number) => {
+    if (!pets) {
+      return;
+    }
+
+    let foundPetIndex: number = 0;
+
+    let newPetList = [...pets];
+    newPetList.find((pet, index) => {
+      foundPetIndex = index;
+      return pet.id === id;
+    });
+    newPetList.splice(foundPetIndex, 1);
+
+    setPets(newPetList);
+  };
+
   const updateCurrentProject = async (item: any) => {
     await resetTimerState();
     if (!pets) {
@@ -258,7 +302,7 @@ export default function App() {
       Number(currentProject?.id)
     );
   };
-      
+
   return (
     <NavigationContainer>
       {!user && !createProfile && (
@@ -304,7 +348,9 @@ export default function App() {
           numBreaks={numBreaks}
           numWorkSessions={numWorkSessions}
           updateSessionCount={updateSessionCount}
+          deleteUser={deleteUser}
           resetTimerState={resetTimerState}
+          removeProject={removeProject}
         />
       )}
     </NavigationContainer>

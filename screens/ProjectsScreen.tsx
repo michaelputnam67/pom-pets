@@ -13,10 +13,12 @@ import { Projects } from "../interface";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
 
 export default function ProjectsScreen({
+  removeProject,
   navigation,
   projects,
   updateCurrentProject,
 }: {
+  removeProject: any;
   updateCurrentProject: any;
   navigation?: any;
   projects: Projects | null;
@@ -35,6 +37,7 @@ export default function ProjectsScreen({
     item: { projectName: string; petImage: string; id: number };
   }) => (
     <ProjectPet
+      removeProject={removeProject}
       navigation={navigation}
       item={item}
       key={item.id}

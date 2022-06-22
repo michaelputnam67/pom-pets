@@ -20,12 +20,14 @@ export default function ProfileScreen({
   setWorkTime,
   setShortPomTime,
   setLongPomTime,
+  deleteUser,
 }: {
   logOut: any;
   currentUser: User;
   setWorkTime: any;
   setShortPomTime: any;
   setLongPomTime: any;
+  deleteUser: any;
 }) {
   const [userWorkTime, setUserWorkTime] = useState(
     currentUser.attributes.settings.workTime
@@ -113,7 +115,7 @@ export default function ProfileScreen({
         <Button
           isTraining={true}
           text="Delete Profile"
-          onPress={() => console.log("delete")}
+          onPress={deleteUser}
         ></Button>
         <View style={{ height: 50 }}></View>
       </ScrollView>
