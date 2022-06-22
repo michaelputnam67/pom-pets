@@ -142,6 +142,26 @@ export default function App() {
     setUser(null);
   };
 
+  const deleteUser = () => {
+    Alert.alert(
+      "Delete Account",
+      "Are you sure you want to delete your account?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            //DELETE Request
+            logOut();
+          },
+        },
+        {
+          text: "No",
+          onPress: () => console.log("Nope, did not delete account"),
+        },
+      ]
+    );
+  };
+
   const updateCurrentProject = async (item: any) => {
     await resetTimerState();
     if (!pets) {
@@ -240,6 +260,7 @@ export default function App() {
           numBreaks={numBreaks}
           numWorkSessions={numWorkSessions}
           updateSessionCount={updateSessionCount}
+          deleteUser={deleteUser}
         />
       )}
     </NavigationContainer>

@@ -35,6 +35,7 @@ const Tabs = ({
   numBreaks,
   numWorkSessions,
   updateSessionCount,
+  deleteUser,
 }: {
   projects: Projects | null;
   user: User;
@@ -57,6 +58,7 @@ const Tabs = ({
   numBreaks: number;
   numWorkSessions: number;
   updateSessionCount: any;
+  deleteUser: any;
 }) => {
   return (
     <Tab.Navigator
@@ -216,6 +218,7 @@ const Tabs = ({
             setWorkTime={setWorkTime}
             setShortPomTime={setShortPomTime}
             setLongPomTime={setLongPomTime}
+            deleteUser={deleteUser}
             {...props}
           />
         )}
