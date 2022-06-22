@@ -18,18 +18,14 @@ export default function ProjectStatisticsScreen({
   currentProject,
   navigation,
   totalWorkTime,
-  totalNegWorkTime,
   totalBreakTime,
-  totalOverBreakTime,
   numBreaks,
   numWorkSessions,
 }: {
   navigation: any;
   currentProject: Project | undefined;
   totalWorkTime: number;
-  totalNegWorkTime: number;
   totalBreakTime: number;
-  totalOverBreakTime: number;
   numBreaks: number;
   numWorkSessions: number;
 }) {

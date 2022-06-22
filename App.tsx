@@ -1,4 +1,4 @@
-import { Alert, StyleSheet } from "react-native";
+import { Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { User, Project, Projects, Pet } from "./interface";
@@ -53,17 +53,14 @@ export default function App() {
     };
     let totalWorkTimeS = totalTimeShouldHaveWorked + Number(currentProject?.stats.totalShortSessions)
     let totalBreakTimeS = calculateTotalBreakTime() || 0
-    console.log(totalBreakTime)
-    console.log("Current Project:", currentProject.projectName, "TotalWorkTime:", totalWorkTimeS, "TotalBreakTime:", totalBreakTimeS, "ACTUALWORKTIME:",(totalWorkTime + Number(currentProject.stats.totalWorkTime)) , "ACTUALBREAKTIME:", (totalBreakTime + Number(currentProject?.stats.totalLongPomTime)))
 
     let calculateHealthModifier = () => {
       let output =
         (((totalBreakTime + Number(currentProject?.stats.totalLongPomTime)) + (totalWorkTime + Number(currentProject.stats.totalWorkTime)) + totalNegWorkTime + totalOverBreakTime) / (totalWorkTimeS + totalBreakTimeS))
       return output;
     };
-    console.log(calculateHealthModifier())
     let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)))
-    console.log(healthModifier)
+
     if (healthModifier <= .25) {
       setProjectHealth(3);
     } else if (healthModifier > .25 && healthModifier <= .75) {
@@ -71,7 +68,6 @@ export default function App() {
     } else {
       setProjectHealth(1);
     }
-    console.log(projectHealth, currentProject.petHealth)
 
   }, [totalTimeShouldHaveWorked, totalWorkTime, totalBreakTime]);
 

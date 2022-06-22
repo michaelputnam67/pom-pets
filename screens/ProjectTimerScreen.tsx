@@ -13,7 +13,7 @@ import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
 import HealthIcons from "../Components/HealthIcons";
 
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -26,20 +26,13 @@ const getRemaining = (time: number) => {
 export default function ProjectTimer({
   totalTimeShouldHaveWorked,
   setTotalTimeShouldHaveWorked,
-  projectHealth,
-  setProjectHealth,
   navigation,
   currentProject,
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
-  totalWorkTime,
-  totalNegWorkTime,
   totalBreakTime,
-  totalOverBreakTime,
   updateTimerStats,
-  numBreaks,
-  numWorkSessions,
   updateSessionCount,
 }: {
   totalTimeShouldHaveWorked: number;
@@ -266,16 +259,10 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    // display: "flex",
-    // alignItems: "center",
-    // width: width * 1,
     backgroundColor: COLORS.white,
   },
   background1: {
     flex: 1,
-    // display: "flex",
-    // alignItems: "center",
-    // width: width * 1,
     backgroundColor: COLORS.accent2,
   },
   pomText: {

@@ -207,9 +207,7 @@ const Tabs = ({
             numBreaks={numBreaks}
             numWorkSessions={numWorkSessions}
             totalWorkTime={totalWorkTime}
-            totalNegWorkTime={totalNegWorkTime}
             totalBreakTime={totalBreakTime}
-            totalOverBreakTime={totalOverBreakTime}
             currentProject={currentProject}
             {...props}
           />
