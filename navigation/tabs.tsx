@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 const { height, width } = Dimensions.get("window");
 
 const Tabs = ({
+  projectLevel,
   totalTimeShouldHaveWorked,
   setTotalTimeShouldHaveWorked,
   projectHealth,
@@ -41,6 +42,7 @@ const Tabs = ({
   updateSessionCount,
   resetTimerState
 }: {
+  projectLevel: number;
   totalTimeShouldHaveWorked: number;
   setTotalTimeShouldHaveWorked: any;
   projectHealth: number | undefined;
@@ -159,6 +161,7 @@ const Tabs = ({
         name="Pet"
         children={(props) => (
           <ProjectTimer
+            projectLevel={projectLevel}
             totalTimeShouldHaveWorked={totalTimeShouldHaveWorked}
             setTotalTimeShouldHaveWorked={setTotalTimeShouldHaveWorked}
             projectHealth={projectHealth}
@@ -207,6 +210,7 @@ const Tabs = ({
         name="Stats"
         children={(props) => (
           <ProjectStatisticsScreen
+            projectLevel={projectLevel}
             numBreaks={numBreaks}
             numWorkSessions={numWorkSessions}
             totalWorkTime={totalWorkTime}

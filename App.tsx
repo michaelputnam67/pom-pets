@@ -27,6 +27,7 @@ export default function App() {
     setPassword("");
   };
 
+  const [projectLevel, setProjectLevel] = useState(0)
   const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState(0);
   const [projectHealth, setProjectHealth] = useState<number | undefined>(0);
   const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
@@ -39,7 +40,15 @@ export default function App() {
 
   useEffect(() => {
     if(!currentProject) return
-    let totalNumberOfBreaks = currentProject.stats.totalLongSessions + numBreaks
+    const workTime = totalWorkTime + Number(currentProject?.stats.totalWorkTime)
+    setProjectLevel((Math.floor(workTime/3600)))
+  }, [currentProject, user, totalWorkTime])
+
+
+  useEffect(() => {
+    if (!currentProject) return;
+    let totalNumberOfBreaks =
+      currentProject.stats.totalLongSessions + numBreaks;
     let calculateTotalBreakTime = () => {
       let output = 0;
       for (let i = 1; i <= totalNumberOfBreaks; i++) {
@@ -48,28 +57,42 @@ export default function App() {
         } else {
           output += userShortPomTime * 60;
         }
-      }  
+      }
       return output;
     };
-    let totalWorkTimeS = totalTimeShouldHaveWorked + Number(currentProject?.stats.totalShortSessions)
-    let totalBreakTimeS = calculateTotalBreakTime() || 0
+    let totalWorkTimeS =
+      totalTimeShouldHaveWorked +
+      Number(currentProject?.stats.totalShortSessions);
+    let totalBreakTimeS = calculateTotalBreakTime() || 0;
 
     let calculateHealthModifier = () => {
       let output =
-        (((totalBreakTime + Number(currentProject?.stats.totalLongPomTime)) + (totalWorkTime + Number(currentProject.stats.totalWorkTime)) + totalNegWorkTime + totalOverBreakTime) / (totalWorkTimeS + totalBreakTimeS))
+        (totalBreakTime +
+          Number(currentProject?.stats.totalLongPomTime) +
+          (totalWorkTime + Number(currentProject.stats.totalWorkTime)) +
+          totalNegWorkTime +
+          totalOverBreakTime) /
+        (totalWorkTimeS + totalBreakTimeS);
       return output;
     };
-    let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)))
+    let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)));
 
-    if (healthModifier <= .25) {
+    if (healthModifier <= 0.25) {
       setProjectHealth(3);
-    } else if (healthModifier > .25 && healthModifier <= .75) {
+    } else if (healthModifier > 0.25 && healthModifier <= 0.75) {
       setProjectHealth(2);
     } else {
       setProjectHealth(1);
     }
-
-  }, [totalTimeShouldHaveWorked, totalWorkTime, totalBreakTime]);
+  }, [
+    totalTimeShouldHaveWorked,
+    totalWorkTime,
+    totalBreakTime,
+    currentProject,
+    numBreaks,
+    totalNegWorkTime,
+    totalOverBreakTime,
+  ]);
 
   const login = () => {
     if (password === "Password" && userName !== "15") {
@@ -115,6 +138,7 @@ export default function App() {
       setUserWorkTime(data.data.attributes.settings.workTime);
       setUserShortPomTime(data.data.attributes.settings.shortPomTime);
       setUserLongPomTime(data.data.attributes.settings.longPomTime);
+      setProjectLevel(Number(currentProject?.petLevel))
       setTotalWorkTime(0);
       setTotalNegWorkTime(0);
       setTotalBreakTime(0);
@@ -257,8 +281,12 @@ export default function App() {
       { petHealth: projectHealth },
       Number(currentProject?.id)
     );
+    await apiCalls.updateProjectStats(
+      { petLevel: projectLevel },
+      Number(currentProject?.id)
+    )
   };
-      
+
   return (
     <NavigationContainer>
       {!user && !createProfile && (
@@ -305,6 +333,7 @@ export default function App() {
           numWorkSessions={numWorkSessions}
           updateSessionCount={updateSessionCount}
           resetTimerState={resetTimerState}
+          projectLevel={projectLevel}
         />
       )}
     </NavigationContainer>
