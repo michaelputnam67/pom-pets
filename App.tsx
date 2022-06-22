@@ -195,7 +195,7 @@ export default function App() {
   const deleteUser = () => {
     Alert.alert(
       "Delete Account",
-      "Are you sure you want to delete your account?",
+      "This will permanently delete all your account info and all your projects.",
       [
         {
           text: "Yes",
@@ -210,6 +210,23 @@ export default function App() {
         },
       ]
     );
+  };
+
+  const removeProject = (id: number) => {
+    if (!pets) {
+      return;
+    }
+
+    let foundPetIndex: number = 0;
+
+    let newPetList = [...pets];
+    newPetList.find((pet, index) => {
+      foundPetIndex = index;
+      return pet.id === id;
+    });
+    newPetList.splice(foundPetIndex, 1);
+
+    setPets(newPetList);
   };
 
   const updateCurrentProject = async (item: any) => {
@@ -333,6 +350,7 @@ export default function App() {
           updateSessionCount={updateSessionCount}
           deleteUser={deleteUser}
           resetTimerState={resetTimerState}
+          removeProject={removeProject}
         />
       )}
     </NavigationContainer>

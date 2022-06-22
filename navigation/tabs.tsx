@@ -41,6 +41,7 @@ const Tabs = ({
   updateSessionCount,
   deleteUser,
   resetTimerState,
+  removeProject,
 }: {
   totalTimeShouldHaveWorked: number;
   setTotalTimeShouldHaveWorked: any;
@@ -69,6 +70,7 @@ const Tabs = ({
   updateSessionCount: any;
   deleteUser: any;
   resetTimerState: any;
+  removeProject: any;
 }) => {
   return (
     <Tab.Navigator
@@ -128,6 +130,7 @@ const Tabs = ({
         children={(props) => (
           <ProjectsScreen
             projects={projects}
+            removeProject={removeProject}
             updateCurrentProject={updateCurrentProject}
             {...props}
           />
