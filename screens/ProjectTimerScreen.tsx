@@ -13,7 +13,7 @@ import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
 import HealthIcons from "../Components/HealthIcons";
 
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -24,20 +24,21 @@ const getRemaining = (time: number) => {
 };
 
 export default function ProjectTimer({
+  totalTimeShouldHaveWorked,
+  setTotalTimeShouldHaveWorked,
   navigation,
   currentProject,
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
-  totalWorkTime,
-  totalNegWorkTime,
   totalBreakTime,
-  totalOverBreakTime,
   updateTimerStats,
-  numBreaks,
-  numWorkSessions,
   updateSessionCount,
 }: {
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: any;
+  projectHealth: number | undefined;
+  setProjectHealth: any;
   navigation: any;
   currentProject?: Project | undefined;
   userWorkTime: any;
@@ -53,7 +54,7 @@ export default function ProjectTimer({
   updateSessionCount: any;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
-
+ 
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
@@ -83,6 +84,8 @@ export default function ProjectTimer({
   const handleButtonPress = () => {
     isTraining ? reset() : toggle();
     collectWorkTime();
+    let timeWorked = totalTimeShouldHaveWorked + userWorkTime * 60
+    isTraining && setTotalTimeShouldHaveWorked(timeWorked)
     setIsNegative(false);
   };
 
@@ -256,16 +259,10 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    // display: "flex",
-    // alignItems: "center",
-    // width: width * 1,
     backgroundColor: COLORS.white,
   },
   background1: {
     flex: 1,
-    // display: "flex",
-    // alignItems: "center",
-    // width: width * 1,
     backgroundColor: COLORS.accent2,
   },
   pomText: {
