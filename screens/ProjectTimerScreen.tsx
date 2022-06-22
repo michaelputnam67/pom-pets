@@ -63,6 +63,10 @@ export default function ProjectTimer({
   const [isNegative, setIsNegative] = useState(false);
 
   useEffect(() => {
+    reset()
+  }, [currentProject])
+
+  useEffect(() => {
     setRemainingSecs(userWorkTime * 60);
   }, [userWorkTime]);
 

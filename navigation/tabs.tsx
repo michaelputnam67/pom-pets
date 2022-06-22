@@ -39,6 +39,7 @@ const Tabs = ({
   numBreaks,
   numWorkSessions,
   updateSessionCount,
+  resetTimerState
 }: {
   totalTimeShouldHaveWorked: number;
   setTotalTimeShouldHaveWorked: any;
@@ -65,6 +66,7 @@ const Tabs = ({
   numBreaks: number;
   numWorkSessions: number;
   updateSessionCount: any;
+  resetTimerState: any
 }) => {
   return (
     <Tab.Navigator
@@ -110,6 +112,7 @@ const Tabs = ({
           <NewProjectScreen
             createNewProject={createNewProject}
             loadNewProject={loadNewProject}
+            resetTimerState={resetTimerState}
             {...props}
           />
         )}
