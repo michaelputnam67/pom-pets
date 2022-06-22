@@ -27,6 +27,7 @@ export default function App() {
     setPassword("");
   };
 
+  const [projectLevel, setProjectLevel] = useState(0)
   const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState(0);
   const [projectHealth, setProjectHealth] = useState<number | undefined>(0);
   const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
@@ -36,6 +37,12 @@ export default function App() {
 
   const [numWorkSessions, setNumWorkSessions] = useState(0);
   const [numBreaks, setNumBreaks] = useState(0);
+
+  useEffect(() => {
+    if(!currentProject) return
+    const workTime = totalWorkTime + Number(currentProject?.stats.totalWorkTime)
+    setProjectLevel((Math.floor(workTime/3600)))
+  }, [currentProject, user, totalWorkTime])
 
   useEffect(() => {
     if (!currentProject) return;
@@ -76,7 +83,15 @@ export default function App() {
     } else {
       setProjectHealth(1);
     }
-  }, [totalTimeShouldHaveWorked, totalWorkTime, totalBreakTime]);
+  }, [
+    totalTimeShouldHaveWorked,
+    totalWorkTime,
+    totalBreakTime,
+    currentProject,
+    numBreaks,
+    totalNegWorkTime,
+    totalOverBreakTime,
+  ]);
 
   const login = () => {
     if (password === "Password" && userName !== "15") {
@@ -122,6 +137,7 @@ export default function App() {
       setUserWorkTime(data.data.attributes.settings.workTime);
       setUserShortPomTime(data.data.attributes.settings.shortPomTime);
       setUserLongPomTime(data.data.attributes.settings.longPomTime);
+      setProjectLevel(Number(currentProject?.petLevel))
       setTotalWorkTime(0);
       setTotalNegWorkTime(0);
       setTotalBreakTime(0);
@@ -301,6 +317,10 @@ export default function App() {
       { petHealth: projectHealth },
       Number(currentProject?.id)
     );
+    await apiCalls.updateProjectStats(
+      { petLevel: projectLevel },
+      Number(currentProject?.id)
+    )
   };
 
   return (
@@ -350,6 +370,7 @@ export default function App() {
           updateSessionCount={updateSessionCount}
           deleteUser={deleteUser}
           resetTimerState={resetTimerState}
+          projectLevel={projectLevel}
           removeProject={removeProject}
         />
       )}

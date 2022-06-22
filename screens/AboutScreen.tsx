@@ -110,6 +110,20 @@ export default function AboutScreen() {
             a project visually represented in a pet. Be strict with your work
             schedule, take regular breaks, and you'll see your pet stay healthy.
           </Text>
+          <Text style={styles.h3}>Leveling Up Your Pet</Text>
+          <Text style={styles.paragraph}>
+            Your pet's level reflects how much time you have spent on a project.
+            For every hour of work put in on a project, the pet's level will
+            increase by one.
+          </Text>
+          <Text style={styles.h3}>Keeping Your Pet Healthy</Text>
+          <Text style={styles.paragraph}>
+            Your pet's health is a measurement of how strictly you are following
+            the pomodoro technique and keeping to the work/break schedule. If
+            you are working the correct amount of time and taking breaks, your
+            pet will stay healthy. The more you stray from the pom schedule,
+            your pet's health will decrease.
+          </Text>
         </View>
         <View style={{ height: 50 }}></View>
       </ScrollView>

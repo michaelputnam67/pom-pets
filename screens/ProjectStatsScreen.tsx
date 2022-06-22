@@ -15,6 +15,7 @@ import RenderTime from "../Components/RenderTime";
 import * as Linking from "expo-linking";
 
 export default function ProjectStatisticsScreen({
+  projectLevel,
   currentProject,
   navigation,
   totalWorkTime,
@@ -22,6 +23,7 @@ export default function ProjectStatisticsScreen({
   numBreaks,
   numWorkSessions,
 }: {
+  projectLevel: number;
   navigation: any;
   currentProject: Project | undefined;
   totalWorkTime: number;
@@ -55,7 +57,7 @@ export default function ProjectStatisticsScreen({
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.statContainer}>
-          <Text style={styles.level}>Level {currentProject?.petLevel}</Text>
+          <Text style={styles.level}>Level {projectLevel}</Text>
         </View>
         <View style={styles.healthContainer}>
           <Text style={styles.label}>Health</Text>

@@ -24,6 +24,7 @@ const getRemaining = (time: number) => {
 };
 
 export default function ProjectTimer({
+  projectLevel,
   totalTimeShouldHaveWorked,
   setTotalTimeShouldHaveWorked,
   navigation,
@@ -35,6 +36,7 @@ export default function ProjectTimer({
   updateTimerStats,
   updateSessionCount,
 }: {
+  projectLevel: number
   totalTimeShouldHaveWorked: number;
   setTotalTimeShouldHaveWorked: any;
   projectHealth: number | undefined;
@@ -154,7 +156,7 @@ export default function ProjectTimer({
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.petStatusBar}>
-          <Text style={styles.text}>Level {currentProject?.petLevel}</Text>
+          <Text style={styles.text}>Level {projectLevel}</Text>
           <HealthIcons health={currentProject?.petHealth} />
         </View>
         <Image
