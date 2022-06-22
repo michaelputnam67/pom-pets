@@ -1,9 +1,16 @@
 {
   "expo": {
-    "name": "pom-pets",
+    "owner": "mikeputnam713",
+    "name": "Pom Pets",
     "slug": "pom-pets",
     "version": "1.0.0",
+    "description": "A Pom Pet is a way to help measure your poms and productivity while working. By taking the Pomodoro concept]and 'gamifying' it by borrowing themes from games like Tamagotchi, Pom Pets creates a way to visually represent your work/break time as a Pet. The stricter you are with your work and break schedule, the healthier the pet. If your work and break time are too disproportionate, your Pet's health will decrease.",
     "orientation": "portrait",
+    "splash": {
+      "image": "./assets/PomPetsSplash.png",
+      "backgroundColor": "#ffdbc6"
+    },
+    "icon": "./assets/PomPetsIcon.png",
     "userInterfaceStyle": "light",
     "plugins": [
       [
@@ -20,11 +27,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use the camera",
+        "NSMMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use the microphone"
+      },
+      "bundleIdentifier": "pom.pets"
     },
-    "infoPlist": {
-      "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use the camera",
-      "NSMMicrophoneUsageDescription":"Allow $(PRODUCT_NAME) to use the microphone"
+    "android": {
+      "package": "pom.pets"
     }
   }
 }

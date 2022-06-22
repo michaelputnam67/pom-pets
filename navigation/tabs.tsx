@@ -14,6 +14,10 @@ const Tab = createBottomTabNavigator();
 const { height, width } = Dimensions.get("window");
 
 const Tabs = ({
+  totalTimeShouldHaveWorked,
+  setTotalTimeShouldHaveWorked,
+  projectHealth,
+  setProjectHealth,
   user,
   logOut,
   projects,
@@ -36,7 +40,12 @@ const Tabs = ({
   numWorkSessions,
   updateSessionCount,
   deleteUser,
+  resetTimerState,
 }: {
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: any;
+  projectHealth: number | undefined;
+  setProjectHealth: any;
   projects: Projects | null;
   user: User;
   logOut: any;
@@ -59,6 +68,7 @@ const Tabs = ({
   numWorkSessions: number;
   updateSessionCount: any;
   deleteUser: any;
+  resetTimerState: any;
 }) => {
   return (
     <Tab.Navigator
@@ -104,6 +114,7 @@ const Tabs = ({
           <NewProjectScreen
             createNewProject={createNewProject}
             loadNewProject={loadNewProject}
+            resetTimerState={resetTimerState}
             {...props}
           />
         )}
@@ -150,6 +161,10 @@ const Tabs = ({
         name="Pet"
         children={(props) => (
           <ProjectTimer
+            totalTimeShouldHaveWorked={totalTimeShouldHaveWorked}
+            setTotalTimeShouldHaveWorked={setTotalTimeShouldHaveWorked}
+            projectHealth={projectHealth}
+            setProjectHealth={setProjectHealth}
             updateSessionCount={updateSessionCount}
             numBreaks={numBreaks}
             numWorkSessions={numWorkSessions}
@@ -197,9 +212,7 @@ const Tabs = ({
             numBreaks={numBreaks}
             numWorkSessions={numWorkSessions}
             totalWorkTime={totalWorkTime}
-            totalNegWorkTime={totalNegWorkTime}
             totalBreakTime={totalBreakTime}
-            totalOverBreakTime={totalOverBreakTime}
             currentProject={currentProject}
             {...props}
           />
