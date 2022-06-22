@@ -6,6 +6,8 @@ import {
   Image,
   Modal,
   Alert,
+  Dimensions,
+  Pressable,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React, { useState } from "react";
@@ -16,6 +18,7 @@ import apiCalls from "../apiCalls/apiCalls";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   useFonts,
+  Nunito_500Medium,
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
@@ -34,6 +37,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+const { height, width } = Dimensions.get("window");
 
 export default function CreateProfileScreen({
   viewCreateProfile,
@@ -83,6 +88,7 @@ export default function CreateProfileScreen({
   };
 
   let [fontsLoaded] = useFonts({
+    Nunito_500Medium,
     Nunito_800ExtraBold,
     Nunito_900Black,
   });
@@ -99,6 +105,16 @@ export default function CreateProfileScreen({
       <Modal animationType="slide" visible={choosingPhoto}>
         <ProfilePhoto photo={photo} setPhoto={setPhoto} goBack={goBack} />
       </Modal>
+      <Pressable
+        style={styles.goBackPressable}
+        onPress={() => viewCreateProfile(false)}
+      >
+        <Image
+          style={styles.backButton}
+          source={require("../assets/Icons-Buttons/ViewLeftBtn.png")}
+        />
+        <Text style={styles.h3}>back to login</Text>
+      </Pressable>
       <Text style={styles.h1}>Create Your Profile</Text>
       <Image
         style={styles.image}
@@ -133,10 +149,10 @@ export default function CreateProfileScreen({
         />
       </View>
       <Button text="Create Profile" onPress={generateNewUser}></Button>
-      <Button
+      {/* <Button
         text="Back to Login"
         onPress={() => viewCreateProfile(false)}
-      ></Button>
+      ></Button> */}
     </KeyboardAwareScrollView>
   );
 }
@@ -150,14 +166,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: COLORS.primary,
     fontFamily: "Nunito_900Black",
-    fontSize: 40,
-    marginTop: 50,
+    fontSize: 35,
+    marginTop: height * 0.02,
   },
   image: {
     alignSelf: "center",
-    height: 200,
-    margin: 20,
-    width: 200,
+    height: height * 0.25,
+    margin: 10,
+    width: width * 0.5,
   },
   input: {
     alignSelf: "center",
@@ -165,12 +181,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderWidth: 1,
     fontSize: 15,
-    height: 50,
+    height: height * 0.06,
+    width: width * 0.65,
     textAlign: "center",
-    width: "65%",
   },
   inputContainer: {
-    margin: 20,
+    margin: 15,
   },
   label: {
     color: COLORS.grey,
@@ -179,5 +195,24 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 8,
     textAlign: "center",
+  },
+  goBackPressable: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: width * 0.8,
+    marginTop: height * 0.05,
+    marginLeft: width * 0.07,
+  },
+  h3: {
+    fontFamily: "Nunito_800ExtraBold",
+    fontSize: 20,
+    color: COLORS.grey,
+    margin: 8,
+  },
+  backButton: {
+    height: height / 25,
+    width: width / 25,
   },
 });

@@ -113,7 +113,7 @@ export default function AboutScreen() {
         </View>
         <View style={{ height: 50 }}></View>
       </ScrollView>
-      <View style={{ height: "12%" }}></View>
+      <View style={{ height: "32%" }}></View>
     </SafeAreaView>
   );
 }

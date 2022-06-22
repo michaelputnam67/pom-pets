@@ -18,18 +18,14 @@ export default function ProjectStatisticsScreen({
   currentProject,
   navigation,
   totalWorkTime,
-  totalNegWorkTime,
   totalBreakTime,
-  totalOverBreakTime,
   numBreaks,
-  numWorkSessions
+  numWorkSessions,
 }: {
   navigation: any;
   currentProject: Project | undefined;
   totalWorkTime: number;
-  totalNegWorkTime: number;
   totalBreakTime: number;
-  totalOverBreakTime: number;
   numBreaks: number;
   numWorkSessions: number;
 }) {
@@ -44,16 +40,16 @@ export default function ProjectStatisticsScreen({
         style={styles.pet}
         source={
           currentProject?.petImage === "tomato-image"
-          ? require("../assets/Pets/TomatoPet.png")
-          : (currentProject?.petImage === "pigeon-image") ?
-          require("../assets/Pets/PigeonPet.png")
-          : require("../assets/Pets/CandlePet.png")
+            ? require("../assets/Pets/TomatoPet.png")
+            : currentProject?.petImage === "pigeon-image"
+            ? require("../assets/Pets/PigeonPet.png")
+            : require("../assets/Pets/CandlePet.png")
         }
       />
       <Text style={styles.projectName}>
         Project: {currentProject?.projectName}
       </Text>
-      <Button text="Back to training" onPress={toTraining}></Button>
+      <Button text="Back to Training" onPress={toTraining}></Button>
       <ScrollView
         style={styles.statsContainer}
         showsVerticalScrollIndicator={false}
@@ -68,11 +64,17 @@ export default function ProjectStatisticsScreen({
           </View>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={Number(currentProject?.stats.totalWorkTime) + totalWorkTime} />
+          <RenderTime
+            time={Number(currentProject?.stats.totalWorkTime) + totalWorkTime}
+          />
           <Text style={styles.label}>Total Training Time</Text>
         </View>
         <View style={styles.statContainer}>
-          <RenderTime time={Number(currentProject?.stats.totalLongPomTime) + totalBreakTime} />
+          <RenderTime
+            time={
+              Number(currentProject?.stats.totalLongPomTime) + totalBreakTime
+            }
+          />
           <Text style={styles.label}>Total Pom Time</Text>
         </View>
         <View style={styles.statContainer}>
@@ -139,8 +141,8 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito_800ExtraBold",
   },
   pet: {
-    height: 230,
-    width: 230,
+    height: 190,
+    width: 190,
     alignSelf: "center",
     marginBottom: 10,
   },

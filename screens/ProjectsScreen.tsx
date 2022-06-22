@@ -61,13 +61,14 @@ export default function ProjectsScreen({
         }}
         ListFooterComponent={() => (
           <Pressable
-            style={styles.view}
+            style={styles.addNewProject}
             onPress={() => goToAddProjectsScreen()}
           >
             <Image
-              style={{ ...styles.main }}
+              style={{ ...styles.image }}
               source={require("../assets/Icons-Buttons/AddProjectBtn.png")}
             />
+            <Text style={styles.text}>Add Project</Text>
           </Pressable>
         )}
       />
@@ -84,19 +85,38 @@ const styles = StyleSheet.create({
     fontSize: 40,
     marginBottom: 10,
   },
-  main: {
-    backgroundColor: COLORS.accent,
-    borderRadius: 30,
-    height: 200,
-    flex: 1,
-    flexDirection: "column",
-    marginTop: 25,
-    width: 200,
-  },
   view: {
     alignItems: "center",
     backgroundColor: COLORS.white,
     flex: 1,
     justifyContent: "center",
+  },
+  image: {
+    height: 150,
+    width: 150,
+  },
+  addNewProject: {
+    height: 200,
+    width: 200,
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: COLORS.accent,
+    borderRadius: 30,
+    flexDirection: "column",
+    marginTop: 15,
+    marginBottom: 15,
+    shadowColor: "#717171",
+    shadowOpacity: 0.5,
+    elevation: 5,
+    shadowRadius: 5,
+    shadowOffset: { width: 3, height: 5 },
+    borderWidth: 0,
+  },
+  text: {
+    color: COLORS.primary,
+    alignSelf: "center",
+    fontFamily: "Nunito_500Medium",
+    fontSize: 18,
   },
 });

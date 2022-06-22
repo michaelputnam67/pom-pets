@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Image, StyleSheet, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
 import HealthIcons from "../Components/HealthIcons";
+
+const { height } = Dimensions.get("window");
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
@@ -14,20 +24,21 @@ const getRemaining = (time: number) => {
 };
 
 export default function ProjectTimer({
+  totalTimeShouldHaveWorked,
+  setTotalTimeShouldHaveWorked,
   navigation,
   currentProject,
   userWorkTime,
   userShortPomTime,
   userLongPomTime,
-  totalWorkTime,
-  totalNegWorkTime,
   totalBreakTime,
-  totalOverBreakTime,
   updateTimerStats,
-  numBreaks,
-  numWorkSessions,
   updateSessionCount,
 }: {
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: any;
+  projectHealth: number | undefined;
+  setProjectHealth: any;
   navigation: any;
   currentProject?: Project | undefined;
   userWorkTime: any;
@@ -43,7 +54,7 @@ export default function ProjectTimer({
   updateSessionCount: any;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
-
+ 
   const [isTraining, setIsTraining] = useState(false);
   const [onPom, setOnPom] = useState(false);
   const [pomType, setPomType] = useState("");
@@ -77,6 +88,8 @@ export default function ProjectTimer({
   const handleButtonPress = () => {
     isTraining ? reset() : toggle();
     collectWorkTime();
+    let timeWorked = totalTimeShouldHaveWorked + userWorkTime * 60
+    isTraining && setTotalTimeShouldHaveWorked(timeWorked)
     setIsNegative(false);
   };
 
@@ -139,73 +152,77 @@ export default function ProjectTimer({
 
   return (
     <SafeAreaView style={onPom ? styles.background1 : styles.background}>
-      <View style={styles.petStatusBar}>
-        <Text style={styles.text}>Level {currentProject?.petLevel}</Text>
-        <HealthIcons health={currentProject?.petHealth} />
-      </View>
-      <Image
-        style={styles.pet}
-        source={
-          currentProject?.petImage === "tomato-image"
-            ? require("../assets/Pets/TomatoPet.png")
-            : currentProject?.petImage === "pigeon-image"
-            ? require("../assets/Pets/PigeonPet.png")
-            : require("../assets/Pets/CandlePet.png")
-        }
-      />
-      <Text
-        style={isNegative ? styles.timerText1 : styles.timerText}
-      >{`${mins} : ${secs}`}</Text>
-      {!onPom && (
-        <Button
-          onPress={() => handleButtonPress()}
-          text={isTraining ? "End Training" : "Start Training"}
-          isTraining={isTraining}
-        ></Button>
-      )}
-      {!isTraining && !onPom && (
-        <Button onPress={seeStats} text="See Stats"></Button>
-      )}
-      {isTraining && !onPom && (
-        <Button
-          onPress={() => {
-            feedPet();
-            collectWorkTime();
-            setIsNegative(false);
-            updateSessionCount(0, 1);
-          }}
-          text="Feed Pet"
-        ></Button>
-      )}
-      {isTraining && !onPom && (
-        <Button
-          onPress={() => {
-            walkPet();
-            collectWorkTime();
-            setIsNegative(false);
-            updateSessionCount(0, 1);
-          }}
-          text="Walk Pet"
-        ></Button>
-      )}
-      {onPom && (
-        <Button
-          onPress={() => {
-            reset();
-            collectWorkTime();
-            setIsNegative(false);
-          }}
-          text="End Break"
-        ></Button>
-      )}
-      {onPom && (
-        <View>
-          <Text style={styles.pomText}>{showMessage()}</Text>
-          <Text
-            style={styles.pomText}
-          >{`Great work, time to take a ${pomType} pom.`}</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.petStatusBar}>
+          <Text style={styles.text}>Level {currentProject?.petLevel}</Text>
+          <HealthIcons health={currentProject?.petHealth} />
         </View>
-      )}
+        <Image
+          style={styles.pet}
+          source={
+            currentProject?.petImage === "tomato-image"
+              ? require("../assets/Pets/TomatoPet.png")
+              : currentProject?.petImage === "pigeon-image"
+              ? require("../assets/Pets/PigeonPet.png")
+              : require("../assets/Pets/CandlePet.png")
+          }
+        />
+        <Text
+          style={isNegative ? styles.timerText1 : styles.timerText}
+        >{`${mins} : ${secs}`}</Text>
+        {!onPom && (
+          <Button
+            onPress={() => handleButtonPress()}
+            text={isTraining ? "End Training" : "Start Training"}
+            isTraining={isTraining}
+          ></Button>
+        )}
+        {!isTraining && !onPom && (
+          <Button onPress={seeStats} text="See Stats"></Button>
+        )}
+        {isTraining && !onPom && (
+          <Button
+            onPress={() => {
+              feedPet();
+              collectWorkTime();
+              setIsNegative(false);
+              updateSessionCount(0, 1);
+            }}
+            text="Feed Pet"
+          ></Button>
+        )}
+        {isTraining && !onPom && (
+          <Button
+            onPress={() => {
+              walkPet();
+              collectWorkTime();
+              setIsNegative(false);
+              updateSessionCount(0, 1);
+            }}
+            text="Walk Pet"
+          ></Button>
+        )}
+        {onPom && (
+          <Button
+            onPress={() => {
+              reset();
+              collectWorkTime();
+              setIsNegative(false);
+            }}
+            text="End Break"
+          ></Button>
+        )}
+        {onPom && (
+          <View>
+            <Text style={styles.pomText}>{showMessage()}</Text>
+            <Text
+              style={styles.pomText}
+            >{`Great work, time to take a ${pomType} pom.`}</Text>
+          </View>
+        )}
+        <View style={{ height: 50 }}></View>
+      </ScrollView>
+      <View style={{ height: height * 0.09 }}></View>
     </SafeAreaView>
   );
 }
@@ -215,7 +232,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 25,
+    alignItems: "center",
+    margin: height * 0.02,
   },
   text: {
     fontSize: 23,
@@ -224,10 +242,10 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito_800ExtraBold",
   },
   pet: {
-    height: 280,
-    width: 280,
+    height: 250,
+    width: 250,
     alignSelf: "center",
-    marginBottom: 30,
+    marginBottom: height * 0.03,
   },
   timerText: {
     color: "black",
@@ -255,7 +273,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     width: "80%",
-    fontSize: 30,
+    fontSize: 20,
     marginTop: 10,
     fontFamily: "Nunito_800ExtraBold",
   },
