@@ -44,7 +44,6 @@ export default function App() {
     setProjectLevel((Math.floor(workTime/3600)))
   }, [currentProject, user, totalWorkTime])
 
-
   useEffect(() => {
     if (!currentProject) return;
     let totalNumberOfBreaks =
@@ -209,6 +208,43 @@ export default function App() {
     setUser(null);
   };
 
+  const deleteUser = () => {
+    Alert.alert(
+      "Delete Account",
+      "This will permanently delete all your account info and all your projects.",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            //DELETE Request
+            logOut();
+          },
+        },
+        {
+          text: "No",
+          onPress: () => console.log("Nope, did not delete account"),
+        },
+      ]
+    );
+  };
+
+  const removeProject = (id: number) => {
+    if (!pets) {
+      return;
+    }
+
+    let foundPetIndex: number = 0;
+
+    let newPetList = [...pets];
+    newPetList.find((pet, index) => {
+      foundPetIndex = index;
+      return pet.id === id;
+    });
+    newPetList.splice(foundPetIndex, 1);
+
+    setPets(newPetList);
+  };
+
   const updateCurrentProject = async (item: any) => {
     await resetTimerState();
     if (!pets) {
@@ -332,8 +368,10 @@ export default function App() {
           numBreaks={numBreaks}
           numWorkSessions={numWorkSessions}
           updateSessionCount={updateSessionCount}
+          deleteUser={deleteUser}
           resetTimerState={resetTimerState}
           projectLevel={projectLevel}
+          removeProject={removeProject}
         />
       )}
     </NavigationContainer>

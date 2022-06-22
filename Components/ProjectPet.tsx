@@ -1,14 +1,16 @@
 import React from "react";
-import { Text, Image, Pressable, StyleSheet } from "react-native";
+import { Text, Image, Pressable, StyleSheet, Alert } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_500Medium } from "@expo-google-fonts/nunito";
 
 export default function ProjectPet({
+  removeProject,
   navigation,
   name,
   updateCurrentProject,
   item,
 }: {
+  removeProject: any;
   navigation: any;
   name: string;
   updateCurrentProject: any;
@@ -22,6 +24,26 @@ export default function ProjectPet({
     return <></>;
   }
 
+  const deleteProject = () => {
+    Alert.alert(
+      "Delete Project",
+      "Are you sure you want to delete this project?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            //DELETE Request
+            removeProject(Number(item?.id));
+          },
+        },
+        {
+          text: "No",
+          onPress: () => console.log("Nope, did not delete project"),
+        },
+      ]
+    );
+  };
+
   return (
     <Pressable
       style={styles.main}
@@ -30,7 +52,7 @@ export default function ProjectPet({
         navigation.navigate("Pet");
       }}
     >
-      <Pressable style={styles.deleteButtonContainer}>
+      <Pressable style={styles.deleteButtonContainer} onPress={deleteProject}>
         <Image
           style={styles.deleteButton}
           source={require("../assets/Icons-Buttons/DeleteBtn.png")}
