@@ -122,21 +122,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonContainer: {
-    height: height * 0.1,
-    width: width * 0.7,
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     margin: 0,
   },
   image: {
-    height: height * 0.8,
-    width: width,
+    height: height * 0.5,
+    width: width * 0.8,
+    marginBottom: height * 0.05,
+    marginTop: height * 0.02,
   },
   button: {
-    height: height * 0.05,
     margin: 0,
-    flex: 1,
+    marginBottom: "5%",
   },
   buttonText: {
     fontSize: height * 0.04,
