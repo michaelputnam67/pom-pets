@@ -132,8 +132,9 @@ export default function ProjectTimer({
 
   const collectWorkTime = () => {
     if (!isNegative && !onPom) {
-      updateTimerStats(userWorkTime * 60 - remainingSecs, "workTime");
+      updateTimerStats((userWorkTime * 60 - remainingSecs), "workTime");
     } else if (isNegative && !onPom) {
+      updateTimerStats(userWorkTime*60, "workTime")
       updateTimerStats(-remainingSecs, "negWorkTime");
     } else if (!isNegative && onPom) {
       if (pomType === "long") {

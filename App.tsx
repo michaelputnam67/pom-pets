@@ -94,7 +94,7 @@ export default function App() {
   ]);
 
   const login = () => {
-    if (password === "Password" && userName !== "15") {
+    if (password === "Password") {
       resetLogin();
       setModalStatus(true);
       apiCalls
@@ -102,7 +102,7 @@ export default function App() {
         .then((data) => {
           if (data.error === "User not found") {
             setModalStatus(false);
-            Alert.alert(data.error);
+            return Alert.alert(data.error);
           }
           setUser(data.data);
           setCurrentProject(data.data.attributes.projects[0]);
@@ -114,9 +114,6 @@ export default function App() {
         .then(() => {
           setModalStatus(false);
         })
-        .catch((err) => {
-          console.log(err);
-        });
     } else {
       Alert.alert("Incorrect login information");
     }
@@ -137,7 +134,7 @@ export default function App() {
       setUserWorkTime(data.data.attributes.settings.workTime);
       setUserShortPomTime(data.data.attributes.settings.shortPomTime);
       setUserLongPomTime(data.data.attributes.settings.longPomTime);
-      setProjectLevel(Number(currentProject?.petLevel))
+      // setProjectLevel(Number(currentProject?.petLevel))
       setTotalWorkTime(0);
       setTotalNegWorkTime(0);
       setTotalBreakTime(0);
@@ -209,6 +206,8 @@ export default function App() {
   };
 
   const deleteUser = () => {
+    if(!user) return
+
     Alert.alert(
       "Delete Account",
       "This will permanently delete all your account info and all your projects.",
@@ -216,13 +215,13 @@ export default function App() {
         {
           text: "Yes",
           onPress: () => {
-            //DELETE Request
-            logOut();
+            apiCalls.deleteUser(Number(user.id)).then((res) => {
+              logOut();
+            })
           },
         },
         {
           text: "No",
-          onPress: () => console.log("Nope, did not delete account"),
         },
       ]
     );
@@ -288,7 +287,6 @@ export default function App() {
     const sendBreakSessions =
       Number(currentProject?.stats.totalLongSessions) + numBreaks;
 
-    // Need to change totalShortSessions to timeShouldHaveWorked
     const totalPossibleWorkTime =
       Number(currentProject?.stats.totalShortSessions) +
       totalTimeShouldHaveWorked;
