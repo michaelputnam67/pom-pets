@@ -115,7 +115,7 @@ export default function ProjectTimer({
     if (isTraining) {
       interval = setInterval(() => {
         setRemainingSecs(remainingSecs - 1);
-      }, 1000);
+      }, 1);
     } else if (!isTraining && remainingSecs !== 0) {
       clearInterval(interval);
     }
@@ -132,8 +132,9 @@ export default function ProjectTimer({
 
   const collectWorkTime = () => {
     if (!isNegative && !onPom) {
-      updateTimerStats(userWorkTime * 60 - remainingSecs, "workTime");
+      updateTimerStats((userWorkTime * 60 - remainingSecs), "workTime");
     } else if (isNegative && !onPom) {
+      updateTimerStats(userWorkTime*60, "workTime")
       updateTimerStats(-remainingSecs, "negWorkTime");
     } else if (!isNegative && onPom) {
       if (pomType === "long") {

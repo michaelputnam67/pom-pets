@@ -2,6 +2,7 @@ import React from "react";
 import { Text, Image, Pressable, StyleSheet, Alert } from "react-native";
 import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_500Medium } from "@expo-google-fonts/nunito";
+import apiCalls from '../apiCalls/apiCalls'
 
 export default function ProjectPet({
   removeProject,
@@ -32,7 +33,7 @@ export default function ProjectPet({
         {
           text: "Yes",
           onPress: () => {
-            //DELETE Request
+            apiCalls.deleteProject(Number(item?.id))
             removeProject(Number(item?.id));
           },
         },
