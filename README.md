@@ -8,6 +8,8 @@ A Pom Pet is a way to help measure your poms and productivity while working. By 
 
 [Check out the deployed app here](https://expo.dev/@mikeputnam713/pom-pets?serviceType=classic&distribution=expo-go)
 
+[Watch the Demo Video here](https://www.youtube.com/watch?v=7QE42MeFyO4)
+
 [Original project spec can be found here](https://frontend.turing.edu/projects/module-3/stretch.html)
 
 [Project planning documents can be found here](https://xd.adobe.com/view/39e8e747-c133-4067-80a9-44808f3b8027-6cbb/)
