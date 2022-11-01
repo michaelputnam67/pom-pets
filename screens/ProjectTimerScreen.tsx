@@ -115,7 +115,7 @@ export default function ProjectTimer({
     if (isTraining) {
       interval = setInterval(() => {
         setRemainingSecs(remainingSecs - 1);
-      }, 1);
+      }, 1000);
     } else if (!isTraining && remainingSecs !== 0) {
       clearInterval(interval);
     }
