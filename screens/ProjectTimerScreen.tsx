@@ -18,8 +18,8 @@ const { height } = Dimensions.get("window");
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
 const getRemaining = (time: number) => {
-  const mins = time >= 0 ? Math.floor(time / 60) : Math.floor(-time / 60);
-  const secs = time >= 0 ? time - mins * 60 : -time - mins * 60;
+  const mins: number = time >= 0 ? Math.floor(time / 60) : Math.floor(-time / 60);
+  const secs: number = time >= 0 ? time - mins * 60 : -time - mins * 60;
   return { mins: formatNumber(mins), secs: formatNumber(secs) };
 };
 
@@ -43,9 +43,9 @@ export default function ProjectTimer({
   setProjectHealth: any;
   navigation: any;
   currentProject?: Project | undefined;
-  userWorkTime: any;
-  userShortPomTime: any;
-  userLongPomTime: any;
+  userWorkTime: number;
+  userShortPomTime: number;
+  userLongPomTime: number;
   totalWorkTime: number;
   totalNegWorkTime: number;
   totalBreakTime: number;
@@ -53,7 +53,7 @@ export default function ProjectTimer({
   updateTimerStats: any;
   numBreaks: number;
   numWorkSessions: number;
-  updateSessionCount: any;
+  updateSessionCount: number;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
  

@@ -11,39 +11,7 @@ import NewProjectScreen from "../screens/NewProjectScreen";
 
 const Tab = createBottomTabNavigator();
 
-const { height, width } = Dimensions.get("window");
-
-const Tabs = ({
-  projectLevel,
-  totalTimeShouldHaveWorked,
-  setTotalTimeShouldHaveWorked,
-  projectHealth,
-  setProjectHealth,
-  user,
-  logOut,
-  projects,
-  currentProject,
-  updateCurrentProject,
-  setWorkTime,
-  setShortPomTime,
-  setLongPomTime,
-  createNewProject,
-  userWorkTime,
-  userShortPomTime,
-  userLongPomTime,
-  loadNewProject,
-  totalWorkTime,
-  totalNegWorkTime,
-  totalBreakTime,
-  totalOverBreakTime,
-  updateTimerStats,
-  numBreaks,
-  numWorkSessions,
-  updateSessionCount,
-  deleteUser,
-  resetTimerState,
-  removeProject,
-}: {
+type TabProps = { 
   projectLevel: number;
   totalTimeShouldHaveWorked: number;
   setTotalTimeShouldHaveWorked: any;
@@ -73,6 +41,40 @@ const Tabs = ({
   deleteUser: any;
   resetTimerState: any;
   removeProject: any;
+}
+
+const { height, width } = Dimensions.get("window");
+
+const Tabs : React.FC<TabProps> = ({
+  projectLevel,
+  totalTimeShouldHaveWorked,
+  setTotalTimeShouldHaveWorked,
+  projectHealth,
+  setProjectHealth,
+  user,
+  logOut,
+  projects,
+  currentProject,
+  updateCurrentProject,
+  setWorkTime,
+  setShortPomTime,
+  setLongPomTime,
+  createNewProject,
+  userWorkTime,
+  userShortPomTime,
+  userLongPomTime,
+  loadNewProject,
+  totalWorkTime,
+  totalNegWorkTime,
+  totalBreakTime,
+  totalOverBreakTime,
+  updateTimerStats,
+  numBreaks,
+  numWorkSessions,
+  updateSessionCount,
+  deleteUser,
+  resetTimerState,
+  removeProject
 }) => {
   return (
     <Tab.Navigator
