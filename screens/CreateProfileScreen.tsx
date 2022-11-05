@@ -1,14 +1,4 @@
-import {
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-  Image,
-  Modal,
-  Alert,
-  Dimensions,
-  Pressable,
-} from "react-native";
+import { Text, StyleSheet, View, TextInput, Image, Modal, Alert, Dimensions, Pressable } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React, { useState } from "react";
 import Button from "../Components/Button";
@@ -16,16 +6,26 @@ import { COLORS } from "../constants/Colors";
 import ProfilePhoto from "../Components/ProfilePhoto";
 import apiCalls from "../apiCalls/apiCalls";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import {
-  useFonts,
-  Nunito_500Medium,
-  Nunito_800ExtraBold,
-  Nunito_900Black,
-} from "@expo-google-fonts/nunito";
+import { useFonts, Nunito_500Medium, Nunito_800ExtraBold, Nunito_900Black } from "@expo-google-fonts/nunito";
 import { initializeApp } from "firebase/app";
 import AppLoader from "../Components/AppLoader";
 
-const firebaseConfig = {
+type FirebaseConfig = {
+  apiKey: string,
+  authDomain: string,
+  databaseURL: string,
+  projectId: string,
+  storageBucket: string,
+  messagingSenderId: string,
+  appId: string,
+  measurementId: string
+}
+
+type CreateProfileScreenProps = {
+  viewCreateProfile: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const firebaseConfig : FirebaseConfig = {
   apiKey: "AIzaSyCEnXq52ByAhEgHbP96fLCf-zHxK9hKgCE",
   authDomain: "pom-pets.firebaseapp.com",
   databaseURL: "https://pom-pets-default-rtdb.firebaseio.com",
@@ -33,25 +33,22 @@ const firebaseConfig = {
   storageBucket: "pom-pets.appspot.com",
   messagingSenderId: "10853452286",
   appId: "1:10853452286:web:a054f188f2caea662c98af",
-  measurementId: "G-RFMCZ0DXYS",
+  measurementId: "G-RFMCZ0DXYS"
 };
 
 const app = initializeApp(firebaseConfig);
-
 const { height, width } = Dimensions.get("window");
 
-export default function CreateProfileScreen({
-  viewCreateProfile,
-}: {
-  viewCreateProfile: any;
-}) {
+const CreateProfileScreen : React.FC<CreateProfileScreenProps> = ({
+  viewCreateProfile
+}) => {
   const [newUserName, setNewUserName] = useState<string | undefined>(undefined);
   const [newEmail, setNewEmail] = useState<string | undefined>(undefined);
   const [choosingPhoto, setChoosingPhoto] = useState(false);
   const [photo, setPhoto] = useState<any>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const goBack = () => {
+  const goBack : () => void = () => {
     setChoosingPhoto(false);
   };
 
@@ -87,10 +84,10 @@ export default function CreateProfileScreen({
       });
   };
 
-  let [fontsLoaded] = useFonts({
+  let [fontsLoaded] : [boolean, Error | null] = useFonts({
     Nunito_500Medium,
     Nunito_800ExtraBold,
-    Nunito_900Black,
+    Nunito_900Black
   });
 
   if (!fontsLoaded) {
@@ -149,13 +146,11 @@ export default function CreateProfileScreen({
         />
       </View>
       <Button text="Create Profile" onPress={generateNewUser}></Button>
-      {/* <Button
-        text="Back to Login"
-        onPress={() => viewCreateProfile(false)}
-      ></Button> */}
     </KeyboardAwareScrollView>
   );
 }
+
+export default CreateProfileScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -27,7 +27,7 @@ const LoginScreen : React.FC<LoginScreenProps> = ({
   modalStatus,
   viewCreateProfile,
 }) => {
-  let fontsLoaded : [boolean, Error | null] = useFonts({
+  let [fontsLoaded] : [boolean, Error | null] = useFonts({
     Nunito_800ExtraBold,
     Nunito_900Black
   });
