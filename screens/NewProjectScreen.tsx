@@ -1,20 +1,28 @@
 import React, { useRef, useState } from "react";
-import {
-  Alert,
-  Dimensions,
-  Animated,
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { Alert, Dimensions, Animated, SafeAreaView, Text, StyleSheet, TextInput } from "react-native";
 import Button from "../Components/Button";
+import { Pet } from "../interface";
 import { COLORS } from "../constants/Colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const { width, height } = Dimensions.get("window");
-const itemSize = width / 2;
-const itemSpacing = (width - itemSize) / 2;
+type Image = {
+  url: any;
+  key: number;
+  image: string;
+  name: string;
+}
+type Images = Image[]
+
+type NewProjectScreenProps = {
+  createNewProject: (pet: Pet, projectName: string, gitHubUrl: string) => Promise<any>;
+  navigation: any;
+  loadNewProject: (res: any) => Promise<void>;
+  resetTimerState: () => Promise<void>
+}
+
+const { width, height } : {width: number, height: number} = Dimensions.get("window");
+const itemSize : number = width / 2;
+const itemSpacing : number = (width - itemSize) / 2;
 
 const checkURL = (url: string) => {
   url = url
@@ -24,7 +32,7 @@ const checkURL = (url: string) => {
   return url === "https://github.com/" ? true : false;
 };
 
-const images = [
+const images : Images = [
   {
     url: require("../assets/Pets/CandlePet.png"),
     key: 1,
@@ -45,45 +53,40 @@ const images = [
   },
 ];
 
-export default function NewProjectScreen({
+const NewProjectScreen : React.FC<NewProjectScreenProps> = ({
   createNewProject,
   navigation,
   loadNewProject,
   resetTimerState
-}: {
-  createNewProject: any;
-  navigation: any;
-  loadNewProject: any;
-  resetTimerState: any
-}) {
-  const [pet, setPet] = useState(images[0]);
-  const [projectName, setProjectName] = useState("");
-  const [gitHubUrl, setGitHubUrl] = useState("");
+}) => {
+  const [pet, setPet] = useState<Pet>(images[0]);
+  const [projectName, setProjectName] = useState<string>("");
+  const [gitHubUrl, setGitHubUrl] = useState<string>("");
 
   if (!pet.image) {
     setPet(images[0]);
   }
 
-  const clearInputs = () => {
+  const clearInputs: () => void = () => {
     setProjectName("");
     setGitHubUrl("");
     setPet(images[0]);
   };
 
-  const xScroll = useRef(new Animated.Value(0)).current;
-  const renderIcon = ({ item, index }: { item: any; index: any }) => {
-    const inputRange = [
+  const xScroll: Animated.Value = useRef(new Animated.Value(0)).current;
+  const renderIcon = ({ item, index }: { item: Image; index: number }) => {
+    const inputRange: number[] = [
       (index - 1) * itemSize,
       index * itemSize,
       (index + 1) * itemSize,
     ];
 
-    const opacity = xScroll.interpolate({
+    const opacity: Animated.AnimatedInterpolation = xScroll.interpolate({
       inputRange,
       outputRange: [0.6, 1, 0.6],
     });
 
-    const scale = xScroll.interpolate({
+    const scale: Animated.AnimatedInterpolation = xScroll.interpolate({
       inputRange,
       outputRange: [0.4, 1, 0.4],
     });
@@ -171,6 +174,8 @@ export default function NewProjectScreen({
     </SafeAreaView>
   );
 }
+
+export default NewProjectScreen;
 
 const styles = StyleSheet.create({
   carouselMessage: {
