@@ -53,7 +53,7 @@ export default function ProjectTimer({
   updateTimerStats: any;
   numBreaks: number;
   numWorkSessions: number;
-  updateSessionCount: number;
+  updateSessionCount: any;
 }) {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
  

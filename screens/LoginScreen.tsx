@@ -1,45 +1,35 @@
-import {
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TextInput,
-  Modal,
-  Dimensions,
-} from "react-native";
+import { Text, Image, View, StyleSheet, TextInput, Modal, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React from "react";
 import Button from "../Components/Button";
 import AppLoader from "../Components/AppLoader";
 import { COLORS } from "../constants/Colors";
-import {
-  useFonts,
-  Nunito_800ExtraBold,
-  Nunito_900Black,
-} from "@expo-google-fonts/nunito";
+import { useFonts, Nunito_800ExtraBold, Nunito_900Black } from "@expo-google-fonts/nunito";
 
 const { height, width } = Dimensions.get("window");
 
-export default function LoginScreen({
-  login,
-  setPassword,
-  setUserName,
-  userName,
-  password,
-  modalStatus,
-  viewCreateProfile,
-}: {
-  viewCreateProfile: any;
-  setPassword: any;
-  setUserName: any;
+type LoginScreenProps = {
   userName: string;
   password: string;
-  login: any;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  login: () => void;
   modalStatus: boolean;
-}) {
-  let [fontsLoaded] = useFonts({
+  viewCreateProfile: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginScreen : React.FC<LoginScreenProps> = ({
+  userName,
+  password,
+  setUserName,
+  setPassword,
+  login,
+  modalStatus,
+  viewCreateProfile,
+}) => {
+  let fontsLoaded : [boolean, Error | null] = useFonts({
     Nunito_800ExtraBold,
-    Nunito_900Black,
+    Nunito_900Black
   });
 
   if (!fontsLoaded) {
@@ -89,6 +79,8 @@ export default function LoginScreen({
     </KeyboardAwareScrollView>
   );
 }
+
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   button: {
