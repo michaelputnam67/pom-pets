@@ -3,19 +3,21 @@ import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
 const { height, width } = Dimensions.get("window");
 
-export default function Button({
+type ButtonProps = {
+  textStyle?: {};
+  pressableStyle?: {};
+  text: string;
+  onPress: any;
+  isTraining?: boolean;
+};
+
+const Button: React.FC<ButtonProps> = ({
   text,
   onPress,
   isTraining,
   pressableStyle,
   textStyle,
-}: {
-  textStyle?: any;
-  pressableStyle?: any;
-  text: string;
-  onPress: any;
-  isTraining?: boolean;
-}) {
+}) => {
   let [fontsLoaded] = useFonts({
     Nunito_900Black,
   });
@@ -44,7 +46,9 @@ export default function Button({
       </Text>
     </Pressable>
   );
-}
+};
+
+export default Button;
 
 const styles = StyleSheet.create({
   button: {
