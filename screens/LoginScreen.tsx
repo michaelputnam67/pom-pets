@@ -63,6 +63,7 @@ export default function LoginScreen({
           onChangeText={setUserName}
           value={userName}
           placeholder={"username"}
+          clearButtonMode={"always"}
         />
         <TextInput
           autoCapitalize={"none"}
@@ -70,6 +71,8 @@ export default function LoginScreen({
           onChangeText={setPassword}
           value={password}
           placeholder={"password"}
+          clearButtonMode={"always"}
+          secureTextEntry={true}
         />
         <View style={styles.button}>
           <Button

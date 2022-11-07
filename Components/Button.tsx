@@ -7,7 +7,7 @@ type ButtonProps = {
   textStyle?: {};
   pressableStyle?: {};
   text: string;
-  onPress: any;
+  onPress: () => void;
   isTraining?: boolean;
 };
 
@@ -29,11 +29,20 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <Pressable
       onPress={onPress}
-      style={{
-        ...styles.button,
-        ...pressableStyle,
-        backgroundColor: isTraining ? COLORS.accent : COLORS.secondary,
-      }}
+      style={({ pressed }) => [
+        {
+          backgroundColor: isTraining
+            ? pressed
+              ? COLORS.accentPressed
+              : COLORS.accent
+            : pressed
+            ? COLORS.secondaryPressed
+            : COLORS.secondary,
+          ...pressableStyle,
+          padding: pressed ? 3 : 0,
+        },
+        styles.button,
+      ]}
     >
       <Text
         style={{
@@ -58,12 +67,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     margin: 10,
-    shadowColor: "#717171",
-    shadowOpacity: 0.5,
     elevation: 5,
-    backgroundColor: "#0000",
-    shadowRadius: 5,
-    shadowOffset: { width: 3, height: 5 },
     borderWidth: 0,
   },
   text: {
