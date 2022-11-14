@@ -3,19 +3,21 @@ import { COLORS } from "../constants/Colors";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
 const { height, width } = Dimensions.get("window");
 
-export default function Button({
+type ButtonProps = {
+  textStyle?: {};
+  pressableStyle?: {};
+  text: string;
+  onPress: () => void;
+  isTraining?: boolean;
+};
+
+const Button: React.FC<ButtonProps> = ({
   text,
   onPress,
   isTraining,
   pressableStyle,
   textStyle,
-}: {
-  textStyle?: any;
-  pressableStyle?: any;
-  text: string;
-  onPress: any;
-  isTraining?: boolean;
-}) {
+}) => {
   let [fontsLoaded] = useFonts({
     Nunito_900Black,
   });
@@ -27,11 +29,20 @@ export default function Button({
   return (
     <Pressable
       onPress={onPress}
-      style={{
-        ...styles.button,
-        ...pressableStyle,
-        backgroundColor: isTraining ? COLORS.accent : COLORS.secondary,
-      }}
+      style={({ pressed }) => [
+        {
+          backgroundColor: isTraining
+            ? pressed
+              ? COLORS.accentPressed
+              : COLORS.accent
+            : pressed
+            ? COLORS.secondaryPressed
+            : COLORS.secondary,
+          ...pressableStyle,
+          padding: pressed ? 3 : 0,
+        },
+        styles.button,
+      ]}
     >
       <Text
         style={{
@@ -44,7 +55,9 @@ export default function Button({
       </Text>
     </Pressable>
   );
-}
+};
+
+export default Button;
 
 const styles = StyleSheet.create({
   button: {
@@ -54,12 +67,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     margin: 10,
-    shadowColor: "#717171",
-    shadowOpacity: 0.5,
     elevation: 5,
-    backgroundColor: "#0000",
-    shadowRadius: 5,
-    shadowOffset: { width: 3, height: 5 },
     borderWidth: 0,
   },
   text: {
