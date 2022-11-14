@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import { Text, View, Image, StyleSheet, SafeAreaView, Dimensions, ScrollView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
 import HealthIcons from "../Components/HealthIcons";
+
+type ProjectTimerProps = {
+  projectLevel: number
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: React.Dispatch<React.SetStateAction<number>>;
+  projectHealth: number | undefined;
+  setProjectHealth: React.Dispatch<React.SetStateAction<number | undefined>>;
+  navigation: any;
+  currentProject?: Project | undefined;
+  userWorkTime: number;
+  userShortPomTime: number;
+  userLongPomTime: number;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  updateTimerStats: (newState: number, state: string) => void;
+  numBreaks: number;
+  numWorkSessions: number;
+  updateSessionCount: (addWork: number, addBreak: number) => void
+}
 
 const { height } = Dimensions.get("window");
 
@@ -23,7 +36,7 @@ const getRemaining = (time: number) => {
   return { mins: formatNumber(mins), secs: formatNumber(secs) };
 };
 
-export default function ProjectTimer({
+const ProjectTimer : React.FC<ProjectTimerProps> = ({
   projectLevel,
   totalTimeShouldHaveWorked,
   setTotalTimeShouldHaveWorked,
@@ -34,27 +47,8 @@ export default function ProjectTimer({
   userLongPomTime,
   totalBreakTime,
   updateTimerStats,
-  updateSessionCount,
-}: {
-  projectLevel: number
-  totalTimeShouldHaveWorked: number;
-  setTotalTimeShouldHaveWorked: any;
-  projectHealth: number | undefined;
-  setProjectHealth: any;
-  navigation: any;
-  currentProject?: Project | undefined;
-  userWorkTime: number;
-  userShortPomTime: number;
-  userLongPomTime: number;
-  totalWorkTime: number;
-  totalNegWorkTime: number;
-  totalBreakTime: number;
-  totalOverBreakTime: number;
-  updateTimerStats: any;
-  numBreaks: number;
-  numWorkSessions: number;
-  updateSessionCount: any;
-}) {
+  updateSessionCount
+}) => {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
  
   const [isTraining, setIsTraining] = useState(false);
@@ -134,7 +128,7 @@ export default function ProjectTimer({
     if (!isNegative && !onPom) {
       updateTimerStats((userWorkTime * 60 - remainingSecs), "workTime");
     } else if (isNegative && !onPom) {
-      updateTimerStats(userWorkTime*60, "workTime")
+      updateTimerStats(userWorkTime * 60, "workTime")
       updateTimerStats(-remainingSecs, "negWorkTime");
     } else if (!isNegative && onPom) {
       if (pomType === "long") {
@@ -229,6 +223,8 @@ export default function ProjectTimer({
     </SafeAreaView>
   );
 }
+
+export default ProjectTimer;
 
 const styles = StyleSheet.create({
   petStatusBar: {

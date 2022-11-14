@@ -8,8 +8,8 @@ import LoginScreen from "./screens/LoginScreen";
 import CreateProfileScreen from "./screens/CreateProfileScreen";
 
 export default function App() {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined);
   const [pets, setPets] = useState<Projects | null>(null);

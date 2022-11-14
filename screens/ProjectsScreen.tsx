@@ -1,29 +1,29 @@
-import {
-  Text,
-  FlatList,
-  Pressable,
-  Image,
-  View,
-  SafeAreaView,
-  StyleSheet,
-} from "react-native";
+import { Text, FlatList, Pressable, Image, View, SafeAreaView, StyleSheet } from "react-native";
 import ProjectPet from "../Components/ProjectPet";
 import { COLORS } from "../constants/Colors";
 import { Projects } from "../interface";
 import { useFonts, Nunito_900Black } from "@expo-google-fonts/nunito";
 
-export default function ProjectsScreen({
+type Item = {
+  projectName: string;
+  petImage: string;
+  id: number
+}
+
+type ProjectsScreenProps = {
+  removeProject: (id: number) => void;
+  updateCurrentProject: (item: Item) => Promise<void>;
+  navigation?: any;
+  projects: Projects | null;
+}
+
+const ProjectsScreen: React.FC<ProjectsScreenProps> = ({
   removeProject,
   navigation,
   projects,
-  updateCurrentProject,
-}: {
-  removeProject: any;
-  updateCurrentProject: any;
-  navigation?: any;
-  projects: Projects | null;
-}) {
-  let [fontsLoaded] = useFonts({
+  updateCurrentProject
+}) => {
+  let [fontsLoaded] : [boolean, Error | null] = useFonts({
     Nunito_900Black,
   });
 
@@ -31,11 +31,7 @@ export default function ProjectsScreen({
     return <></>;
   }
 
-  const renderPet = ({
-    item,
-  }: {
-    item: { projectName: string; petImage: string; id: number };
-  }) => (
+  const renderPet = ({ item }: { item: Item}) => (
     <ProjectPet
       removeProject={removeProject}
       navigation={navigation}
@@ -79,6 +75,8 @@ export default function ProjectsScreen({
     </SafeAreaView>
   );
 }
+
+export default ProjectsScreen;
 
 const styles = StyleSheet.create({
   h1: {
