@@ -1,15 +1,10 @@
 import { Text, View, Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native";
 import { COLORS } from "../constants/Colors";
-import {
-  useFonts,
-  Nunito_500Medium,
-  Nunito_800ExtraBold,
-  Nunito_900Black,
-} from "@expo-google-fonts/nunito";
+import { useFonts, Nunito_500Medium, Nunito_800ExtraBold, Nunito_900Black} from "@expo-google-fonts/nunito";
 
-export default function AboutScreen() {
-  let [fontsLoaded] = useFonts({
+const AboutScreen : React.FC = () => {
+  let [fontsLoaded] : [boolean, Error | null] = useFonts({
     Nunito_500Medium,
     Nunito_800ExtraBold,
     Nunito_900Black,
@@ -131,6 +126,8 @@ export default function AboutScreen() {
     </SafeAreaView>
   );
 }
+
+export default AboutScreen;
 
 const styles = StyleSheet.create({
   h1: {

@@ -1,29 +1,42 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import { Text, View, Image, StyleSheet, SafeAreaView, Dimensions, ScrollView } from "react-native";
 import Button from "../Components/Button";
 import { COLORS } from "../constants/Colors";
 import { Project } from "../interface";
 import HealthIcons from "../Components/HealthIcons";
+
+type ProjectTimerProps = {
+  projectLevel: number
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: React.Dispatch<React.SetStateAction<number>>;
+  projectHealth: number | undefined;
+  setProjectHealth: React.Dispatch<React.SetStateAction<number | undefined>>;
+  navigation: any;
+  currentProject?: Project | undefined;
+  userWorkTime: number;
+  userShortPomTime: number;
+  userLongPomTime: number;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  updateTimerStats: (newState: number, state: string) => void;
+  numBreaks: number;
+  numWorkSessions: number;
+  updateSessionCount: (addWork: number, addBreak: number) => void
+}
 
 const { height } = Dimensions.get("window");
 
 const formatNumber = (number: number) => `0${number}`.slice(-2);
 
 const getRemaining = (time: number) => {
-  const mins = time >= 0 ? Math.floor(time / 60) : Math.floor(-time / 60);
-  const secs = time >= 0 ? time - mins * 60 : -time - mins * 60;
+  const mins: number = time >= 0 ? Math.floor(time / 60) : Math.floor(-time / 60);
+  const secs: number = time >= 0 ? time - mins * 60 : -time - mins * 60;
   return { mins: formatNumber(mins), secs: formatNumber(secs) };
 };
 
-export default function ProjectTimer({
+const ProjectTimer : React.FC<ProjectTimerProps> = ({
   projectLevel,
   totalTimeShouldHaveWorked,
   setTotalTimeShouldHaveWorked,
@@ -34,35 +47,15 @@ export default function ProjectTimer({
   userLongPomTime,
   totalBreakTime,
   updateTimerStats,
-  updateSessionCount,
-}: {
-  projectLevel: number
-  totalTimeShouldHaveWorked: number;
-  setTotalTimeShouldHaveWorked: any;
-  projectHealth: number | undefined;
-  setProjectHealth: any;
-  navigation: any;
-  currentProject?: Project | undefined;
-  userWorkTime: any;
-  userShortPomTime: any;
-  userLongPomTime: any;
-  totalWorkTime: number;
-  totalNegWorkTime: number;
-  totalBreakTime: number;
-  totalOverBreakTime: number;
-  updateTimerStats: any;
-  numBreaks: number;
-  numWorkSessions: number;
-  updateSessionCount: any;
-}) {
+  updateSessionCount
+}) => {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
- 
-  const [isTraining, setIsTraining] = useState(false);
-  const [onPom, setOnPom] = useState(false);
-  const [pomType, setPomType] = useState("");
+  const [isTraining, setIsTraining] = useState<boolean>(false);
+  const [onPom, setOnPom] = useState<boolean>(false);
+  const [pomType, setPomType] = useState<string>("");
   const { mins, secs } = getRemaining(remainingSecs);
   const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
-  const [isNegative, setIsNegative] = useState(false);
+  const [isNegative, setIsNegative] = useState<boolean>(false);
 
   useEffect(() => {
     reset()
@@ -115,7 +108,7 @@ export default function ProjectTimer({
     if (isTraining) {
       interval = setInterval(() => {
         setRemainingSecs(remainingSecs - 1);
-      }, 1);
+      }, 1000);
     } else if (!isTraining && remainingSecs !== 0) {
       clearInterval(interval);
     }
@@ -134,7 +127,7 @@ export default function ProjectTimer({
     if (!isNegative && !onPom) {
       updateTimerStats((userWorkTime * 60 - remainingSecs), "workTime");
     } else if (isNegative && !onPom) {
-      updateTimerStats(userWorkTime*60, "workTime")
+      updateTimerStats(userWorkTime * 60, "workTime")
       updateTimerStats(-remainingSecs, "negWorkTime");
     } else if (!isNegative && onPom) {
       if (pomType === "long") {
@@ -229,6 +222,8 @@ export default function ProjectTimer({
     </SafeAreaView>
   );
 }
+
+export default ProjectTimer;
 
 const styles = StyleSheet.create({
   petStatusBar: {

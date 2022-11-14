@@ -5,15 +5,47 @@ import ProjectsScreen from "../screens/ProjectsScreen";
 import ProjectTimer from "../screens/ProjectTimerScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { User, Project, Projects } from "../interface";
+import { User, Project, Projects, Pet } from "../interface";
 import ProjectStatisticsScreen from "../screens/ProjectStatsScreen";
 import NewProjectScreen from "../screens/NewProjectScreen";
 
 const Tab = createBottomTabNavigator();
 
+type TabProps = { 
+  projectLevel: number;
+  totalTimeShouldHaveWorked: number;
+  setTotalTimeShouldHaveWorked: React.Dispatch<React.SetStateAction<number>>;
+  projectHealth: number | undefined;
+  setProjectHealth: React.Dispatch<React.SetStateAction<number | undefined>>;
+  projects: Projects | null;
+  user: User;
+  logOut: () => void;
+  currentProject: Project | undefined;
+  updateCurrentProject: (item: { projectName: string; petImage: string; id: number }) => Promise<void>;
+  setWorkTime: (text: number) => void;
+  setShortPomTime: (text: number) => void;
+  setLongPomTime: (text: number) => void;
+  createNewProject: (pet: Pet, projectName: string, gitHubUrl: string) => Promise<any>;
+  userWorkTime: number;
+  userShortPomTime: number;
+  userLongPomTime: number;
+  loadNewProject: (res: any) => Promise<void>;
+  totalWorkTime: number;
+  totalNegWorkTime: number;
+  totalBreakTime: number;
+  totalOverBreakTime: number;
+  updateTimerStats: (newState: number, state: string) => void;
+  numBreaks: number;
+  numWorkSessions: number;
+  updateSessionCount: (addWork: number, addBreak: number) => void;
+  deleteUser: () => void;
+  resetTimerState: any;
+  removeProject: (id: number) => void;
+}
+
 const { height, width } = Dimensions.get("window");
 
-const Tabs = ({
+const Tabs : React.FC<TabProps> = ({
   projectLevel,
   totalTimeShouldHaveWorked,
   setTotalTimeShouldHaveWorked,
@@ -42,37 +74,7 @@ const Tabs = ({
   updateSessionCount,
   deleteUser,
   resetTimerState,
-  removeProject,
-}: {
-  projectLevel: number;
-  totalTimeShouldHaveWorked: number;
-  setTotalTimeShouldHaveWorked: any;
-  projectHealth: number | undefined;
-  setProjectHealth: any;
-  projects: Projects | null;
-  user: User;
-  logOut: any;
-  currentProject: Project | undefined;
-  updateCurrentProject: any;
-  setWorkTime: any;
-  setShortPomTime: any;
-  setLongPomTime: any;
-  createNewProject: any;
-  userWorkTime: any;
-  userShortPomTime: any;
-  userLongPomTime: any;
-  loadNewProject: any;
-  totalWorkTime: number;
-  totalNegWorkTime: number;
-  totalBreakTime: number;
-  totalOverBreakTime: number;
-  updateTimerStats: any;
-  numBreaks: number;
-  numWorkSessions: number;
-  updateSessionCount: any;
-  deleteUser: any;
-  resetTimerState: any;
-  removeProject: any;
+  removeProject
 }) => {
   return (
     <Tab.Navigator

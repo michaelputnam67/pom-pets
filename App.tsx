@@ -5,50 +5,39 @@ import { User, Project, Projects, Pet } from "./interface";
 import Tabs from "./navigation/tabs";
 import apiCalls from "./apiCalls/apiCalls";
 import LoginScreen from "./screens/LoginScreen";
-
 import CreateProfileScreen from "./screens/CreateProfileScreen";
 
 export default function App() {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
-  const [currentProject, setCurrentProject] = useState<Project | undefined>(
-    undefined
-  );
+  const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined);
   const [pets, setPets] = useState<Projects | null>(null);
-  const [userWorkTime, setUserWorkTime] = useState(0);
-  const [userShortPomTime, setUserShortPomTime] = useState(0);
-  const [userLongPomTime, setUserLongPomTime] = useState(0);
-  const [modalStatus, setModalStatus] = useState(false);
-  const [createProfile, viewCreateProfile] = useState(false);
-
-  const resetLogin = () => {
-    setUserName("");
-    setPassword("");
-  };
-
-  const [projectLevel, setProjectLevel] = useState(0)
-  const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState(0);
+  const [userWorkTime, setUserWorkTime] = useState<number>(0);
+  const [userShortPomTime, setUserShortPomTime] = useState<number>(0);
+  const [userLongPomTime, setUserLongPomTime] = useState<number>(0);
+  const [modalStatus, setModalStatus] = useState<boolean>(false);
+  const [createProfile, viewCreateProfile] = useState<boolean>(false);
+  const [projectLevel, setProjectLevel] = useState<number>(0)
+  const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState<number>(0);
   const [projectHealth, setProjectHealth] = useState<number | undefined>(0);
-  const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
-  const [totalWorkTime, setTotalWorkTime] = useState(0);
-  const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
-  const [totalBreakTime, setTotalBreakTime] = useState(0);
-
-  const [numWorkSessions, setNumWorkSessions] = useState(0);
-  const [numBreaks, setNumBreaks] = useState(0);
-
+  const [totalNegWorkTime, setTotalNegWorkTime] = useState<number>(0);
+  const [totalWorkTime, setTotalWorkTime] = useState<number>(0);
+  const [totalOverBreakTime, setTotalOverBreakTime] = useState<number>(0);
+  const [totalBreakTime, setTotalBreakTime] = useState<number>(0);
+  const [numWorkSessions, setNumWorkSessions] = useState<number>(0);
+  const [numBreaks, setNumBreaks] = useState<number>(0);
+  
   useEffect(() => {
     if(!currentProject) return
-    const workTime = totalWorkTime + Number(currentProject?.stats.totalWorkTime)
+    const workTime : number = totalWorkTime + Number(currentProject?.stats.totalWorkTime)
     setProjectLevel((Math.floor(workTime/3600)))
   }, [currentProject, user, totalWorkTime])
-
+  
   useEffect(() => {
     if (!currentProject) return;
-    let totalNumberOfBreaks =
-      currentProject.stats.totalLongSessions + numBreaks;
-    let calculateTotalBreakTime = () => {
+    let totalNumberOfBreaks : number = currentProject.stats.totalLongSessions + numBreaks;
+    let calculateTotalBreakTime: () => number = () => {
       let output = 0;
       for (let i = 1; i <= totalNumberOfBreaks; i++) {
         if (i % 4 === 0) {
@@ -59,23 +48,21 @@ export default function App() {
       }
       return output;
     };
-    let totalWorkTimeS =
-      totalTimeShouldHaveWorked +
-      Number(currentProject?.stats.totalShortSessions);
-    let totalBreakTimeS = calculateTotalBreakTime() || 0;
-
-    let calculateHealthModifier = () => {
-      let output =
-        (totalBreakTime +
-          Number(currentProject?.stats.totalLongPomTime) +
-          (totalWorkTime + Number(currentProject.stats.totalWorkTime)) +
-          totalNegWorkTime +
-          totalOverBreakTime) /
+    let totalWorkTimeS : number = totalTimeShouldHaveWorked + Number(currentProject?.stats.totalShortSessions);
+    let totalBreakTimeS : number = calculateTotalBreakTime() || 0;
+    
+    let calculateHealthModifier : () => number = () => {
+      let output : number =
+      (totalBreakTime +
+        Number(currentProject?.stats.totalLongPomTime) +
+        (totalWorkTime + Number(currentProject.stats.totalWorkTime)) +
+        totalNegWorkTime +
+        totalOverBreakTime) /
         (totalWorkTimeS + totalBreakTimeS);
-      return output;
+        return output;
     };
-    let healthModifier = Number(Math.abs(1 - (calculateHealthModifier() || 1)));
-
+    let healthModifier : number = Number(Math.abs(1 - (calculateHealthModifier() || 1)));
+      
     if (healthModifier <= 0.25) {
       setProjectHealth(3);
     } else if (healthModifier > 0.25 && healthModifier <= 0.75) {
@@ -83,17 +70,14 @@ export default function App() {
     } else {
       setProjectHealth(1);
     }
-  }, [
-    totalTimeShouldHaveWorked,
-    totalWorkTime,
-    totalBreakTime,
-    currentProject,
-    numBreaks,
-    totalNegWorkTime,
-    totalOverBreakTime,
-  ]);
+  }, [totalTimeShouldHaveWorked, totalWorkTime, totalBreakTime, currentProject, numBreaks, totalNegWorkTime, totalOverBreakTime]);
+    
+  const resetLogin : () => void = () => {
+    setUserName("");
+    setPassword("");
+  };
 
-  const login = () => {
+  const login: () => void = () => {
     if (password === "Password") {
       resetLogin();
       setModalStatus(true);
@@ -119,8 +103,8 @@ export default function App() {
     }
   };
 
-  const findProject = (projects: any, res: any) => {
-    let output = projects.find((project: any) => {
+  const findProject = (projects: Projects, res: any) => {
+    let output : Project | undefined = projects.find((project: Project) => {
       return Number(project.id) === Number(res.data.id);
     });
     return output;
@@ -161,12 +145,25 @@ export default function App() {
     });
   };
 
-  const createNewProject = (
-    pet: Pet,
-    projectName: string,
-    gitHubUrl: string
-  ) => {
-    const post = {
+  const createNewProject = (pet: Pet, projectName: string, gitHubUrl: string) => {
+    type Post = {
+      projectName: string;
+      petHealth: number;
+      petLevel: number;
+      projectPet: string | null;
+      projectGitHub: string;
+      petImage: string | null;
+      user_id: number | undefined;
+      stats: {
+        totalWorkTime: number;
+        totalWorkSessions: number,
+        totalShortPomTime: number,
+        totalShortSessions: number,
+        totalLongPomTime: number,
+        totalLongSessions: number
+      }
+    }
+    const post : Post = {
       projectName: projectName,
       petHealth: 3,
       petLevel: 1,
@@ -201,11 +198,11 @@ export default function App() {
     apiCalls.updateUser({ settings: { longPomTime: `${text}` } }, user?.id);
   };
 
-  const logOut = () => {
+  const logOut : () => void = () => {
     setUser(null);
   };
 
-  const deleteUser = () => {
+  const deleteUser: () => void = () => {
     if(!user) return
 
     Alert.alert(
@@ -234,7 +231,7 @@ export default function App() {
 
     let foundPetIndex: number = 0;
 
-    let newPetList = [...pets];
+    let newPetList : Projects = [...pets];
     newPetList.find((pet, index) => {
       foundPetIndex = index;
       return pet.id === id;
@@ -274,22 +271,16 @@ export default function App() {
   };
 
   const resetTimerState = async () => {
-    const sendWorkTime =
-      Number(currentProject?.stats.totalWorkTime) +
-      totalWorkTime +
-      totalNegWorkTime;
-    const sendBreakTime =
-      Number(currentProject?.stats.totalLongPomTime) +
-      totalBreakTime +
-      totalOverBreakTime;
-    const sendWorkSessions =
+    const sendWorkTime: number =
+      Number(currentProject?.stats.totalWorkTime) + totalWorkTime + totalNegWorkTime;
+    const sendBreakTime: number =
+      Number(currentProject?.stats.totalLongPomTime) + totalBreakTime + totalOverBreakTime;
+    const sendWorkSessions: number =
       Number(currentProject?.stats.totalWorkSessions) + numWorkSessions;
-    const sendBreakSessions =
+    const sendBreakSessions: number =
       Number(currentProject?.stats.totalLongSessions) + numBreaks;
-
-    const totalPossibleWorkTime =
-      Number(currentProject?.stats.totalShortSessions) +
-      totalTimeShouldHaveWorked;
+    const totalPossibleWorkTime: number =
+      Number(currentProject?.stats.totalShortSessions) + totalTimeShouldHaveWorked;
 
     await apiCalls.updateProjectStats(
       { stats: { totalWorkTime: sendWorkTime } },
