@@ -13,20 +13,20 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined);
   const [pets, setPets] = useState<Projects | null>(null);
-  const [userWorkTime, setUserWorkTime] = useState(0);
-  const [userShortPomTime, setUserShortPomTime] = useState(0);
-  const [userLongPomTime, setUserLongPomTime] = useState(0);
-  const [modalStatus, setModalStatus] = useState(false);
-  const [createProfile, viewCreateProfile] = useState(false);
-  const [projectLevel, setProjectLevel] = useState(0)
-  const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState(0);
+  const [userWorkTime, setUserWorkTime] = useState<number>(0);
+  const [userShortPomTime, setUserShortPomTime] = useState<number>(0);
+  const [userLongPomTime, setUserLongPomTime] = useState<number>(0);
+  const [modalStatus, setModalStatus] = useState<boolean>(false);
+  const [createProfile, viewCreateProfile] = useState<boolean>(false);
+  const [projectLevel, setProjectLevel] = useState<number>(0)
+  const [totalTimeShouldHaveWorked, setTotalTimeShouldHaveWorked] = useState<number>(0);
   const [projectHealth, setProjectHealth] = useState<number | undefined>(0);
-  const [totalNegWorkTime, setTotalNegWorkTime] = useState(0);
-  const [totalWorkTime, setTotalWorkTime] = useState(0);
-  const [totalOverBreakTime, setTotalOverBreakTime] = useState(0);
-  const [totalBreakTime, setTotalBreakTime] = useState(0);
-  const [numWorkSessions, setNumWorkSessions] = useState(0);
-  const [numBreaks, setNumBreaks] = useState(0);
+  const [totalNegWorkTime, setTotalNegWorkTime] = useState<number>(0);
+  const [totalWorkTime, setTotalWorkTime] = useState<number>(0);
+  const [totalOverBreakTime, setTotalOverBreakTime] = useState<number>(0);
+  const [totalBreakTime, setTotalBreakTime] = useState<number>(0);
+  const [numWorkSessions, setNumWorkSessions] = useState<number>(0);
+  const [numBreaks, setNumBreaks] = useState<number>(0);
   
   useEffect(() => {
     if(!currentProject) return

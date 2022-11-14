@@ -50,13 +50,12 @@ const ProjectTimer : React.FC<ProjectTimerProps> = ({
   updateSessionCount
 }) => {
   const [remainingSecs, setRemainingSecs] = useState(userWorkTime * 60);
- 
-  const [isTraining, setIsTraining] = useState(false);
-  const [onPom, setOnPom] = useState(false);
-  const [pomType, setPomType] = useState("");
+  const [isTraining, setIsTraining] = useState<boolean>(false);
+  const [onPom, setOnPom] = useState<boolean>(false);
+  const [pomType, setPomType] = useState<string>("");
   const { mins, secs } = getRemaining(remainingSecs);
   const [image, setImage] = useState(require("../assets/Pets/PigeonPet.png"));
-  const [isNegative, setIsNegative] = useState(false);
+  const [isNegative, setIsNegative] = useState<boolean>(false);
 
   useEffect(() => {
     reset()
